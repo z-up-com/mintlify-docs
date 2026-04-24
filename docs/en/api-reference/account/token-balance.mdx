@@ -1,0 +1,74 @@
+---
+title: "Query Token Balance"
+sidebarTitle: "Query Token Balance"
+description: ""
+---
+
+GEThttps://api.dashlyai.cc/v1/balanceTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#Copy
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/balance' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - Success200 - Unlimited Quota Token200 - Token Not Found401429Copy
+```shiki
+{
+  "success": true,
+  "remain_balance": 10.5,
+  "used_balance": 2.3,
+  "unlimited_quota": false
+}
+
+```
+Get the remaining and used balance of the current API Key (token). This endpoint is used to monitor the usage of a single token.
+## [​](#authorization)Authorization
+
+[​](#param-authorization)AuthorizationstringrequiredAll API endpoints require Bearer Token authenticationGet your API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd it to the request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#endpoints)Endpoints
+
+Copy
+```shiki
+GET /v1/balance
+GET /balance
+
+```
+
+Both endpoints have the same functionality, you can use either one.
+## [​](#response)Response
+
+[​](#param-success)successbooleanWhether the request was successful
+[​](#param-message)messagestringError message (only returned on failure)
+[​](#param-remain-balance)remain\_balancefloatToken remaining balance (returned on success). Returns `-1` when `unlimited_quota` is `true`
+[​](#param-used-balance)used\_balancefloatToken used balance (returned on success)
+[​](#param-unlimited-quota)unlimited\_quotabooleanWhether the token has unlimited quota. `true` means unlimited, `false` means limited
+## [​](#use-cases)Use Cases
+
+- Monitor consumption of a single API Key
+- Display current token balance in your application
+- Set up balance alerts when balance falls below threshold
+
+**Balance Unit Information**The unit of the balance value depends on system configuration:
+
+- **USD** - US Dollars
+- **CNY** - Chinese Yuan
+- **Tokens** - Token count
+
+**Unlimited Quota Token**When a token is set to unlimited quota:
+
+- `unlimited_quota` field returns `true`
+- `remain_balance` field returns `-1`
+- The token has no quota restrictions and can be used without limits
+## [​](#common-errors)Common Errors
+
+| Error Message | Cause | Solution |
+| --- | --- | --- |
+| No Authorization header | Authorization header not provided | Add `Authorization: Bearer sk-xxxxx` header |
+| Failed to get token info | Token doesn’t exist or has been deleted | Check if the token key is correct |
+
+
+**Security Note**Your API Key is like a password. Keep it secure and don’t share it with others. Always use HTTPS in production.[Get Task Status](/en/api-reference/tasks/status)[Query User Balance](/en/api-reference/account/user-balance)⌘I

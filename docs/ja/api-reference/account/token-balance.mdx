@@ -1,0 +1,74 @@
+---
+title: "トークン残高照会"
+sidebarTitle: "トークン残高照会"
+description: ""
+---
+
+GEThttps://api.dashlyai.cc/v1/balance試すcURLPythonJavaScriptGoJavaPHPコピー
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/balance' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 成功200 - 無制限トークン200 - トークンが見つかりません401429コピー
+```shiki
+{
+  "success": true,
+  "remain_balance": 10.5,
+  "used_balance": 2.3,
+  "unlimited_quota": false
+}
+
+```
+現在のAPIキー（トークン）の残高と使用済み残高を取得します。このエンドポイントは単一トークンの使用状況を監視するために使用されます。
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントにはBearer Token認証が必要ですAPIキーの取得：[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#エンドポイント)エンドポイント
+
+コピー
+```shiki
+GET /v1/balance
+GET /balance
+
+```
+
+両方のエンドポイントは同じ機能を持っています。どちらでも使用できます。
+## [​](#レスポンス)レスポンス
+
+[​](#param-success)successbooleanリクエストが成功したかどうか
+[​](#param-message)messagestringエラーメッセージ（失敗時のみ返却）
+[​](#param-remain-balance)remain\_balancefloatトークン残高（成功時に返却）。`unlimited_quota` が `true` の場合、値は `-1` になります
+[​](#param-used-balance)used\_balancefloatトークン使用済み残高（成功時に返却）
+[​](#param-unlimited-quota)unlimited\_quotabooleanトークンが無制限かどうか。`true` は無制限、`false` は制限ありを意味します
+## [​](#ユースケース)ユースケース
+
+- 単一APIキーの消費状況を監視
+- アプリケーションで現在のトークン残高を表示
+- 残高がしきい値を下回った時にアラートを設定
+
+**残高単位について**残高の単位はシステム設定によって異なります：
+
+- **USD** - 米ドル
+- **CNY** - 人民元
+- **Tokens** - トークン数
+
+**無制限トークン**トークンが無制限に設定されている場合：
+
+- `unlimited_quota` フィールドは `true` を返します
+- `remain_balance` フィールドは `-1` を返します
+- そのトークンは制限なしで無制限に使用できます
+## [​](#一般的なエラー)一般的なエラー
+
+| エラーメッセージ | 原因 | 解決策 |
+| --- | --- | --- |
+| Authorizationヘッダーなし | Authorizationヘッダーが提供されていない | `Authorization: Bearer sk-xxxxx`ヘッダーを追加 |
+| トークン情報の取得に失敗 | トークンが存在しないか削除された | トークンキーが正しいか確認 |
+
+
+**セキュリティに関する注意**APIキーはパスワードと同様です。安全に保管し、他人と共有しないでください。本番環境では必ずHTTPSを使用してください。[タスクステータスの取得](/ja/api-reference/tasks/status)[ユーザー残高照会](/ja/api-reference/account/user-balance)⌘I

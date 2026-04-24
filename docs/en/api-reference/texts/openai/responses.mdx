@@ -1,0 +1,580 @@
+---
+title: "Open AI Multimodal Responses API"
+sidebarTitle: "Open AI Multimodal Responses API"
+description: "Show Field details"
+---
+
+POSThttps://api.dashlyai.cc/v1/responsesTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl https://api.dashlyai.cc/v1/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "model": "gpt-5",
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "input_text",
+            "text": "What is in this image?"
+          },
+          {
+            "type": "input_image",
+            "image_url": "https://openai-documentation.vercel.app/images/cat_and_otter.png"
+          }
+        ]
+      }
+    ]
+  }'
+
+```
+200400401402403429500502Copy
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "resp-9876543210",
+    "object": "response",
+    "created": 1677652288,
+    "model": "gpt-5",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "This image shows a cat and an otter. They appear to be interacting with each other in a very cute and heartwarming scene. The cat and otter seem to be getting along well."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 156,
+      "completion_tokens": 45,
+      "total_tokens": 201
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstringrequired##All APIs require Bearer Token authentication##Get API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd to request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringdefault:"gpt-5"requiredModel nameSupported models include:
+
+- `gpt-5` - OpenAI latest multimodal model
+- `GPT-4o-image` - GPT-4 optimized multimodal model
+- `gpt-4-vision` - GPT-4 vision understanding model
+- More models coming soon…
+
+[​](#param-input)inputarrayrequiredInput content listInput array, each item contains `role` and `content` fields.**💡 Quick fill (Try it area):**
+
+1. Click ”+ Add an item” to add an input item
+2. `role` input: `user` (user message), `assistant` (AI response), or `system` (system prompt)
+3. `content` add content blocks (can include text and images)
+
+Show Field details
+
+[​](#param-role)rolestringdefault:"user"requiredRole typeOptions: `user` (user message), `assistant` (AI response, for multi-turn), `system` (system prompt, to set AI behavior)[​](#param-content)contentarrayrequiredContent arraySupports multiple types of content blocks, can include text and images.
+
+Show Content block types
+
+[​](#param-type)typestringrequiredContent typeOptions:
+
+- `input_text`: Text input
+- `input_image`: Image input
+[​](#param-text)textstringText contentUsed when `type` is `input_text`, fill in the text content[​](#param-image-url)image\_urlstringImage URLUsed when `type` is `input_image`, fill in the image URL or base64 encoding
+[​](#param-temperature)temperaturenumberControls output randomness, range 0-2
+
+- Lower values (e.g. 0.2) make output more deterministic
+- Higher values (e.g. 1.8) make output more random
+
+Default: 1.0
+[​](#param-max-tokens)max\_tokensintegerMaximum number of tokens to generateDifferent models have different maximum limits, please refer to specific model documentation
+[​](#param-stream)streambooleanWhether to use streaming output
+
+- `true`: Stream response (SSE format)
+- `false`: Return complete response at once
+
+Default: false
+[​](#param-top-p)top\_pnumberNucleus sampling parameter, range 0-1Controls diversity of generated text, recommended to use with temperature alternativelyDefault: 1.0
+[​](#param-tools)toolsarrayTools list for extending model capabilitiesSupported tool types:
+
+- **Web Search** (`web_search`): Real-time internet information search
+- **File Search** (`file_search`): Search uploaded file content
+- **Function Calling** (`function`): Call custom functions
+- **Remote MCP** (`remote_mcp`): Connect to remote Model Context Protocol services
+
+Example: `[{"type": "web_search"}]`
+## [​](#response)Response
+
+[​](#param-id)idstringUnique identifier for the response
+[​](#param-object)objectstringObject type, fixed as `response`
+[​](#param-created)createdintegerCreation timestamp
+[​](#param-model-1)modelstringActual model name used
+[​](#param-choices)choicesarrayList of generated replies
+
+Show Properties
+
+[​](#param-index)indexintegerChoice index[​](#param-message)messageobjectMessage content
+
+Show Properties
+
+[​](#param-role-1)rolestringRole type (assistant)[​](#param-content-1)contentstringGenerated text content[​](#param-finish-reason)finish\_reasonstringFinish reasonPossible values:
+
+- `stop` - Natural completion
+- `length` - Max length reached
+- `content_filter` - Content filtering
+
+[​](#param-usage)usageobjectToken usage statistics
+
+Show Properties
+
+[​](#param-prompt-tokens)prompt\_tokensintegerNumber of tokens in input[​](#param-completion-tokens)completion\_tokensintegerNumber of tokens in output[​](#param-total-tokens)total\_tokensintegerTotal number of tokens
+## [​](#usage-examples)Usage Examples
+
+### [​](#text-only-input)Text-Only Input
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Hello, introduce artificial intelligence"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#using-web-search-tool)Using Web Search Tool
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "web_search"}],
+  "input": "What positive news is there today?"
+}
+
+```
+
+cURL ExampleCopy
+```shiki
+curl "https://api.dashlyai.cc/v1/responses" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <token>" \
+    -d '{
+        "model": "gpt-5",
+        "tools": [{"type": "web_search"}],
+        "input": "What positive news is there today?"
+    }'
+
+```
+### [​](#image-understanding)Image Understanding
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Describe this image"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#multi-image-analysis)Multi-Image Analysis
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Compare the similarities and differences of these two images"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image1.jpg"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image2.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#base64-encoded-image)Base64 Encoded Image
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Analyze this image"
+        },
+        {
+          "type": "input_image",
+          "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#using-file-search-tool)Using File Search Tool
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "file_search"}],
+  "input": "Based on uploaded documents, summarize the company's quarterly performance"
+}
+
+```
+### [​](#using-function-calling)Using Function Calling
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get weather information for a specified city",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City name, e.g.: Beijing"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"],
+              "description": "Temperature unit"
+            }
+          },
+          "required": ["city"]
+        }
+      }
+    }
+  ],
+  "input": "What's the weather like in Beijing today?"
+}
+
+```
+### [​](#using-remote-mcp)Using Remote MCP
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://mcp.example.com/api",
+        "auth_token": "your_mcp_token"
+      }
+    }
+  ],
+  "input": "Query user information in the database"
+}
+
+```
+### [​](#combining-multiple-tools)Combining Multiple Tools
+
+Copy
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {"type": "web_search"},
+    {"type": "file_search"},
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "Perform mathematical calculations",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "Mathematical expression"
+            }
+          },
+          "required": ["expression"]
+        }
+      }
+    }
+  ],
+  "input": "Search for the latest Bitcoin price and calculate the total value of 100 Bitcoins"
+}
+
+```
+## [​](#content-type-specifications)Content Type Specifications
+
+### [​](#input-text)input\_text
+
+Text input type
+**Properties:**
+
+- `type`: Fixed as `"input_text"`
+- `text`: Text content (string)
+
+### [​](#input-image)input\_image
+
+Image input type
+**Properties:**
+
+- `type`: Fixed as `"input_image"`
+- `image_url`: Image URL or Base64 encoded data URI
+
+**Supported image formats:**
+
+- JPEG
+- PNG
+- GIF
+- WebP
+
+**Image size limits:**
+
+- Maximum file size: 20MB
+- Recommended aspect\_ratio: No more than 2048x2048 pixels
+
+## [​](#tool-usage-details)Tool Usage Details
+
+### [​](#web-search)Web Search
+
+The web search tool allows the model to access real-time internet information.
+**Configuration example:**
+Copy
+```shiki
+{
+  "tools": [{"type": "web_search"}]
+}
+
+```
+
+**Use cases:**
+
+- Query latest news and current events
+- Get real-time data (stocks, weather, exchange rates, etc.)
+- Search for latest technical documentation
+- Verify factual information
+
+### [​](#file-search)File Search
+
+The file search tool allows the model to search for relevant information in uploaded documents.
+**Configuration example:**
+Copy
+```shiki
+{
+  "tools": [{"type": "file_search"}]
+}
+
+```
+
+**Use cases:**
+
+- Analyze internal corporate documents
+- Search technical specifications and manuals
+- Query contracts and legal documents
+- Knowledge base Q&A systems
+
+### [​](#function-calling)Function Calling
+
+Define custom functions to enable the model to call external APIs or perform specific operations.
+**Complete configuration example:**
+Copy
+```shiki
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_stock_price",
+        "description": "Get real-time stock price",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symbol": {
+              "type": "string",
+              "description": "Stock symbol, e.g.: AAPL"
+            },
+            "currency": {
+              "type": "string",
+              "enum": ["USD", "CNY"],
+              "description": "Currency unit",
+              "default": "USD"
+            }
+          },
+          "required": ["symbol"]
+        }
+      }
+    }
+  ]
+}
+
+```
+
+**Parameter descriptions:**
+
+- `name`: Function name (required)
+- `description`: Function description (required)
+- `parameters`: Parameter definition using JSON Schema format
+  - `type`: Parameter type
+  - `properties`: Parameter property definitions
+  - `required`: List of required parameters
+
+**Use cases:**
+
+- Call third-party APIs
+- Execute database queries
+- Trigger business processes
+- Integrate with internal systems
+
+### [​](#remote-mcp)Remote MCP
+
+Connect to remote Model Context Protocol (MCP) services to extend model capabilities.
+**Configuration example:**
+Copy
+```shiki
+{
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://your-mcp-server.com/api",
+        "auth_token": "your_auth_token",
+        "timeout": 30
+      }
+    }
+  ]
+}
+
+```
+
+**Parameter descriptions:**
+
+- `url`: MCP server address (required)
+- `auth_token`: Authentication token (optional)
+- `timeout`: Timeout in seconds, default 30 seconds
+
+**Use cases:**
+
+- Connect to enterprise-level AI services
+- Use domain-specific models
+- Access protected data sources
+- Distributed AI system integration
+
+## [​](#tool-response-format)Tool Response Format
+
+When the model uses tools, the response format will include tool call information:
+Copy
+```shiki
+{
+  "id": "resp-123456",
+  "object": "response",
+  "created": 1677652288,
+  "model": "gpt-5",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_abc123",
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\": \"Beijing\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ]
+}
+
+```
+
+**Tool call workflow:**
+
+1. Model receives user input
+2. Analyzes whether tools are needed
+3. If needed, returns tool call request
+4. Client executes tool call
+5. Returns tool results to model
+6. Model generates final response
+
+## [​](#important-notes)Important Notes
+
+1. **Image URL requirements**:
+   - Must be a publicly accessible URL
+   - Or use Base64 encoded Data URI format
+2. **Token billing**:
+   - Images consume tokens based on their aspect\_ratio
+   - High-aspect\_ratio images are automatically resized to optimize costs
+   - Tool calls also consume additional tokens
+3. **Content order**:
+   - Order of elements in content array affects model understanding
+   - Recommended to place text instructions first, then images
+4. **Multimodal combinations**:
+   - Can mix multiple texts and images in one request
+   - Supports multi-turn conversations with context coherence
+5. **Tool usage limitations**:
+   - When using multiple tools simultaneously, the model intelligently selects the most appropriate tool
+   - Function calling requires clear function definitions and parameter descriptions
+   - Web search results may be limited by region and time
+6. **API compatibility**:
+   - Fully compatible with OpenAI Responses API format
+   - Seamlessly migrate existing OpenAI code
+   - Supports all OpenAI tool extension features
+
+[Gemini Native Format](/en/api-reference/texts/gemini/quickstart)[Gemini-3-Pro-Image-preview (Nano banana2) Image Generation](/en/api-reference/images/gemini-3-pro/generation)⌘I

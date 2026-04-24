@@ -1,0 +1,72 @@
+---
+title: "TTS 文字转语音"
+sidebarTitle: "TTS 文字转语音"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/speech试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/speech \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-mini-tts",
+    "input": "今天天气真好,适合出去散步。",
+    "voice": "alloy",
+    "response_format": "opus",
+    "speed": 1.0
+  }' \
+  --output speech.opus
+
+```
+200400401402413429500502复制
+```shiki
+二进制音频数据流
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key:访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加:复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstring默认值:"gpt-4o-mini-tts"必填TTS 模型名称可选值:
+
+- `gpt-4o-mini-tts` - GPT-4o Mini TTS 模型
+
+Example: `"gpt-4o-mini-tts"`
+[​](#param-input)inputstring必填要转换为语音的文本内容最大长度: 4096 个字符Example: `"今天天气真好,适合出去散步。"`
+[​](#param-voice)voicestring必填语音音色选择可选音色:
+
+- `alloy` - 中性、平衡的音色
+- `echo` - 男性、沉稳的音色
+- `fable` - 英式、叙述性的音色
+- `onyx` - 男性、深沉的音色
+- `nova` - 女性、活力的音色
+- `shimmer` - 女性、温柔的音色
+
+Example: `"alloy"`
+[​](#param-response-format)response\_formatstring默认值:"wav"必填音频输出格式支持的格式:
+
+- `wav` - WAV 格式,未压缩(默认)
+- `opus` - Opus 格式,用于互联网流媒体
+- `aac` - AAC 格式
+- `flac` - FLAC 格式,无损压缩
+- `pcm` - PCM 格式,原始音频数据
+
+Example: `"wav"`
+[​](#param-speed)speednumber默认值:"1.0"语音播放速度范围: 0.25 到 4.0
+
+- `0.25` - 最慢速度(1/4倍速)
+- `1.0` - 正常速度(默认)
+- `4.0` - 最快速度(4倍速)
+
+Example: `1.0`
+## [​](#response)Response
+
+成功时返回二进制音频数据流,可直接保存为音频文件或播放。
+错误时返回 JSON 格式的错误信息,包含错误代码、消息和类型。[Whisper-1 音频转录](/cn/api-reference/audios/whisper-1)[获取任务状态](/cn/api-reference/tasks/status)⌘I

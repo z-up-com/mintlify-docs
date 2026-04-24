@@ -1,0 +1,532 @@
+---
+title: "Claude 消息接口"
+sidebarTitle: "Claude 消息接口"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/messages试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+curl https://api.dashlyai.cc/v1/messages \
+  -H "x-api-key: $API_KEY" \
+  -H "anthropic-version: 2025-10-01" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5-20250929",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "你好，世界"}
+    ]
+  }'
+
+```
+200400401429500复制
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "你好！我是Claude。很高兴见到你。"
+      }
+    ],
+    "model": "claude-sonnet-4-5-20250929",
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 12,
+      "output_tokens": 18
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-x-api-key)x-api-keystring必填API密钥用于身份验证访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key在请求头中添加：复制
+```shiki
+x-api-key: YOUR_API_KEY
+
+```
+
+[​](#param-anthropic-version)anthropic-versionstring必填API版本号指定要使用的Claude API版本示例：`2025-10-01`
+## [​](#body)Body
+
+[​](#param-model)modelstring默认值:"claude-haiku-4-5-20251001"必填模型名称
+
+- `claude-haiku-4-5-20251001` - Claude 4.5 快速响应版本
+- `claude-sonnet-4-5-20250929` - Claude 4.5 平衡版本
+- `claude-opus-4-1-20250805` - 最强大的 Claude 4.1 旗舰模型
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus 深度思考版
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet 深度思考版
+
+[​](#param-messages)messagesarray必填消息列表消息数组，模型会基于这些消息生成下一条回复。每条消息包含 `role` 和 `content` 两个字段。**💡 快速填写（Try it 区域）：**
+
+1. 点击 ”+ Add an item” 添加一条消息
+2. `role` 输入：`user`（用户消息）或 `assistant`（AI回复，用于多轮对话）
+3. `content` 输入：你想说的话
+
+显示 详细字段说明
+
+[​](#param-role)rolestring默认值:"user"必填角色类型可选值：`user`（用户消息）、`assistant`（AI回复，用于多轮对话和预填充）注：Claude API 的 system 提示词使用单独的 `system` 参数，不在 messages 中[​](#param-content)contentstring必填消息内容填写消息的文本内容**单条用户消息示例：**复制
+```shiki
+[{"role": "user", "content": "你好，Claude"}]
+
+```
+**多轮对话示例：**复制
+```shiki
+[
+  {"role": "user", "content": "你好"},
+  {"role": "assistant", "content": "你好！我是Claude。"},
+  {"role": "user", "content": "能解释一下AI吗？"}
+]
+
+```
+**预填充助手回复：**复制
+```shiki
+[
+  {"role": "user", "content": "太阳的希腊名称是？(A) Sol (B) Helios (C) Sun"},
+  {"role": "assistant", "content": "答案是 ("}
+]
+
+```
+
+[​](#param-max-tokens)max\_tokensinteger最大生成token数生成停止前的最大token数量。模型可能会在达到此限制前停止。不同模型有不同的最大值，请参考模型文档。最小值：1
+[​](#param-system)systemstring | array系统提示词系统提示词用于设置Claude的角色、个性、目标和指令。**字符串格式：**复制
+```shiki
+{
+  "system": "你是一位专业的Python编程导师"
+}
+
+```
+**结构化格式：**复制
+```shiki
+{
+  "system": [
+    {
+      "type": "text",
+      "text": "你是一位专业的Python编程导师"
+    }
+  ]
+}
+
+```
+
+[​](#param-temperature)temperaturenumber温度参数，范围 0-1控制输出的随机性：
+
+- 低值（如0.2）：更确定、更保守
+- 高值（如0.8）：更随机、更有创意
+
+默认值：1.0
+[​](#param-top-p)top\_pnumber核采样参数，范围 0-1使用nucleus sampling。建议使用 `temperature` 或 `top_p` 其中之一，不要同时使用。默认值：1.0
+[​](#param-top-k)top\_kintegerTop-K采样只从概率最高的K个选项中采样，用于移除”长尾”低概率响应。建议仅在高级用例中使用。
+[​](#param-stream)streamboolean是否启用流式输出设置为 `true` 时，使用服务器发送事件（SSE）流式返回响应。默认值：false
+[​](#param-stop-sequences)stop\_sequencesarray停止序列自定义文本序列，遇到这些序列时模型将停止生成。最多4个序列。示例：`["\n\nHuman:", "\n\nAssistant:"]`
+[​](#param-metadata)metadataobject元数据用于请求的元数据对象。包含：
+
+- `user_id`: 用户标识符
+
+[​](#param-tools)toolsarray工具定义工具列表，模型可以调用这些工具来完成任务。**函数工具示例：**复制
+```shiki
+{
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "获取指定位置的当前天气",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "城市和省份，例如：北京"
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["celsius", "fahrenheit"],
+            "description": "温度单位"
+          }
+        },
+        "required": ["location"]
+      }
+    }
+  ]
+}
+
+```
+支持的工具类型：
+
+- 自定义函数工具
+- 计算机使用工具（computer\_20241022）
+- 文本编辑器工具（text\_editor\_20241022）
+- Bash工具（bash\_20241022）
+
+[​](#param-tool-choice)tool\_choiceobject工具选择策略控制模型如何使用工具：
+
+- `{"type": "auto"}`: 自动决定（默认）
+- `{"type": "any"}`: 必须使用工具
+- `{"type": "tool", "name": "tool_name"}`: 使用指定工具
+## [​](#response)Response
+
+[​](#param-id)idstring唯一消息标识符示例：`"msg_013Zva2CMHLNnXjNJJKqJ2EF"`
+[​](#param-type)typestring对象类型固定为 `"message"`
+[​](#param-role-1)rolestring角色固定为 `"assistant"`
+[​](#param-content-1)contentarray内容块数组模型生成的内容，是一个内容块数组。**文本内容：**复制
+```shiki
+[{"type": "text", "text": "你好！我是Claude。"}]
+
+```
+**工具使用：**复制
+```shiki
+[
+  {
+    "type": "tool_use",
+    "id": "toolu_01A09q90qw90lq917835lq9",
+    "name": "get_weather",
+    "input": {"location": "北京", "unit": "celsius"}
+  }
+]
+
+```
+内容类型：
+
+- `text`: 文本内容
+- `tool_use`: 工具调用
+
+[​](#param-model-1)modelstring处理请求的模型示例：`"claude-sonnet-4-5-20250929"`
+[​](#param-stop-reason)stop\_reasonstring停止原因可能的值：
+
+- `end_turn`: 自然结束
+- `max_tokens`: 达到最大token数
+- `stop_sequence`: 遇到停止序列
+- `tool_use`: 调用了工具
+
+[​](#param-stop-sequence)stop\_sequencestring | null触发的停止序列如果因停止序列而停止，则为该序列内容；否则为 `null`
+[​](#param-usage)usageobjectToken使用统计
+
+显示 属性
+
+[​](#param-input-tokens)input\_tokensinteger输入token数[​](#param-output-tokens)output\_tokensinteger输出token数
+## [​](#使用示例)使用示例
+
+### [​](#基础对话)基础对话
+
+复制
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "解释量子计算的基本原理"}
+    ]
+)
+
+print(message.content[0].text)
+
+```
+### [​](#多轮对话)多轮对话
+
+复制
+```shiki
+messages = [
+    {"role": "user", "content": "什么是机器学习？"},
+    {"role": "assistant", "content": "机器学习是人工智能的一个分支..."},
+    {"role": "user", "content": "能举个实际应用的例子吗？"}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+### [​](#使用系统提示词)使用系统提示词
+
+复制
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    system="你是一位资深的Python开发专家，擅长代码审查和优化建议。",
+    messages=[
+        {"role": "user", "content": "如何优化这段代码？\n\n[代码]"}
+    ]
+)
+
+```
+### [​](#流式响应)流式响应
+
+复制
+```shiki
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "写一篇关于AI的短文"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#工具使用)工具使用
+
+复制
+```shiki
+tools = [
+    {
+        "name": "get_stock_price",
+        "description": "获取股票的实时价格",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "type": "string",
+                    "description": "股票代码，例如：AAPL"
+                }
+            },
+            "required": ["ticker"]
+        }
+    }
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    tools=tools,
+    messages=[
+        {"role": "user", "content": "特斯拉的股价是多少？"}
+    ]
+)
+
+# 处理工具调用
+
+if message.stop_reason == "tool_use":
+    tool_use = next(block for block in message.content if block.type == "tool_use")
+    print(f"调用工具: {tool_use.name}")
+    print(f"参数: {tool_use.input}")
+
+```
+### [​](#视觉理解)视觉理解
+
+复制
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "url",
+                        "url": "https://example.com/image.jpg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "描述这张图片"
+                }
+            ]
+        }
+    ]
+)
+
+```
+### [​](#base64图像)Base64图像
+
+复制
+```shiki
+import base64
+
+with open("image.jpg", "rb") as image_file:
+    image_data = base64.b64encode(image_file.read()).decode("utf-8")
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/jpeg",
+                        "data": image_data
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "分析这张图片"
+                }
+            ]
+        }
+    ]
+)
+
+```
+## [​](#最佳实践)最佳实践
+
+### [​](#1-提示词工程)1. 提示词工程
+
+**清晰的角色定义：**
+复制
+```shiki
+system = """你是一位经验丰富的数据科学家，专长包括：
+- 统计分析和数据可视化
+- 机器学习模型开发
+- Python和R编程
+请提供专业、准确的建议。"""
+
+```
+
+**结构化输出：**
+复制
+```shiki
+message = "请以JSON格式返回分析结果，包含summary、key_findings和recommendations字段。"
+
+```
+### [​](#2-错误处理)2. 错误处理
+
+复制
+```shiki
+from anthropic import APIError, RateLimitError
+
+try:
+    message = client.messages.create(
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "你好"}]
+    )
+except RateLimitError:
+    print("速率限制，请稍后重试")
+except APIError as e:
+    print(f"API错误: {e}")
+
+```
+### [​](#3-token优化)3. Token优化
+
+复制
+```shiki
+# 使用更短的提示词
+
+messages = [
+    {"role": "user", "content": "总结要点：\n\n[长文本]"}
+]
+
+# 限制输出长度
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=500,  # 限制输出
+    messages=messages
+)
+
+```
+### [​](#4-预填充响应)4. 预填充响应
+
+复制
+```shiki
+# 引导模型以特定格式回复
+
+messages = [
+    {"role": "user", "content": "列出5个Python最佳实践"},
+    {"role": "assistant", "content": "以下是5个Python最佳实践：\n\n1."}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+## [​](#流式响应处理)流式响应处理
+
+### [​](#python流式示例)Python流式示例
+
+复制
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "写一个Python装饰器示例"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#javascript流式示例)JavaScript流式示例
+
+复制
+```shiki
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env.API_KEY,
+  baseURL: 'https://api.dashlyai.cc'
+});
+
+const stream = await client.messages.stream({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [
+    { role: 'user', content: '写一个React组件示例' }
+  ]
+});
+
+for await (const chunk of stream) {
+  if (chunk.type === 'content_block_delta' && 
+      chunk.delta.type === 'text_delta') {
+    process.stdout.write(chunk.delta.text);
+  }
+}
+
+```
+## [​](#注意事项)注意事项
+
+1. **API密钥安全**：
+   - 使用环境变量存储API密钥
+   - 不要在代码中硬编码密钥
+   - 定期轮换密钥
+2. **速率限制**：
+   - 注意API的速率限制
+   - 实现重试机制
+   - 使用指数退避策略
+3. **Token管理**：
+   - 监控token使用量
+   - 优化提示词长度
+   - 使用适当的max\_tokens值
+4. **模型选择**：
+   - Opus: 复杂任务、需要深度思考
+   - Sonnet: 平衡性能和成本
+   - Haiku: 快速响应、简单任务
+5. **内容过滤**：
+   - 验证用户输入
+   - 过滤敏感信息
+   - 实现内容审核机制
+
+[通用对话接口](/cn/api-reference/texts/general/chat-completions)[Gemini 原生格式](/cn/api-reference/texts/gemini/quickstart)⌘I

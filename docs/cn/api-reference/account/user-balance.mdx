@@ -1,0 +1,84 @@
+---
+title: "查询用户余额"
+sidebarTitle: "查询用户余额"
+description: ""
+---
+
+GEThttps://api.dashlyai.cc/v1/user/balance试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#复制
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/user/balance' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 查询成功200 - 无限额度用户200 - 用户额度查询失败200 - 已使用额度查询失败401429复制
+```shiki
+{
+  "success": true,
+  "remain_balance": 100.0,
+  "used_balance": 25.5,
+  "unlimited_quota": false
+}
+
+```
+获取当前用户账户的剩余余额和已使用余额。此接口返回用户级别的余额信息，与具体令牌无关，用于查看用户账户的总体余额。
+## [​](#认证)认证
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用 Bearer Token 进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#接口端点)接口端点
+
+复制
+```shiki
+GET /v1/user/balance
+GET /user/balance
+
+```
+
+两个端点功能相同，可以任选其一使用。
+## [​](#响应)响应
+
+[​](#param-success)successboolean请求是否成功
+[​](#param-message)messagestring错误信息（仅失败时返回）
+[​](#param-remain-balance)remain\_balancefloat用户剩余余额（成功时返回）。当 `unlimited_quota` 为 `true` 时，该值为 `-1`
+[​](#param-used-balance)used\_balancefloat用户已使用余额（成功时返回）
+[​](#param-unlimited-quota)unlimited\_quotaboolean是否为无限额度用户。`true` 表示无限额度，`false` 表示有限额度
+## [​](#令牌余额-vs-用户余额)令牌余额 vs 用户余额
+
+| 对比项 | 令牌余额 (`/v1/balance`) | 用户余额 (`/v1/user/balance`) |
+| --- | --- | --- |
+| 作用范围 | 单个令牌 | 整个用户账户 |
+| 数据来源 | Token 的 RemainQuota 和 UsedQuota | User 的 quota 和 used\_quota |
+| 使用场景 | 监控单个 API Key 的使用情况 | 查看用户账户总体余额 |
+| 受限于 | 令牌级别的额度限制 | 用户级别的额度限制 |
+
+## [​](#使用场景)使用场景
+
+- 查看用户账户的总体余额
+- 用于充值提醒和余额告警
+- 在用户控制面板显示账户余额
+
+**余额单位说明**余额数值的单位取决于系统配置：
+
+- **USD** - 美元
+- **CNY** - 人民币
+- **Tokens** - Token 数量
+
+**无限额度用户**当用户被设置为无限额度时：
+
+- `unlimited_quota` 字段返回 `true`
+- `remain_balance` 字段返回 `-1`
+- 该用户不受额度限制，可无限使用
+## [​](#常见错误)常见错误
+
+| 错误信息 | 原因 | 解决方案 |
+| --- | --- | --- |
+| 无 Authorization 头 | 未提供 Authorization 请求头 | 添加 `Authorization: Bearer sk-xxxxx` 请求头 |
+| 获取用户额度失败 | 用户不存在 | 检查令牌关联的用户是否存在 |
+| 获取已使用额度失败 | 数据库查询错误 | 联系管理员检查系统状态 |
+
+
+**安全提示**API Key 相当于密码，请妥善保管，不要泄露给他人。生产环境请务必使用 HTTPS。[查询令牌余额](/cn/api-reference/account/token-balance)⌘I

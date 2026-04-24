@@ -1,0 +1,532 @@
+---
+title: "Claude Messages API"
+sidebarTitle: "Claude Messages API"
+description: "Show Field details"
+---
+
+POSThttps://api.dashlyai.cc/v1/messagesTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl https://api.dashlyai.cc/v1/messages \
+  -H "x-api-key: $API_KEY" \
+  -H "anthropic-version: 2025-10-01" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5-20250929",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "Hello, world"}
+    ]
+  }'
+
+```
+200400401429500Copy
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "Hello! I'm Claude. Nice to meet you."
+      }
+    ],
+    "model": "claude-sonnet-4-5-20250929",
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 12,
+      "output_tokens": 18
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-x-api-key)x-api-keystringrequiredAPI key for authenticationVisit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd to request header:Copy
+```shiki
+x-api-key: YOUR_API_KEY
+
+```
+
+[​](#param-anthropic-version)anthropic-versionstringrequiredAPI versionSpecifies the Claude API version to useExample: `2025-10-01`
+## [​](#body)Body
+
+[​](#param-model)modelstringdefault:"claude-haiku-4-5-20251001"requiredModel name
+
+- `claude-haiku-4-5-20251001` - Claude 4.5 Fast Response Version
+- `claude-sonnet-4-5-20250929` - Claude 4.5 Balanced Version
+- `claude-opus-4-1-20250805` - Most Capable Claude 4.1 Flagship Model
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus Deep Thinking Version
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet Deep Thinking Version
+
+[​](#param-messages)messagesarrayrequiredList of messagesArray of messages for the model to generate the next response. Each message contains `role` and `content` fields.**💡 Quick fill (Try it area):**
+
+1. Click ”+ Add an item” to add a message
+2. `role` input: `user` (user message) or `assistant` (AI response, for multi-turn)
+3. `content` input: your message text
+
+Show Field details
+
+[​](#param-role)rolestringdefault:"user"requiredRole typeOptions: `user` (user message), `assistant` (AI response, for multi-turn conversations and prefilling)Note: Claude API uses a separate `system` parameter for system prompts, not in messages[​](#param-content)contentstringrequiredMessage contentText content of the message**Single user message:**Copy
+```shiki
+[{"role": "user", "content": "Hello, Claude"}]
+
+```
+**Multi-turn conversation:**Copy
+```shiki
+[
+  {"role": "user", "content": "Hello there."},
+  {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
+  {"role": "user", "content": "Can you explain LLMs in plain English?"}
+]
+
+```
+**Prefilled assistant response:**Copy
+```shiki
+[
+  {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
+  {"role": "assistant", "content": "The best answer is ("}
+]
+
+```
+
+[​](#param-max-tokens)max\_tokensintegerMaximum tokens to generateMaximum number of tokens to generate before stopping. The model may stop before reaching this limit.Different models have different maximum values. Minimum: 1
+[​](#param-system)systemstring | arraySystem promptSystem prompts set Claude’s role, personality, goals, and instructions.**String format:**Copy
+```shiki
+{
+  "system": "You are a professional Python programming tutor"
+}
+
+```
+**Structured format:**Copy
+```shiki
+{
+  "system": [
+    {
+      "type": "text",
+      "text": "You are a professional Python programming tutor"
+    }
+  ]
+}
+
+```
+
+[​](#param-temperature)temperaturenumberTemperature parameter, range 0-1Controls randomness of output:
+
+- Low values (e.g., 0.2): More deterministic, conservative
+- High values (e.g., 0.8): More random, creative
+
+Default: 1.0
+[​](#param-top-p)top\_pnumberNucleus sampling parameter, range 0-1Uses nucleus sampling. Recommend using either `temperature` or `top_p`, not both.Default: 1.0
+[​](#param-top-k)top\_kintegerTop-K samplingSample from top K options only, removes “long tail” low probability responses.Recommended for advanced use cases only.
+[​](#param-stream)streambooleanEnable streamingWhen `true`, uses Server-Sent Events (SSE) to stream responses.Default: false
+[​](#param-stop-sequences)stop\_sequencesarrayStop sequencesCustom text sequences that cause the model to stop generating.Maximum 4 sequences.Example: `["\n\nHuman:", "\n\nAssistant:"]`
+[​](#param-metadata)metadataobjectMetadataMetadata object for the request.Includes:
+
+- `user_id`: User identifier
+
+[​](#param-tools)toolsarrayTool definitionsList of tools the model can use to complete tasks.**Function tool example:**Copy
+```shiki
+{
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "Get the current weather in a given location",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The city and state, e.g. San Francisco, CA"
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["celsius", "fahrenheit"],
+            "description": "Temperature unit"
+          }
+        },
+        "required": ["location"]
+      }
+    }
+  ]
+}
+
+```
+Supported tool types:
+
+- Custom function tools
+- Computer use tool (computer\_20241022)
+- Text editor tool (text\_editor\_20241022)
+- Bash tool (bash\_20241022)
+
+[​](#param-tool-choice)tool\_choiceobjectTool choice strategyControls how the model uses tools:
+
+- `{"type": "auto"}`: Auto-decide (default)
+- `{"type": "any"}`: Must use a tool
+- `{"type": "tool", "name": "tool_name"}`: Use specific tool
+## [​](#response)Response
+
+[​](#param-id)idstringUnique message identifierExample: `"msg_013Zva2CMHLNnXjNJJKqJ2EF"`
+[​](#param-type)typestringObject typeAlways `"message"`
+[​](#param-role-1)rolestringRoleAlways `"assistant"`
+[​](#param-content-1)contentarrayContent blocks arrayContent generated by the model, as an array of content blocks.**Text content:**Copy
+```shiki
+[{"type": "text", "text": "Hello! I'm Claude."}]
+
+```
+**Tool use:**Copy
+```shiki
+[
+  {
+    "type": "tool_use",
+    "id": "toolu_01A09q90qw90lq917835lq9",
+    "name": "get_weather",
+    "input": {"location": "San Francisco, CA", "unit": "celsius"}
+  }
+]
+
+```
+Content types:
+
+- `text`: Text content
+- `tool_use`: Tool invocation
+
+[​](#param-model-1)modelstringModel that handled the requestExample: `"claude-sonnet-4-5-20250929"`
+[​](#param-stop-reason)stop\_reasonstringStop reasonPossible values:
+
+- `end_turn`: Natural completion
+- `max_tokens`: Reached maximum tokens
+- `stop_sequence`: Hit stop sequence
+- `tool_use`: Invoked a tool
+
+[​](#param-stop-sequence)stop\_sequencestring | nullStop sequence triggeredThe stop sequence that was generated, if any; otherwise `null`
+[​](#param-usage)usageobjectToken usage statistics
+
+Show Properties
+
+[​](#param-input-tokens)input\_tokensintegerNumber of input tokens[​](#param-output-tokens)output\_tokensintegerNumber of output tokens
+## [​](#usage-examples)Usage Examples
+
+### [​](#basic-conversation)Basic Conversation
+
+Copy
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Explain quantum computing basics"}
+    ]
+)
+
+print(message.content[0].text)
+
+```
+### [​](#multi-turn-conversation)Multi-turn Conversation
+
+Copy
+```shiki
+messages = [
+    {"role": "user", "content": "What is machine learning?"},
+    {"role": "assistant", "content": "Machine learning is a branch of AI..."},
+    {"role": "user", "content": "Can you give a practical example?"}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+### [​](#using-system-prompts)Using System Prompts
+
+Copy
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    system="You are a senior Python developer expert in code review and optimization.",
+    messages=[
+        {"role": "user", "content": "How to optimize this code?\n\n[code]"}
+    ]
+)
+
+```
+### [​](#streaming-response)Streaming Response
+
+Copy
+```shiki
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Write a short essay about AI"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#tool-use)Tool Use
+
+Copy
+```shiki
+tools = [
+    {
+        "name": "get_stock_price",
+        "description": "Get real-time stock price",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "type": "string",
+                    "description": "Stock ticker symbol, e.g., AAPL"
+                }
+            },
+            "required": ["ticker"]
+        }
+    }
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    tools=tools,
+    messages=[
+        {"role": "user", "content": "What's Tesla's stock price?"}
+    ]
+)
+
+# Handle tool calls
+
+if message.stop_reason == "tool_use":
+    tool_use = next(block for block in message.content if block.type == "tool_use")
+    print(f"Calling tool: {tool_use.name}")
+    print(f"Arguments: {tool_use.input}")
+
+```
+### [​](#vision-understanding)Vision Understanding
+
+Copy
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "url",
+                        "url": "https://example.com/image.jpg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                }
+            ]
+        }
+    ]
+)
+
+```
+### [​](#base64-image)Base64 Image
+
+Copy
+```shiki
+import base64
+
+with open("image.jpg", "rb") as image_file:
+    image_data = base64.b64encode(image_file.read()).decode("utf-8")
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/jpeg",
+                        "data": image_data
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Analyze this image"
+                }
+            ]
+        }
+    ]
+)
+
+```
+## [​](#best-practices)Best Practices
+
+### [​](#1-prompt-engineering)1. Prompt Engineering
+
+**Clear role definition:**
+Copy
+```shiki
+system = """You are an experienced data scientist specializing in:
+- Statistical analysis and data visualization
+- Machine learning model development
+- Python and R programming
+Provide professional, accurate advice."""
+
+```
+
+**Structured output:**
+Copy
+```shiki
+message = "Please return the analysis results in JSON format with summary, key_findings, and recommendations fields."
+
+```
+### [​](#2-error-handling)2. Error Handling
+
+Copy
+```shiki
+from anthropic import APIError, RateLimitError
+
+try:
+    message = client.messages.create(
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "Hello"}]
+    )
+except RateLimitError:
+    print("Rate limit exceeded, please retry later")
+except APIError as e:
+    print(f"API error: {e}")
+
+```
+### [​](#3-token-optimization)3. Token Optimization
+
+Copy
+```shiki
+# Use shorter prompts
+
+messages = [
+    {"role": "user", "content": "Summarize key points:\n\n[long text]"}
+]
+
+# Limit output length
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=500,  # Limit output
+    messages=messages
+)
+
+```
+### [​](#4-prefilling-responses)4. Prefilling Responses
+
+Copy
+```shiki
+# Guide model to specific format
+
+messages = [
+    {"role": "user", "content": "List 5 Python best practices"},
+    {"role": "assistant", "content": "Here are 5 Python best practices:\n\n1."}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+## [​](#streaming-response-handling)Streaming Response Handling
+
+### [​](#python-streaming)Python Streaming
+
+Copy
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Write a Python decorator example"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#javascript-streaming)JavaScript Streaming
+
+Copy
+```shiki
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env.API_KEY,
+  baseURL: 'https://api.dashlyai.cc'
+});
+
+const stream = await client.messages.stream({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [
+    { role: 'user', content: 'Write a React component example' }
+  ]
+});
+
+for await (const chunk of stream) {
+  if (chunk.type === 'content_block_delta' && 
+      chunk.delta.type === 'text_delta') {
+    process.stdout.write(chunk.delta.text);
+  }
+}
+
+```
+## [​](#important-notes)Important Notes
+
+1. **API Key Security**:
+   - Store API keys in environment variables
+   - Never hardcode keys in source code
+   - Rotate keys regularly
+2. **Rate Limiting**:
+   - Be aware of API rate limits
+   - Implement retry mechanisms
+   - Use exponential backoff
+3. **Token Management**:
+   - Monitor token usage
+   - Optimize prompt length
+   - Use appropriate max\_tokens values
+4. **Model Selection**:
+   - Opus: Complex tasks, deep thinking required
+   - Sonnet: Balanced performance and cost
+   - Haiku: Fast response, simple tasks
+5. **Content Filtering**:
+   - Validate user input
+   - Filter sensitive information
+   - Implement content moderation
+
+[General Chat API](/en/api-reference/texts/general/chat-completions)[Gemini Native Format](/en/api-reference/texts/gemini/quickstart)⌘I

@@ -1,0 +1,69 @@
+---
+title: "Whisper-1 音声文字起こし"
+sidebarTitle: "Whisper-1 音声文字起こし"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/transcriptions試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/transcriptions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data' \
+  --form 'file=@/path/to/audio.mp3' \
+  --form 'model=whisper-1' \
+  --form 'language=ja' \
+  --form 'response_format=json'
+
+```
+200200 (詳細形式)200 (SRT字幕形式)400401402413429500502コピー
+```shiki
+{
+  "text": "これはテスト音声の文字起こしテキストです。"
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必須すべてのインターフェースでBearer Token認証が必要ですAPI Keyの取得：[API Key管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPI Keyを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#リクエストボディ)リクエストボディ
+
+**⚠️ このエンドポイントはオンラインテスト（Try it）に対応していません**ファイルアップロードの制限により、以下の方法でテストしてください：
+
+- **Apifox / Postman** - インポート後、手動で `file` パラメータをファイルタイプに変更
+- **cURL** - 右側のコード例を参照
+- **SDK** - 各言語のSDKサンプルコードを使用
+
+[​](#param-file)filestring必須文字起こしする音声ファイル（ファイルタイプ）**⚠️ 注意**：Apifoxなどのツールでテストする場合：
+
+1. インポート後、このパラメータタイプを手動で `file` に変更してください
+2. リクエストのContent-Typeが `multipart/form-data` であることを確認してください
+
+対応形式：mp3, mp4, mpeg, mpga, m4a, wav, webm最大ファイルサイズ：25 MB
+[​](#param-model)modelstringデフォルト:"whisper-1"必須音声認識モデル名例：`"whisper-1"`
+[​](#param-language)languagestring音声の言語コード（ISO-639-1形式）言語を指定すると精度と速度が向上します対応言語：zh（中国語）、en（英語）、ja（日本語）、ko（韓国語）など99言語例：`"ja"`
+[​](#param-prompt)promptstring文字起こしスタイルをガイドするためのオプションテキストプロンプト最大224トークン
+[​](#param-response-format)response\_formatstringデフォルト:"json"出力形式対応形式：
+
+- `json` - JSON形式（テキストのみ）
+- `text` - プレーンテキスト
+- `srt` - SRT字幕形式
+- `verbose_json` - 詳細JSON形式（タイムスタンプとメタデータを含む）
+- `vtt` - WebVTT字幕形式
+
+[​](#param-temperature)temperaturenumberデフォルト:"0"サンプリング温度、範囲0〜1高い値（0.8など）は出力をよりランダムにし、低い値（0.2など）はより確定的で一貫性のあるものにします
+## [​](#response)Response
+
+[​](#param-text)textstring文字起こしされたテキスト内容
+[​](#param-task)taskstringタスクタイプ、`transcribe`で固定verbose\_json形式でのみ返されます
+[​](#param-language-1)languagestring検出または指定された言語コードverbose\_json形式でのみ返されます
+[​](#param-duration)durationnumber音声の長さ（秒）verbose\_json形式でのみ返されます
+[​](#param-segments)segmentsarrayテキストセグメントの配列verbose\_json形式でのみ返されます
+
+表示 プロパティ
+
+[​](#param-id)idintegerセグメントID[​](#param-start)startnumberセグメント開始時間（秒）[​](#param-end)endnumberセグメント終了時間（秒）[​](#param-text-1)textstringセグメントテキスト内容[​](#param-temperature-1)temperaturenumber使用されたサンプリング温度[​](#param-avg-logprob)avg\_logprobnumber平均対数確率[​](#param-compression-ratio)compression\_rationumber圧縮率[​](#param-no-speech-prob)no\_speech\_probnumber無音声確率[MiniMax-Hailuo-02 動画生成](/ja/api-reference/videos/minimax-hailuo/generation)[TTS テキスト音声変換](/ja/api-reference/audios/tts)⌘I

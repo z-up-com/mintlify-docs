@@ -1,0 +1,85 @@
+---
+title: "Image Creation APIText-to-image generation"
+sidebarTitle: "Image Creation APIText-to-image generation"
+description: "Show Field details"
+---
+
+POSThttps://api.dashlyai.cc/v1/images/generationsTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/images/generations \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-image",
+    "prompt": "An ancient castle under the starry sky",
+    "size": "1:1",
+    "n": 1,
+    "image_urls": [
+      "https://cdn.dashlyai.cc/doc/9998238784524590-549804af-14bc-4fbc-bae5-9d8469d35de3-image_task_01K889V97T2YF8RHQW21XMVMS1_0.png"
+    ]
+  }'
+
+```
+200400401402403429500502Copy
+```shiki
+{
+  "code": 200,
+  "data": [
+    {
+      "status": "submitted",
+      "task_id": "task_01K8SGYNNNVBQTXNR4MM964S7K"
+    }
+  ]
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll API endpoints require Bearer Token authenticationGet your API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd it to the request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringdefault:"gpt-4o-image"requiredImage generation model nameExample: `"gpt-4o-image"`
+[​](#param-prompt)promptstringrequiredText description for image generationMaximum 1000 characters
+[​](#param-size)sizestringImage generation sizeSupported formats:
+
+- Ratios: `1:1`, `2:3`, `3:2`
+
+[​](#param-n)nintegerNumber of images to generateSupports 1, 2, 4. Charges will be pre-deducted based on the numberDefault: 1**⚠️ Note:** Must enter a plain number (e.g., `1`), do not use quotes or it will cause an error
+[​](#param-image-urls)image\_urlsarrayReference image URL list for image-to-image or image editing**💡 Quick fill (Try it area):**
+
+1. Click ”+ Add an item” to add an image URL
+2. Enter the complete image URL address
+
+Show Field details
+
+[​](#param-url)urlstringrequiredImage URL addressCan be:
+
+- Publicly accessible image URL (http:// or https://)
+- Base64 encoded image data
+
+**Limitations:**
+
+- Single image up to 10MB
+- Supported formats: .jpeg, .jpg, .png, .webp
+**Limitation:** Maximum 5 images
+[​](#param-mask-url)mask\_urlstringMask image URL
+
+- Must be PNG format
+- Size must match the reference image
+- Maximum 4MB
+## [​](#response)Response
+
+[​](#param-code)codeintegerResponse status code
+[​](#param-data)dataarrayResponse data array
+
+Show Properties
+
+[​](#param-status)statusstringTask status
+
+- `submitted` - Submitted
+[​](#param-task-id)task\_idstringUnique task identifier[Gemini-2.5-Flash-Image-preview (Nano banana) Image Generation](/en/api-reference/images/nano-banana/generation)[Seedream-4.0 Image Generation](/en/api-reference/images/seedream-4/generation)⌘I

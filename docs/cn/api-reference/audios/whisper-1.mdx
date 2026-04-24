@@ -1,0 +1,69 @@
+---
+title: "Whisper-1 音频转录"
+sidebarTitle: "Whisper-1 音频转录"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/transcriptions试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/transcriptions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data' \
+  --form 'file=@/path/to/audio.mp3' \
+  --form 'model=whisper-1' \
+  --form 'language=zh' \
+  --form 'response_format=json'
+
+```
+200200 (详细格式)200 (SRT 字幕格式)400401402413429500502复制
+```shiki
+{
+  "text": "这是一段测试音频的转录文本内容。"
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+**⚠️ 此接口不支持在线调用（Try it）**由于文件上传的限制，请使用以下方式测试：
+
+- **Apifox / Postman** - 导入后手动将 `file` 参数改为文件类型
+- **cURL** - 参考右侧代码示例
+- **SDK** - 使用各语言的 SDK 示例代码
+
+[​](#param-file)filestring必填要转录的音频文件（文件类型）**⚠️ 注意**：如果使用 Apifox 等工具测试：
+
+1. 导入后需要手动将此参数类型改为 `file`
+2. 确保请求 Content-Type 为 `multipart/form-data`
+
+支持的格式：mp3, mp4, mpeg, mpga, m4a, wav, webm最大文件大小：25 MB
+[​](#param-model)modelstring默认值:"whisper-1"必填语音识别模型名称Example: `"whisper-1"`
+[​](#param-language)languagestring音频的语言代码（ISO-639-1 格式）指定语言可以提高准确率和速度支持的语言包括：zh（中文）、en（英文）、ja（日文）、ko（韩文）等 99 种语言Example: `"zh"`
+[​](#param-prompt)promptstring可选的文本提示，用于指导模型的转录风格或延续前一段音频最长 224 个 tokens
+[​](#param-response-format)response\_formatstring默认值:"json"输出格式支持的格式：
+
+- `json` - JSON 格式（仅包含文本）
+- `text` - 纯文本
+- `srt` - SRT 字幕格式
+- `verbose_json` - 详细的 JSON 格式（包含时间戳和其他元数据）
+- `vtt` - WebVTT 字幕格式
+
+[​](#param-temperature)temperaturenumber默认值:"0"采样温度，范围 0 到 1较高的值（如 0.8）会使输出更随机，较低的值（如 0.2）会使其更加确定和一致
+## [​](#response)Response
+
+[​](#param-text)textstring转录后的文本内容
+[​](#param-task)taskstring任务类型，固定为 `transcribe`仅在 verbose\_json 格式时返回
+[​](#param-language-1)languagestring检测到的或指定的语言代码仅在 verbose\_json 格式时返回
+[​](#param-duration)durationnumber音频时长（秒）仅在 verbose\_json 格式时返回
+[​](#param-segments)segmentsarray文本片段数组仅在 verbose\_json 格式时返回
+
+显示 属性
+
+[​](#param-id)idinteger片段ID[​](#param-start)startnumber片段开始时间（秒）[​](#param-end)endnumber片段结束时间（秒）[​](#param-text-1)textstring片段文本内容[​](#param-temperature-1)temperaturenumber使用的采样温度[​](#param-avg-logprob)avg\_logprobnumber平均对数概率[​](#param-compression-ratio)compression\_rationumber压缩比[​](#param-no-speech-prob)no\_speech\_probnumber无语音概率[MiniMax-Hailuo-02 视频生成](/cn/api-reference/videos/minimax-hailuo/generation)[TTS 文字转语音](/cn/api-reference/audios/tts)⌘I

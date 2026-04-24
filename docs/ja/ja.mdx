@@ -1,0 +1,155 @@
+---
+title: "APIマニュアル"
+sidebarTitle: "APIマニュアル"
+description: "API Key を取得"
+---
+
+GPT-5、Claude、Gemini 用の統一 OpenAI 互換エンドポイント。Base URL を `https://api.dashlyai.cc/v1` に変更するだけで数分で OpenAI から移行可能——既存の SDK をそのまま使用でき、コードの書き直しは不要。マルチプロバイダールーティングにより低レイテンシと高可用性を実現。透明な料金、エンタープライズ SLA、グローバル CDN 高速化。
+## [​](#クイックスタート)クイックスタート
+
+[## 今すぐ始める
+
+GPT-5、Claude Sonnet 4.5、Gemini 2.0 対応の OpenAI 互換チャット API。Base URL の切り替えのみ、コード変更不要。](/ja/api-reference/texts/general/chat-completions)
+## [​](#openai-互換エンドポイント)OpenAI 互換エンドポイント
+
+DashlyAI は OpenAI スタイルのエンドポイントを提供し、シームレスな移行を実現。Base URL を変更するだけで既存の SDK を継続使用可能。すべてのインターフェースは OpenAI 標準に準拠し、Claude、Gemini、Sora、VEO モデルを拡張サポート。
+### [​](#チャット補完-api)チャット補完 API
+
+GPT-5、GPT-4o、Claude Sonnet 4.5、Gemini 2.0 Flash 対応。OpenAI 互換 API、ストリーミング対応、低レイテンシ。
+[## チャット補完 API
+
+ストリーミング対応、低レイテンシ](/ja/api-reference/texts/general/chat-completions)
+### [​](#画像生成-api)画像生成 API
+
+GPT-4o Image、Gemini 2.5 Flash Image-preview モデル対応。OpenAI スタイル API、シームレスな統合。
+[## 画像生成 API
+
+テキストから画像生成](/ja/api-reference/images/gpt-4o/generation)
+### [​](#動画生成-api)動画生成 API
+
+OpenAI Sora2、Google VEO3 モデル対応。非同期タスク管理、ステータス追跡と Webhook サポート。
+[## 動画生成 API
+
+非同期タスク管理、Webhook 対応](/ja/api-reference/videos/veo3/generation)
+## [​](#プラットフォームの利点)プラットフォームの利点
+
+### [​](#透明な料金体系)透明な料金体系
+
+サブスクリプション不要の従量課金。全モデル明確なトークン単価、公式プロバイダーより手頃な料金で、同じ品質と低レイテンシを維持。
+
+- 全モデル明確なトークン単価
+- エンタープライズ利用でボリューム割引
+- 隠れた費用なし
+- 実際の使用量のみ課金
+
+### [​](#マルチプロバイダールーティングとエンタープライズ-sla)マルチプロバイダールーティングとエンタープライズ SLA
+
+複数の LLM プロバイダー間でインテリジェントルーティングを内蔵し、高可用性と低レイテンシを確保。あるプロバイダーに問題が発生しても、リクエストは自動的にバックアッププロバイダーにルーティングされ、サービス中断なし。
+### [​](#99-9%-可用性-sla)99.9% 可用性 SLA
+
+自動フェイルオーバー付きのエンタープライズグレードの信頼性。マルチプロバイダールーティングで最小レイテンシでのリクエスト処理を保証。
+### [​](#グローバル-cdn-高速化)グローバル CDN 高速化
+
+世界中のエッジロケーションで最低レイテンシを実現。最適化されたルーティングで応答時間を短縮し、グローバルなユーザー体験を向上。
+### [​](#レート制限管理)レート制限管理
+
+プロバイダー間で自動的にレート制限を処理。インテリジェントなリクエスト分散でスロットリングを防止し、スムーズな運用を保証。
+### [​](#リアルタイムステータス)リアルタイムステータス
+
+エンドポイントの健全性とパフォーマンスを監視。画像・動画生成の非同期タスク進行状況を追跡、Webhook 通知サポート。[ステータス確認 →](/ja/api-reference/tasks/status)
+## [​](#sdk-とコード例)SDK とコード例
+
+Python、Node.js、Java 用の公式 SDK。すべての SDK が OpenAI 互換で、Base URL 設定の変更のみでシームレスに移行可能。
+### [​](#python-sdk)Python SDK
+
+`pip install openai` でインストール。Base URL を設定し、既存の OpenAI コードをそのまま使用、変更不要。
+コピー
+```shiki
+from openai import OpenAI
+client = OpenAI(
+    base_url="https://api.dashlyai.cc/v1",
+    api_key="your-dashlyai-key"
+)
+
+```
+### [​](#node-js-sdk)Node.js SDK
+
+`npm install openai` でインストール。baseURL パラメータを DashlyAI エンドポイントに設定し、既存の統合を維持。
+コピー
+```shiki
+import OpenAI from 'openai';
+const client = new OpenAI({
+  baseURL: 'https://api.dashlyai.cc/v1',
+  apiKey: 'your-dashlyai-key'
+});
+
+```
+### [​](#java-sdk)Java SDK
+
+OpenAI 互換 Java クライアント。簡単な設定変更で全 DashlyAI モデルとプロバイダーにアクセス可能。
+## [​](#openai-からの移行)OpenAI からの移行
+
+5 分以内に DashlyAI に切り替え可能。コードの書き直し不要——Base URL と API Key の変更のみ。
+1
+
+API Key を取得
+
+DashlyAI に登録し、[コンソールダッシュボード](https://dashlyai.cc/console/token)から API Key を取得。2
+
+Base URL を更新
+
+OpenAI Base URL を DashlyAI エンドポイントに変更。既存の SDK 統合はそのまま動作。3
+
+エンドポイントをテスト
+
+新しい Base URL で既存コードを実行。すべての OpenAI 互換エンドポイントは同じ形式で応答。コンソールダッシュボードでレイテンシとレート制限を確認。
+## [​](#統一エンドポイント経由でサポートされるモデル)統一エンドポイント経由でサポートされるモデル
+
+1 つの OpenAI 互換ゲートウェイで主要 LLM プロバイダーにアクセス。すべてのモデルで一貫したリクエスト/レスポンス形式をサポート。
+### [​](#チャット補完モデル)チャット補完モデル
+
+チャット、補完、コードタスク用の主要言語モデル：
+
+- **GPT-5**：強化された推論機能を持つ OpenAI フラッグシップモデル
+- **GPT-4o & GPT-4o Mini**：性能とコストのバランスを取ったマルチモーダルモデル
+- **Claude Sonnet 4.5 & Haiku 4.5**：複雑な推論用 Anthropic モデル
+- **Gemini 2.0 Flash & Flash Thinking**：Google マルチモーダルモデル
+
+### [​](#画像生成モデル)画像生成モデル
+
+テキストプロンプトから画像生成：
+
+- **GPT-4o Image**：OpenAI 画像生成モデル
+- **Gemini 2.5 Flash Image-preview**：Google 効率的画像モデル
+
+### [​](#動画生成モデル)動画生成モデル
+
+非同期タスク追跡と Webhook コールバック付き動画生成：
+
+- **OpenAI Sora2**：OpenAI 動画生成モデル
+- **Google VEO3**：Google 動画生成モデル
+
+### [​](#音声モデル)音声モデル
+
+OpenAI 互換エンドポイント経由で音声テキスト変換とテキスト音声変換：
+
+- **Whisper-1**：OpenAI 文字起こしモデル
+- **TTS**：複数音声のテキスト読み上げ
+
+## [​](#よくある質問)よくある質問
+
+OpenAI から移行するには？
+
+Base URL を `https://api.dashlyai.cc/v1` に変更し、DashlyAI API Key を使用するだけです。既存の SDK をそのまま使用可能——コードの書き直しは不要。移行は通常 5 分以内に完了します。
+
+SLA に含まれるものは？
+
+エンタープライズ SLA には 99.9% 可用性保証、グローバル CDN 高速化、自動フェイルオーバー付きマルチプロバイダールーティング、リアルタイムステータス監視が含まれます。レート制限管理と Webhook サポートも含まれます。
+
+OpenAI と比較した料金は？
+
+DashlyAI は公式プロバイダーより手頃な透明なトークン単価を提供。サブスクリプション不要の従量課金、エンタープライズ利用でボリューム割引、隠れた費用なし。
+
+レイテンシとパフォーマンスは？
+
+グローバル CDN 高速化とインテリジェントマルチプロバイダールーティングにより低レイテンシを保証。世界中のエッジロケーションで最適な応答時間を確保。リアルタイムステータス監視でパフォーマンスを追跡可能。[汎用チャットAPI](/ja/api-reference/texts/general/chat-completions)⌘I

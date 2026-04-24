@@ -1,0 +1,74 @@
+---
+title: "查询令牌余额"
+sidebarTitle: "查询令牌余额"
+description: ""
+---
+
+GEThttps://api.dashlyai.cc/v1/balance试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#复制
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/balance' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 查询成功200 - 无限额度令牌200 - 令牌不存在401429复制
+```shiki
+{
+  "success": true,
+  "remain_balance": 10.5,
+  "used_balance": 2.3,
+  "unlimited_quota": false
+}
+
+```
+获取当前 API Key（令牌）的剩余余额和已使用余额。此接口用于监控单个令牌的使用情况。
+## [​](#认证)认证
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用 Bearer Token 进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#接口端点)接口端点
+
+复制
+```shiki
+GET /v1/balance
+GET /balance
+
+```
+
+两个端点功能相同，可以任选其一使用。
+## [​](#响应)响应
+
+[​](#param-success)successboolean请求是否成功
+[​](#param-message)messagestring错误信息（仅失败时返回）
+[​](#param-remain-balance)remain\_balancefloat令牌剩余余额（成功时返回）。当 `unlimited_quota` 为 `true` 时，该值为 `-1`
+[​](#param-used-balance)used\_balancefloat令牌已使用余额（成功时返回）
+[​](#param-unlimited-quota)unlimited\_quotaboolean是否为无限额度令牌。`true` 表示无限额度，`false` 表示有限额度
+## [​](#使用场景)使用场景
+
+- 监控单个 API Key 的消耗情况
+- 在应用中显示当前令牌的余额
+- 设置余额告警，当余额低于阈值时通知
+
+**余额单位说明**余额数值的单位取决于系统配置：
+
+- **USD** - 美元
+- **CNY** - 人民币
+- **Tokens** - Token 数量
+
+**无限额度令牌**当令牌被设置为无限额度时：
+
+- `unlimited_quota` 字段返回 `true`
+- `remain_balance` 字段返回 `-1`
+- 该令牌不受额度限制，可无限使用
+## [​](#常见错误)常见错误
+
+| 错误信息 | 原因 | 解决方案 |
+| --- | --- | --- |
+| 无 Authorization 头 | 未提供 Authorization 请求头 | 添加 `Authorization: Bearer sk-xxxxx` 请求头 |
+| 获取令牌信息失败 | 令牌不存在或已删除 | 检查令牌 key 是否正确 |
+
+
+**安全提示**API Key 相当于密码，请妥善保管，不要泄露给他人。生产环境请务必使用 HTTPS。[获取任务状态](/cn/api-reference/tasks/status)[查询用户余额](/cn/api-reference/account/user-balance)⌘I

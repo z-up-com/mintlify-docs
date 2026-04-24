@@ -1,0 +1,284 @@
+---
+title: "統合ガイド"
+sidebarTitle: "統合ガイド"
+description: ""
+---
+
+## [​](#準備)準備
+
+始める前に、以下を確認してください：
+
+1. **ChatBox がインストールされている**  
+   
+   [ChatBox GitHub](https://github.com/Bin-Huang/chatbox) からお使いの OS に適したバージョンをダウンロードしてインストールするか、[ChatBox 公式サイト](https://chatboxai.app/) にアクセスしてください
+2. **DashlyAI API キーを取得済み**  
+   
+   [DashlyAI コンソール](https://dashlyai.cc/console/token) にログインして、API キー（`sk-` で始まる）を取得してください
+
+**ヒント：** DashlyAI アカウントをお持ちでない場合は、まず [DashlyAI](https://dashlyai.cc) で登録して API キーを取得してください。
+## [​](#ステップ-1:-chatbox-を起動して設定を開始)ステップ 1: ChatBox を起動して設定を開始
+
+ChatBox を初めて起動するか、新しい AI プロバイダーを追加する場合：
+
+1. ChatBox アプリケーションを起動します
+2. 初回使用時は、設定ウィザードが自動的に表示されます
+3. **「自分の API Key またはローカルモデルを使用」** ボタンをクリックします
+4. すでに設定済みの場合は、左下の **⚙️ 設定** アイコンをクリックするか、ショートカット `Ctrl+,` (Windows/Linux) / `Cmd+,` (macOS) を使用します
+
+![ChatBox 設定ウィザード](/assets/images/ja_integrations_chatbox/a6b4b59a_main-interface.png)
+## [​](#ステップ-2:-dashlyai-api-を設定する)ステップ 2: DashlyAI API を設定する
+
+### [​](#2-1-ai-モデルプロバイダーを選択)2.1 AI モデルプロバイダーを選択
+
+設定ページで：
+
+1. **AI Provider** 設定を見つけます
+2. ドロップダウンメニューから **OpenAI API**（GPT シリーズモデル用）、**Claude API**（Claude シリーズモデル用）、または **Gemini API**（Gemini シリーズモデル用）を選択します
+
+![ChatBox 設定ページ](/assets/images/ja_integrations_chatbox/7c1a840e_settings-page.png)
+### [​](#2-2-api-情報を設定)2.2 API 情報を設定
+
+OpenAI API を選択したら、以下の設定を入力します：
+
+| 項目 | 値 |
+| --- | --- |
+| **API Key** | DashlyAI API キー（`sk-xxxxxxxxxxxx`） |
+| **API Host** または **API Domain** | `https://api.dashlyai.cc` |
+
+
+![API 設定](/assets/images/ja_integrations_chatbox/10f0f475_api-config.png)
+Claude API を選択したら、以下の設定を入力します：
+
+| 項目 | 値 |
+| --- | --- |
+| **API Key** | DashlyAI API キー（`sk-xxxxxxxxxxxx`） |
+| **API Host** または **API Domain** | `https://api.dashlyai.cc/v1` |
+
+
+![claude モデル](/assets/images/ja_integrations_chatbox/4ceb244f_claude.png)
+Gemini API を選択したら、以下の設定を入力します：
+
+| 項目 | 値 |
+| --- | --- |
+| **API Key** | DashlyAI API キー（`sk-xxxxxxxxxxxx`） |
+| **API Host** または **API Domain** | `https://api.dashlyai.cc/` |
+
+
+![Gemini](/assets/images/ja_integrations_chatbox/ac809bea_Gemini.png)
+**重要：**
+
+- OpenAI API を使用する場合、API Host は `https://api.dashlyai.cc` にしてください（`/v1` サフィックスなし）
+- Claude API を使用する場合、API Host は `https://api.dashlyai.cc/v1` にしてください（`/v1` サフィックス付き）
+- Gemini API を使用する場合、API Host は `https://api.dashlyai.cc/` にしてください（`/v1` サフィックスなし）
+- API Key は DashlyAI コンソールから取得した `sk-` で始まるものである必要があります
+- API キーに十分な残高があることを確認してください
+### [​](#2-3-モデルを選択)2.3 モデルを選択
+
+設定完了後、**Model** ドロップダウンから使用したいモデルを選択します：
+**推奨モデル：**
+
+| モデル名 | モデル ID | 特徴 |
+| --- | --- | --- |
+| GPT-5 | `gpt-5` | 最新かつ最も強力 |
+| GPT-4o | `gpt-4o` または `chatgpt-4o-latest` | 高品質な会話 |
+| GPT-4o Mini | `gpt-4o-mini` | 高速で経済的 |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | コードに優れる |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | 高速応答 |
+| Gemini 2.0 Flash | `gemini-2.0-flash-exp` | マルチモーダル対応 |
+
+
+**Claude モデル使用時の特別な手順：**Claude モデル（`claude-sonnet-4-5-20250929` や `claude-haiku-4-5-20251001` など）を使用する場合は、以下の追加設定が必要です：
+
+1. **Claude API プロバイダーに切り替え**：
+   - 設定で **AI プロバイダー** を **Claude API** に変更します
+   - API Host は `https://api.dashlyai.cc/v1` のままにします
+   - API Key は DashlyAI の API キー（`sk-xxxxxxxxxxxx`）を使用します
+2. **またはカスタムリクエストヘッダーを追加**（OpenAI API プロバイダーを使用する場合）：
+   - 一部のバージョンの ChatBox はカスタムヘッダーの追加に対応しています
+   - 詳細設定でリクエストヘッダーを追加：`anthropic-version: 2023-06-01`
+
+**推奨方法：** GPT シリーズモデルには **OpenAI API**、Claude シリーズモデルには **Claude API**、Gemini シリーズモデルには **Gemini API** を使用してください。
+![モデル選択](/assets/images/ja_integrations_chatbox/4efd7773_model-selection.png)
+**パフォーマンス推奨：**
+
+- 💰 **コスト効率:** `gpt-4o-mini`、`claude-haiku-4-5-20251001`
+- 🚀 **高性能:** `gpt-5`、`gpt-4o`、`claude-sonnet-4-5-20250929`
+- ⚡ **高速応答:** `gemini-2.0-flash-exp`、`gpt-4o-mini`
+## [​](#ステップ-3:-使用開始)ステップ 3: 使用開始
+
+設定が完了したら、ChatBox で AI との会話を開始できます：
+
+1. メインインターフェースに戻ります
+2. 入力ボックスに質問や要求を入力します
+3. `Enter` キーを押すか、送信ボタンをクリックします
+4. AI が DashlyAI のモデルを使用して返信を生成します
+
+![チャットインターフェース](/assets/images/ja_integrations_chatbox/5dfc3202_chat-interface.png)
+### [​](#モデルパラメータの調整（オプション）)モデルパラメータの調整（オプション）
+
+必要に応じて以下のパラメータを調整できます：
+
+| パラメータ | 説明 | 推奨値 |
+| --- | --- | --- |
+| **Temperature** | 出力のランダム性を制御 | 0.7（創造的） / 0.3（正確） |
+| **Max Tokens** | 最大出力長 | 2000-4000 |
+| **Top P** | ニュークリアスサンプリングパラメータ | 0.9 |
+
+## [​](#高度な機能)高度な機能
+
+### [​](#マルチセッション管理)マルチセッション管理
+
+ChatBox は複数の会話セッションの作成をサポートしています：
+
+1. **新規チャット** ボタンをクリックします
+2. 異なるタスクのために独立したセッションを作成できます
+3. 左側のセッションリストで会話を切り替えます
+
+### [​](#会話の保存とエクスポート)会話の保存とエクスポート
+
+1. 会話セッションを右クリックします
+2. **エクスポート** オプションを選択します
+3. Markdown、JSON などの形式でエクスポートできます
+
+### [​](#プロンプトテンプレートの使用)プロンプトテンプレートの使用
+
+1. 設定メニューで **Prompts** 設定を見つけます
+2. よく使うプロンプトテンプレートを保存できます
+3. 会話中にプリセットのプロンプトをすばやく呼び出します
+
+## [​](#faq)FAQ
+
+### [​](#q1:-dashlyai-サービスに接続できない？)Q1: DashlyAI サービスに接続できない？
+
+**解決策：**
+
+1. **API Host を確認**：
+   - `https://api.dashlyai.cc` であることを確認
+   - `/v1` やその他のパスを追加しないでください
+2. **API Key を検証**：
+   - API Key が `sk-` で始まることを確認
+   - [DashlyAI コンソール](https://dashlyai.cc/console/token) でキーが有効か確認してください
+3. **ネットワーク接続を確認**：
+   - `https://api.dashlyai.cc` にアクセスできることを確認
+   - 中国国内の場合、プロキシの設定が必要な場合があります
+
+### [​](#q2:-モデルリストに-dashlyai-のモデルが表示されない？)Q2: モデルリストに DashlyAI のモデルが表示されない？
+
+**解決策：**
+
+1. **モデル名を手動入力**：
+   - モデル入力ボックスに直接モデル ID を入力します
+   - 例：`gpt-4o`、`gpt-4o-mini`、`claude-sonnet-4-5-20250929`
+2. **モデルリストを更新**：
+   - ChatBox アプリケーションを再起動します
+   - API 情報を再設定します
+
+### [​](#q3:-会話中にエラーメッセージが表示される？)Q3: 会話中にエラーメッセージが表示される？
+
+**一般的なエラーと解決策：**
+
+| エラーメッセージ | 原因 | 解決方法 |
+| --- | --- | --- |
+| `401 Unauthorized` | 無効または期限切れの API Key | API Key を再取得して設定を更新 |
+| `429 Too Many Requests` | リクエストレート制限超過 | しばらく待ってから再試行 |
+| `500 Internal Server Error` | サーバーの一時的な問題 | 数分待ってから再試行 |
+| `insufficient_quota` | アカウント残高不足 | コンソールでチャージ |
+
+### [​](#q4:-api-使用状況と費用を確認する方法は？)Q4: API 使用状況と費用を確認する方法は？
+
+[DashlyAI コンソール](https://dashlyai.cc/console) にログインして確認：
+
+- 📊 API 呼び出し統計
+- 💰 費用明細
+- 📈 使用傾向チャート
+- 🔍 詳細なリクエストログ
+
+### [​](#q5:-chatbox-はどのプラットフォームに対応していますか？)Q5: ChatBox はどのプラットフォームに対応していますか？
+
+ChatBox は複数のプラットフォームに対応しています：
+
+- 🪟 **Windows** - Windows 10/11
+- 🍎 **macOS** - macOS 10.15+
+- 🐧 **Linux** - 主要なディストリビューション
+- 🌐 **Web** - ブラウザ版
+
+## [​](#使用のヒント)使用のヒント
+
+### [​](#1-キーボードショートカット)1. キーボードショートカット
+
+ChatBox のキーボードショートカットを活用して効率化：
+
+| ショートカット | 機能 |
+| --- | --- |
+| `Ctrl/Cmd + Enter` | メッセージ送信 |
+| `Ctrl/Cmd + N` | 新規チャット |
+| `Ctrl/Cmd + K` | 会話検索 |
+| `Ctrl/Cmd + ,` | 設定を開く |
+| `Ctrl/Cmd + /` | キーボードヘルプ表示 |
+
+### [​](#2-プロンプトの最適化)2. プロンプトの最適化
+
+より良い応答を得るために、より良いプロンプトを書きます：
+**❌ 悪いプロンプト：**
+コピー
+```shiki
+コードを書いて
+
+```
+
+**✅ 良いプロンプト：**
+コピー
+```shiki
+以下の機能を実装する Python 関数を書いてください：
+1. 文字列のリストを入力として受け取る
+2. 3 文字未満の文字列をフィルタリング
+3. アルファベット順にソートした結果を返す
+詳細なコメントと使用例を含めてください
+
+```
+### [​](#3-会話履歴を活用)3. 会話履歴を活用
+
+ChatBox は会話履歴を保存します：
+
+- AI は現在のセッションのコンテキストを記憶します
+- 以前の応答に基づいて質問を続けられます
+- 深い議論と反復に適しています
+
+### [​](#4-モデルの切り替え)4. モデルの切り替え
+
+異なるタスクに適したモデルに切り替え：
+
+- **執筆タスク** - `gpt-4o` または `claude-sonnet-4-5` を使用
+- **コーディングタスク** - `claude-sonnet-4-5` を使用
+- **クイック Q&A** - `gpt-4o-mini` を使用
+- **マルチモーダル** - `gemini-2.0-flash-exp` を使用
+
+## [​](#機能)機能
+
+ChatBox + DashlyAI を使用すると：
+
+- 💬 **スムーズな会話** - リアルタイムのストリーミング出力でよりスムーズな体験
+- 🎯 **マルチセッション管理** - 複数の独立した会話を同時に管理
+- 💾 **ローカルストレージ** - プライバシー保護のため会話記録をローカルに保存
+- 📤 **会話のエクスポート** - 複数の形式でのエクスポートをサポート
+- 🎨 **シンプルなインターフェース** - シンプルで美しいユーザーインターフェース
+- 🔒 **オープンソース & 無料** - 完全にオープンソースで無料使用
+- 🌍 **クロスプラットフォーム** - Windows、macOS、Linux をサポート
+- 🚀 **優れたパフォーマンス** - 軽量アプリケーション、スムーズな動作
+
+## [​](#サポート-&-ヘルプ)サポート & ヘルプ
+
+問題が発生した場合：
+
+- 📚 [DashlyAI ドキュメント](https://docs.dashlyai.cc)
+- 📚 [ChatBox GitHub](https://github.com/Bin-Huang/chatbox)
+- 💬 [Discord コミュニティ](https://discord.gg/V8zqssyZ5c)
+- 🐦 [Twitter @DashlyAI\_](https://x.com/DashlyAI_)
+- 📧 技術サポート：[zhihong@dashlyai.cc](mailto:zhihong@dashlyai.cc)
+
+---
+
+
+[## DashlyAI を始める
+
+今すぐ DashlyAI に登録して API キーを取得し、ChatBox で AI の旅を始めましょう！](https://dashlyai.cc)[Cherry StudioでAPIMarｔを使用する](/ja/integrations/cherry-studio)⌘I

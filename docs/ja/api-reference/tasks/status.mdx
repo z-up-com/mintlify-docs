@@ -1,0 +1,85 @@
+---
+title: "タスクステータスの取得"
+sidebarTitle: "タスクステータスの取得"
+description: ""
+---
+
+`GET` `https://api.dashlyai.cc/v1/tasks/{task_id}`
+```shiki
+curl --request GET \
+  --url https://api.dashlyai.cc/v1/tasks/task-unified-1757156493-imcg5zqt?language=ja \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 画像生成タスク200 - 動画生成タスク（サムネイル付き）400401402403429500502コピー
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "task_01KA040M0HP1GJWBJYZMKX1XS1",
+    "status": "completed",
+    "progress": 100,
+    "result": {
+      "images": [
+        {
+          "url": [
+            "https://upload.dashlyai.cc/f/image/9998236911693428-e8d7441f-f7b4-4130-97ad-9ef8a0dde2ce-image_task_01KA0413RT2GGNZJ9GWQ4PXF2F_0.png"
+          ],
+          "expires_at": 1763174708
+        }
+      ]
+    },
+    "created": 1763088289,
+    "completed": 1763088308,
+    "estimated_time": 60,
+    "actual_time": 19
+  }
+}
+
+```
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントにはBearer Token認証が必要ですAPIキーの取得:[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加:コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#パスパラメータ)パスパラメータ
+
+[​](#param-task-id)task\_idstring必須生成APIから返されたタスクID
+## [​](#クエリパラメータ)クエリパラメータ
+
+[​](#param-language)languagestringレスポンスコンテンツの言語、以下の値をサポート：
+
+- `zh` - 中国語
+- `en` - 英語
+- `ko` - 韓国語
+- `ja` - 日本語
+
+デフォルトは英語
+## [​](#レスポンス)レスポンス
+
+[​](#param-id)idstring一意のタスク識別子
+[​](#param-status)statusstringタスクステータスの値:
+
+- `pending` - 処理待ち
+- `processing` - 処理中
+- `completed` - 正常に完了
+- `failed` - 失敗
+- `cancelled` - ユーザーによってキャンセル
+
+[​](#param-progress)progressintegerタスク進捗率 (0–100)
+[​](#param-result)resultobjectタスクの結果、ステータスが`completed`の場合のみ返されます
+
+表示 プロパティ
+
+[​](#param-images)imagesarray生成された画像オブジェクトの配列（画像生成タスクの場合）[​](#param-videos)videosarray生成された動画オブジェクトの配列（動画生成タスクの場合）[​](#param-thumbnail-url)thumbnail\_urlstring動画のサムネイルURL（動画生成タスクの場合）**重要：** このフィールドは、タスク作成時にリクエストパラメータでサムネイル生成を明示的に指定した場合のみ返されます。サムネイル生成がリクエストされていない場合、このフィールドはレスポンスに含まれません。
+[​](#param-created)createdintegerタスク作成タイムスタンプ
+[​](#param-completed)completedintegerタスク完了タイムスタンプ（完了時のみ存在）
+[​](#param-estimated-time)estimated\_timeinteger推定完了時間（秒）
+[​](#param-actual-time)actual\_timeinteger実際の完了時間（秒）（完了時のみ存在）
+[​](#param-error)errorobjectエラー詳細（ステータスが`failed`の場合のみ存在）
+
+表示 プロパティ
+
+[​](#param-code)codeintegerエラーコード[​](#param-message)messagestringエラーメッセージ[​](#param-type)typestringエラータイプ[TTS テキスト音声変換](/ja/api-reference/audios/tts)[トークン残高照会](/ja/api-reference/account/token-balance)⌘I

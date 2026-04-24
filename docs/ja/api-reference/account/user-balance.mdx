@@ -1,0 +1,84 @@
+---
+title: "ユーザー残高照会"
+sidebarTitle: "ユーザー残高照会"
+description: ""
+---
+
+GEThttps://api.dashlyai.cc/v1/user/balance試すcURLPythonJavaScriptGoJavaPHPコピー
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/user/balance' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 成功200 - 無制限ユーザー200 - ユーザー残高照会失敗200 - 使用済み残高照会失敗401429コピー
+```shiki
+{
+  "success": true,
+  "remain_balance": 100.0,
+  "used_balance": 25.5,
+  "unlimited_quota": false
+}
+
+```
+現在のユーザーアカウントの残高と使用済み残高を取得します。このエンドポイントは特定のトークンに依存しないユーザーレベルの残高情報を返し、アカウント全体の残高を確認するために使用されます。
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントにはBearer Token認証が必要ですAPIキーの取得：[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#エンドポイント)エンドポイント
+
+コピー
+```shiki
+GET /v1/user/balance
+GET /user/balance
+
+```
+
+両方のエンドポイントは同じ機能を持っています。どちらでも使用できます。
+## [​](#レスポンス)レスポンス
+
+[​](#param-success)successbooleanリクエストが成功したかどうか
+[​](#param-message)messagestringエラーメッセージ（失敗時のみ返却）
+[​](#param-remain-balance)remain\_balancefloatユーザー残高（成功時に返却）。`unlimited_quota` が `true` の場合、値は `-1` になります
+[​](#param-used-balance)used\_balancefloatユーザー使用済み残高（成功時に返却）
+[​](#param-unlimited-quota)unlimited\_quotabooleanユーザーが無制限かどうか。`true` は無制限、`false` は制限ありを意味します
+## [​](#トークン残高-vs-ユーザー残高)トークン残高 vs ユーザー残高
+
+| 比較項目 | トークン残高 (`/v1/balance`) | ユーザー残高 (`/v1/user/balance`) |
+| --- | --- | --- |
+| スコープ | 単一トークン | ユーザーアカウント全体 |
+| データソース | TokenのRemainQuotaとUsedQuota | Userのquotaとused\_quota |
+| ユースケース | 単一APIキーの使用状況を監視 | アカウント全体の残高を表示 |
+| 制限 | トークンレベルの制限 | ユーザーレベルの制限 |
+
+## [​](#ユースケース)ユースケース
+
+- ユーザーアカウント全体の残高を確認
+- チャージリマインダーと残高アラートを設定
+- ユーザーダッシュボードでアカウント残高を表示
+
+**残高単位について**残高の単位はシステム設定によって異なります：
+
+- **USD** - 米ドル
+- **CNY** - 人民元
+- **Tokens** - トークン数
+
+**無制限ユーザー**ユーザーが無制限に設定されている場合：
+
+- `unlimited_quota` フィールドは `true` を返します
+- `remain_balance` フィールドは `-1` を返します
+- そのユーザーは制限なしでAPIを無制限に使用できます
+## [​](#一般的なエラー)一般的なエラー
+
+| エラーメッセージ | 原因 | 解決策 |
+| --- | --- | --- |
+| Authorizationヘッダーなし | Authorizationヘッダーが提供されていない | `Authorization: Bearer sk-xxxxx`ヘッダーを追加 |
+| ユーザー残高の取得に失敗 | ユーザーが存在しない | トークンに関連付けられたユーザーが存在するか確認 |
+| 使用済み残高の取得に失敗 | データベースクエリエラー | 管理者に連絡してシステム状態を確認 |
+
+
+**セキュリティに関する注意**APIキーはパスワードと同様です。安全に保管し、他人と共有しないでください。本番環境では必ずHTTPSを使用してください。[トークン残高照会](/ja/api-reference/account/token-balance)⌘I

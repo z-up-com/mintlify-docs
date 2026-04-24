@@ -1,0 +1,100 @@
+---
+title: "​クイックスタート"
+sidebarTitle: "ガイド"
+description: ""
+---
+
+# [​](#クイックスタート)クイックスタート
+
+APIサービスへようこそ！このガイドでは、画像と動画生成を素早く始める方法を説明します。
+## [​](#ステップ1：apiキーを取得する)ステップ1：APIキーを取得する
+
+1. [APIキー管理ページ](https://dashlyai.cc/console/token)にアクセス
+2. アカウントにサインインする
+3. 新しいAPIキーを作成する
+4. キーを安全に保存する（一度だけ表示されます）
+
+## [​](#ステップ2：モデルを選択する)ステップ2：モデルを選択する
+
+複数のAIモデルから選択できます。
+### [​](#テキスト生成モデル)テキスト生成モデル
+
+- **GPT-4o**: 強力な対話とテキスト生成機能
+- **Claude**: Anthropicの高性能な対話モデル
+- **Gemini**: Googleのマルチモーダル大規模言語モデル
+
+### [​](#画像生成モデル)画像生成モデル
+
+- **GPT-4o-image**: 高品質な画像生成
+
+### [​](#動画生成モデル)動画生成モデル
+
+- **Sora2**: プロフェッショナルな動画生成
+
+## [​](#ステップ3：リクエストを送信する)ステップ3：リクエストを送信する
+
+### [​](#テキスト生成の例)テキスト生成の例
+
+コピー
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": "こんにちは、自己紹介をしてください"
+      }
+    ]
+  }'
+
+```
+### [​](#画像生成の例)画像生成の例
+
+コピー
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/images/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o-image",
+    "prompt": "A cute panda",
+    "size": "1:1",
+    "n": 1
+  }'
+
+```
+### [​](#動画生成の例)動画生成の例
+
+コピー
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/videos/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sora-2",
+    "prompt": "Waves crashing against the shore",
+    "duration": 15,
+    "aspect_ratio": "16:9"
+  }'
+
+```
+## [​](#ステップ4：タスクのステータスを確認する)ステップ4：タスクのステータスを確認する
+
+非同期処理を使用しているため、タスクのステータスを照会して結果を取得する必要があります。
+コピー
+```shiki
+curl -X GET https://api.dashlyai.cc/v1/tasks/YOUR_TASK_ID \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+```
+## [​](#次のステップ)次のステップ
+
+[## APIドキュメントを見る
+
+利用可能なすべてのAPIエンドポイントについて詳しく学ぶ。](/ja/api-reference/introduction)
+[## 開発ガイド
+
+アプリケーションにAPIを統合する方法を学ぶ。](/ja/development)[開発ガイド](/ja/development)⌘I

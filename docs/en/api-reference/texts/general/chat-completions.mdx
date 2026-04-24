@@ -1,0 +1,246 @@
+---
+title: "General Chat API"
+sidebarTitle: "General Chat API"
+description: "Show Message object structure"
+---
+
+POSThttps://api.dashlyai.cc/v1/chat/completionsTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/chat/completions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o", # Can be replaced with any supported model ID
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a professional AI assistant."
+      },
+      {
+        "role": "user",
+        "content": "Tell me about the history of artificial intelligence."
+      }
+    ]
+  }'
+
+```
+200400401402403429500502Copy
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "chatcmpl-9876543210",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "gpt-4o",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The history of artificial intelligence (AI) dates back to the 1950s...\n\n1. **Early Period (1950s-1960s)**: The proposal of the Turing Test marked the beginning of AI research...\n\n2. **Expert Systems Era (1970s-1980s)**: Rule-based systems began to be applied in medical diagnosis, financial analysis, and other fields...\n\n3. **Rise of Machine Learning (1990s-2000s)**: Statistical learning methods gradually became mainstream...\n\n4. **Deep Learning Revolution (2010s-Present)**: Breakthroughs in neural network technology brought explosive growth to AI..."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 28,
+      "completion_tokens": 320,
+      "total_tokens": 348
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll API endpoints require Bearer Token authenticationGet your API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd it to the request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringrequiredModel nameSupported models include:
+
+- **OpenAI**: `gpt-5`, `gpt-5-chat-latest`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-pro`
+- **Anthropic**: `claude-sonnet-4-5-20250929`, `claude-opus-4-1-20250805`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805-thinking`, `claude-sonnet-4-5-20250929-thinking`
+- **Google**: `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-pro-thinking`, `gemini-2.5-flash-lite`
+- **DeepSeek**: `deepseek-v3.1-250821`, `deepseek-v3.1-think-250821`, `deepseek-v3-0324`
+- **Doubao**: `doubao-seed-1-6-251015`, `doubao-seed-1-6-flash-250828`, `doubao-seed-1-6-thinking-250715`
+- More models being added continuously…
+
+[​](#param-messages)messagesarrayrequiredList of conversation messages
+
+Show Message object structure
+
+[​](#param-role)roleenum (string)default:"user"requiredRole type
+
+- `user` - User message
+- `assistant` - AI response (for multi-turn)
+- `system` - System prompt
+[​](#param-content)contentstringrequiredMessage contentYour question or message**Example:**Copy
+```shiki
+[{"role": "user", "content": "Hello, please introduce yourself"}]
+
+```
+**Advanced usage:**Add system prompt (to define AI behavior):Copy
+```shiki
+[
+  {"role": "system", "content": "You are a professional Python tutor"},
+  {"role": "user", "content": "How do I learn programming?"}
+]
+
+```
+Multi-turn conversation (with context):Copy
+```shiki
+[
+  {"role": "user", "content": "Hello"},
+  {"role": "assistant", "content": "Hi! How can I help you?"},
+  {"role": "user", "content": "Tell me about AI"}
+]
+
+```
+**Role descriptions:**
+
+- `user`: User message (use this most of the time)
+- `system`: System prompt to set AI behavior and role
+- `assistant`: AI’s previous responses, used for conversation context
+
+[​](#param-temperature)temperaturenumberControls output randomness, range 0-2
+
+- Lower values (e.g., 0.2) make output more deterministic
+- Higher values (e.g., 1.8) make output more random
+
+Default: 1.0
+[​](#param-max-tokens)max\_tokensintegerMaximum number of tokens to generateDifferent models have different maximum limits, please refer to specific model documentation
+[​](#param-stream)streambooleanWhether to use streaming output
+
+- `true`: Streaming response (SSE format)
+- `false`: Complete response at once
+
+Default: false
+[​](#param-top-p)top\_pnumberNucleus sampling parameter, range 0-1Controls diversity of generated text, recommend using either this or temperatureDefault: 1.0
+[​](#param-frequency-penalty)frequency\_penaltynumberFrequency penalty, range -2.0 to 2.0Positive values reduce the likelihood of repeating the same wordsDefault: 0
+[​](#param-presence-penalty)presence\_penaltynumberPresence penalty, range -2.0 to 2.0Positive values increase the likelihood of talking about new topicsDefault: 0
+[​](#param-stop)stopstring or arrayStop sequencesUp to 4 sequences where generation will stop when encountered
+[​](#param-n)nintegerNumber of completions to generateDefault: 1**⚠️ Note:** Must enter a plain number (e.g., `1`), do not use quotes or it will cause an error
+## [​](#response)Response
+
+[​](#param-id)idstringUnique identifier for the response
+[​](#param-object)objectstringObject type, fixed as `chat.completion`
+[​](#param-created)createdintegerCreation timestamp
+[​](#param-model-1)modelstringThe actual model name used
+[​](#param-choices)choicesarrayList of generated responses
+
+Show Properties
+
+[​](#param-index)indexintegerChoice index[​](#param-message)messageobjectMessage content
+
+Show Properties
+
+[​](#param-role-1)rolestringRole type (assistant)[​](#param-content-1)contentstringGenerated text content[​](#param-finish-reason)finish\_reasonstringReason for completionPossible values:
+
+- `stop` - Natural completion
+- `length` - Maximum length reached
+- `content_filter` - Content filtered
+- `function_call` - Function call
+
+[​](#param-usage)usageobjectToken usage statistics
+
+Show Properties
+
+[​](#param-prompt-tokens)prompt\_tokensintegerNumber of tokens in the input messages[​](#param-completion-tokens)completion\_tokensintegerNumber of tokens in the generated content[​](#param-total-tokens)total\_tokensintegerTotal number of tokens
+## [​](#supported-models)Supported Models
+
+### [​](#openai-series)OpenAI Series
+
+- `gpt-5` - GPT-5 base model
+- `gpt-5-chat-latest` - GPT-5 latest chat version
+- `gpt-5-mini` - GPT-5 lightweight version, cost-effective
+- `gpt-5-nano` - GPT-5 ultra-lightweight version
+- `gpt-5-pro` - GPT-5 professional enhanced version
+
+### [​](#anthropic-series)Anthropic Series
+
+- `claude-haiku-4-5-20251001` - Claude 4.5 fast response version
+- `claude-sonnet-4-5-20250929` - Claude 4.5 balanced version
+- `claude-opus-4-1-20250805` - Most powerful Claude 4.1 flagship model
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus deep thinking version
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet deep thinking version
+
+### [​](#google-series)Google Series
+
+- `gemini-2.5-flash` - Gemini 2.5 fast version
+- `gemini-2.5-pro` - Gemini 2.5 professional version
+- `gemini-2.5-flash-lite` - Gemini 2.5 ultra-lightweight version
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro deep thinking version
+
+### [​](#deepseek-series)DeepSeek Series
+
+- `deepseek-v3.1-250821` - DeepSeek V3.1 base version
+- `deepseek-v3.1-think-250821` - DeepSeek V3.1 thinking version
+- `deepseek-v3-0324` - DeepSeek V3 standard version
+
+### [​](#doubao-series)Doubao Series
+
+- `doubao-seed-1-6-flash-250828` - Doubao Seed 1.6 fast version
+- `doubao-seed-1-6-thinking-250715` - Doubao Seed 1.6 thinking version
+- `doubao-seed-1-6-251015` - Doubao Seed 1.6 standard version
+
+## [​](#usage-examples)Usage Examples
+
+### [​](#basic-conversation)Basic Conversation
+
+Copy
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "Hello"}
+  ]
+}
+
+```
+### [​](#system-prompt)System Prompt
+
+Copy
+```shiki
+{
+  "model": "claude-3-5-sonnet",
+  "messages": [
+    {"role": "system", "content": "You are a professional Python programming tutor"},
+    {"role": "user", "content": "How to use list comprehensions?"}
+  ]
+}
+
+```
+### [​](#multi-turn-conversation)Multi-turn Conversation
+
+Copy
+```shiki
+{
+  "model": "gemini-2.0-flash",
+  "messages": [
+    {"role": "user", "content": "What is machine learning?"},
+    {"role": "assistant", "content": "Machine learning is a branch of artificial intelligence..."},
+    {"role": "user", "content": "Can you give me an example?"}
+  ]
+}
+
+```
+### [​](#streaming-output)Streaming Output
+
+Copy
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "Write a poem about spring"}
+  ],
+  "stream": true
+}
+
+```
+[DashlyAI — OpenAI-Compatible API Gateway (GPT-5, Claude, Gemini)](/en)[Claude Messages API](/en/api-reference/texts/general/claude-messages)⌘I

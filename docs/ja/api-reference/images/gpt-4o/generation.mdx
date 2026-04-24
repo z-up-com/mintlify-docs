@@ -1,0 +1,85 @@
+---
+title: "画像生成 APIテキストから画像生成"
+sidebarTitle: "画像生成 APIテキストから画像生成"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/images/generations試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/images/generations \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-image",
+    "prompt": "海の上の鮮やかな色彩の美しい夕焼け",
+    "size": "1:1",
+    "n": 1,
+    "image_urls": [
+      "https://cdn.dashlyai.cc/doc/9998238784524590-549804af-14bc-4fbc-bae5-9d8469d35de3-image_task_01K889V97T2YF8RHQW21XMVMS1_0.png"
+    ]
+  }'
+
+```
+200400401402403429500502コピー
+```shiki
+{
+  "code": 200,
+  "data": [
+    {
+      "status": "submitted",
+      "task_id": "task_01K8SGYNNNVBQTXNR4MM964S7K"
+    }
+  ]
+}
+
+```
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントはBearer Token認証が必要ですAPIキーの取得方法：[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#リクエストボディ)リクエストボディ
+
+[​](#param-model)modelstringデフォルト:"gpt-4o-image"必須画像生成モデル名Example: `"gpt-4o-image"`
+[​](#param-prompt)promptstring必須画像生成のためのテキスト説明最大1000文字
+[​](#param-size)sizestring画像生成サイズサポートされている形式：
+
+- 比率：`1:1`, `2:3`, `3:2`
+
+[​](#param-n)ninteger生成する画像の数1、2、4をサポート。数量に基づいて料金が事前に差し引かれますデフォルト：1**⚠️ 注意：** 純粋な数字を入力してください（例：`1`）。引用符を使用するとエラーになります
+[​](#param-image-urls)image\_urlsarray画像から画像または画像編集のための参照画像URLリスト**💡 クイック入力（Try itエリア）：**
+
+1. ”+ Add an item” をクリックして画像URLを追加
+2. 画像の完全なURL アドレスを入力
+
+表示 フィールド詳細
+
+[​](#param-url)urlstring必須画像URLアドレス以下が可能：
+
+- 公開アクセス可能な画像URL（http:// または https://）
+- Base64エンコードされた画像データ
+
+**制限：**
+
+- 単一画像は最大 10MB
+- 対応形式：.jpeg、.jpg、.png、.webp
+**制限：** 最大 5 枚の画像
+[​](#param-mask-url)mask\_urlstringマスク画像URL
+
+- PNG形式である必要があります
+- サイズは参照画像と一致する必要があります
+- 最大4MB
+## [​](#レスポンス)レスポンス
+
+[​](#param-code)codeintegerレスポンスステータスコード
+[​](#param-data)dataarrayレスポンスデータ配列
+
+表示 プロパティ
+
+[​](#param-status)statusstringタスクステータス
+
+- `submitted` - 送信済み
+[​](#param-task-id)task\_idstring一意のタスク識別子[Gemini-2.5-Flash-Image-preview (Nano banana) 画像生成](/ja/api-reference/images/nano-banana/generation)[Seedream-4.0 画像生成](/ja/api-reference/images/seedream-4/generation)⌘I

@@ -1,0 +1,246 @@
+---
+title: "通用对话接口"
+sidebarTitle: "通用对话接口"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/chat/completions试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/chat/completions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o", # 可替换为任意支持的模型 ID
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个专业的AI助手。"
+      },
+      {
+        "role": "user",
+        "content": "介绍一下人工智能的发展历史。"
+      }
+    ]
+  }'
+
+```
+200400401402403429500502复制
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "chatcmpl-9876543210",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "gpt-4o",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "人工智能（AI）的发展历史可以追溯到20世纪50年代...\n\n1. **早期阶段（1950s-1960s）**：图灵测试的提出标志着AI研究的开始...\n\n2. **专家系统时代（1970s-1980s）**：基于规则的系统开始应用于医疗诊断、金融分析等领域...\n\n3. **机器学习兴起（1990s-2000s）**：统计学习方法逐渐成为主流...\n\n4. **深度学习革命（2010s-至今）**：神经网络技术的突破带来了AI的爆发式发展..."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 28,
+      "completion_tokens": 320,
+      "total_tokens": 348
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstring默认值:"gpt-5"必填模型名称支持的模型包括：
+
+- **OpenAI**: `gpt-5`, `gpt-5-chat-latest`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-pro`
+- **Anthropic**: `claude-sonnet-4-5-20250929`, `claude-opus-4-1-20250805`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805-thinking`, `claude-sonnet-4-5-20250929-thinking`
+- **Google**: `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-pro-thinking`, `gemini-2.5-flash-lite`
+- **DeepSeek**: `deepseek-v3.1-250821`, `deepseek-v3.1-think-250821`, `deepseek-v3-0324`
+- **Doubao**: `doubao-seed-1-6-251015`, `doubao-seed-1-6-flash-250828`, `doubao-seed-1-6-thinking-250715`
+- 更多模型持续更新中…
+
+[​](#param-messages)messagesarray必填对话消息列表消息数组，每条消息包含 `role` 和 `content` 两个字段。**💡 快速填写（Try it 区域）：**
+
+1. 点击 ”+ Add an item” 添加一条消息
+2. `role` 输入：`user`（用户消息）、`assistant`（AI回复）或 `system`（系统提示词）
+3. `content` 输入：你想说的话
+
+显示 详细字段说明
+
+[​](#param-role)rolestring默认值:"user"必填角色类型可选值：`user`（用户消息）、`assistant`（AI回复，用于多轮对话）、`system`（系统提示词，设置AI行为）[​](#param-content)contentstring必填消息内容填写你想说的话或问题**示例：**复制
+```shiki
+[{"role": "user", "content": "你好，请介绍一下你自己"}]
+
+```
+**进阶用法：**添加系统提示词（让 AI 扮演特定角色）：复制
+```shiki
+[
+  {"role": "system", "content": "你是专业的Python导师"},
+  {"role": "user", "content": "如何学习编程？"}
+]
+
+```
+多轮对话（包含上下文）：复制
+```shiki
+[
+  {"role": "user", "content": "你好"},
+  {"role": "assistant", "content": "你好！有什么可以帮你的？"},
+  {"role": "user", "content": "介绍一下人工智能"}
+]
+
+```
+**角色说明：**
+
+- `user`: 用户消息（大多数情况用这个）
+- `system`: 系统提示词，设置 AI 的行为和角色
+- `assistant`: AI 的历史回复，用于多轮对话时提供上下文
+
+[​](#param-temperature)temperaturenumber控制输出随机性，范围 0-2
+
+- 较低的值（如 0.2）使输出更确定
+- 较高的值（如 1.8）使输出更随机
+
+默认值：1.0
+[​](#param-max-tokens)max\_tokensinteger生成的最大token数量不同模型有不同的最大值限制，请参考具体模型文档
+[​](#param-stream)streamboolean是否使用流式输出
+
+- `true`: 流式返回（SSE格式）
+- `false`: 一次性返回完整响应
+
+默认值：false
+[​](#param-top-p)top\_pnumber核采样参数，范围 0-1控制生成文本的多样性，建议与 temperature 二选一使用默认值：1.0
+[​](#param-frequency-penalty)frequency\_penaltynumber频率惩罚，范围 -2.0 到 2.0正值会降低重复使用相同词汇的可能性默认值：0
+[​](#param-presence-penalty)presence\_penaltynumber存在惩罚，范围 -2.0 到 2.0正值会增加谈论新主题的可能性默认值：0
+[​](#param-stop)stopstring or array停止序列最多4个序列，遇到这些序列时将停止生成
+[​](#param-n)ninteger生成的回复数量默认值：1**⚠️ 注意：** 必须输入纯数字（如 `1`），不要加引号，否则会报错
+## [​](#response)Response
+
+[​](#param-id)idstring响应的唯一标识符
+[​](#param-object)objectstring对象类型，固定为 `chat.completion`
+[​](#param-created)createdinteger创建时间戳
+[​](#param-model-1)modelstring实际使用的模型名称
+[​](#param-choices)choicesarray生成的回复列表
+
+显示 属性
+
+[​](#param-index)indexinteger选项索引[​](#param-message)messageobject消息内容
+
+显示 属性
+
+[​](#param-role-1)rolestring角色类型（assistant）[​](#param-content-1)contentstring生成的文本内容[​](#param-finish-reason)finish\_reasonstring结束原因可能的值：
+
+- `stop` - 自然结束
+- `length` - 达到最大长度
+- `content_filter` - 内容过滤
+- `function_call` - 函数调用
+
+[​](#param-usage)usageobjecttoken使用统计
+
+显示 属性
+
+[​](#param-prompt-tokens)prompt\_tokensinteger输入消息的token数[​](#param-completion-tokens)completion\_tokensinteger生成内容的token数[​](#param-total-tokens)total\_tokensinteger总token数
+## [​](#支持的模型列表)支持的模型列表
+
+### [​](#openai-系列)OpenAI 系列
+
+- `gpt-5` - GPT-5 基础模型
+- `gpt-5-chat-latest` - GPT-5 最新对话版本
+- `gpt-5-mini` - GPT-5 轻量级版本，性价比高
+- `gpt-5-nano` - GPT-5 超轻量版本
+- `gpt-5-pro` - GPT-5 专业增强版
+
+### [​](#anthropic-系列)Anthropic 系列
+
+- `claude-haiku-4-5-20251001` - Claude 4.5 快速响应版本
+- `claude-sonnet-4-5-20250929` - Claude 4.5 平衡版本
+- `claude-opus-4-1-20250805` - 最强大的 Claude 4.1 旗舰模型
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus 深度思考版
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet 深度思考版
+
+### [​](#google-系列)Google 系列
+
+- `gemini-2.5-flash` - Gemini 2.5 快速版
+- `gemini-2.5-pro` - Gemini 2.5 专业版
+- `gemini-2.5-flash-lite` - Gemini 2.5 超轻量版
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro 深度思考版
+
+### [​](#deepseek-系列)DeepSeek 系列
+
+- `deepseek-v3.1-250821` - DeepSeek V3.1 基础版
+- `deepseek-v3.1-think-250821` - DeepSeek V3.1 思考版
+- `deepseek-v3-0324` - DeepSeek V3 标准版
+
+### [​](#doubao-系列)Doubao 系列
+
+- `doubao-seed-1-6-flash-250828` - Doubao Seed 1.6 快速版
+- `doubao-seed-1-6-thinking-250715` - Doubao Seed 1.6 思考版
+- `doubao-seed-1-6-251015` - Doubao Seed 1.6 标准版
+
+## [​](#使用示例)使用示例
+
+### [​](#基础对话)基础对话
+
+复制
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "你好"}
+  ]
+}
+
+```
+### [​](#系统提示词)系统提示词
+
+复制
+```shiki
+{
+  "model": "claude-3-5-sonnet",
+  "messages": [
+    {"role": "system", "content": "你是一位专业的Python编程导师"},
+    {"role": "user", "content": "如何使用列表推导式？"}
+  ]
+}
+
+```
+### [​](#多轮对话)多轮对话
+
+复制
+```shiki
+{
+  "model": "gemini-2.0-flash",
+  "messages": [
+    {"role": "user", "content": "什么是机器学习？"},
+    {"role": "assistant", "content": "机器学习是人工智能的一个分支..."},
+    {"role": "user", "content": "能举个例子吗？"}
+  ]
+}
+
+```
+### [​](#流式输出)流式输出
+
+复制
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "写一首关于春天的诗"}
+  ],
+  "stream": true
+}
+
+```
+[DashlyAI — OpenAI 兼容 API 网关（GPT-5、Claude、Gemini）](/cn)[Claude 消息接口](/cn/api-reference/texts/general/claude-messages)⌘I

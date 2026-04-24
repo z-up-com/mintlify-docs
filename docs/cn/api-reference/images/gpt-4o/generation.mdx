@@ -1,0 +1,93 @@
+---
+title: "图像生成 API文本到图像生成"
+sidebarTitle: "图像生成 API文本到图像生成"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/images/generations试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/images/generations \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-image",
+    "prompt": "星空下的古老城堡",
+    "size": "1:1",
+    "n": 1,
+    "image_urls": [
+      "https://cdn.dashlyai.cc/doc/9998238784524590-549804af-14bc-4fbc-bae5-9d8469d35de3-image_task_01K889V97T2YF8RHQW21XMVMS1_0.png"
+    ]
+  }'
+
+```
+200400401402403429500502复制
+```shiki
+{
+  "code": 200,
+  "data": [
+    {
+      "status": "submitted",
+      "task_id": "task_01K8SGYNNNVBQTXNR4MM964S7K"
+    }
+  ]
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstring默认值:"gpt-4o-image"必填图像生成模型名称Example: `"gpt-4o-image"`
+[​](#param-prompt)promptstring必填图像生成的文本描述最长 1000 个字符
+[​](#param-size)sizestring图像生成的尺寸支持的格式：
+
+- 比例：`1:1`、`2:3`、`3:2`
+
+[​](#param-n)ninteger生成图像的数量支持 1、2、4，会根据生成数量进行预扣费默认值：1**⚠️ 注意：** 必须输入纯数字（如 `1`），不要加引号，否则会报错
+[​](#param-image-urls)image\_urlsarray参考图像的 URL 列表，用于图生图或图像编辑**💡 快速填写（Try it 区域）：**
+
+1. 点击 ”+ Add an item” 添加一个图像URL
+2. 输入图像的完整 URL 地址或base64数据
+
+显示 详细字段说明
+
+[​](#param-url)urlstring必填图像URL地址支持两种格式：**1. 完整的图像URL地址**
+
+- 公开可访问的图像URL（http:// 或 https://）
+- 示例：`https://example.com/image.jpg`
+
+**2. Base64 编码格式**
+
+- **必须使用完整的 Data URI 格式**
+- 格式：`data:image/{格式};base64,{base64数据}`
+- 支持的图片格式：jpeg、png、webp 等
+- 示例：`data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABg...`
+- ⚠️ 注意：必须包含 `data:image/jpeg;base64,` 前缀部分
+
+**限制：**
+
+- 单张图片不超过 10MB
+- 支持格式：.jpeg、.jpg、.png、.webp
+**限制：** 最多 5 张图片
+[​](#param-mask-url)mask\_urlstring蒙版图像的 URL
+
+- 必须是 PNG 格式
+- 大小需要与参考图像一致
+- 不超过 4MB
+## [​](#response)Response
+
+[​](#param-code)codeinteger响应状态码
+[​](#param-data)dataarray返回数据数组
+
+显示 属性
+
+[​](#param-status)statusstring任务状态
+
+- `submitted` - 已提交
+[​](#param-task-id)task\_idstring任务唯一标识符[Gemini-2.5-Flash-Image-preview（Nano banana）图像生成](/cn/api-reference/images/nano-banana/generation)[Seedream-4.0 图像生成](/cn/api-reference/images/seedream-4/generation)⌘I

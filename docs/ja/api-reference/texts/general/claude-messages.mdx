@@ -1,0 +1,532 @@
+---
+title: "Claude Messages API"
+sidebarTitle: "Claude Messages API"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/messages試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl https://api.dashlyai.cc/v1/messages \
+  -H "x-api-key: $API_KEY" \
+  -H "anthropic-version: 2025-10-01" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5-20250929",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "Hello, world"}
+    ]
+  }'
+
+```
+200400401429500コピー
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "こんにちは！私はClaudeです。お会いできて嬉しいです。"
+      }
+    ],
+    "model": "claude-sonnet-4-5-20250929",
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 12,
+      "output_tokens": 18
+    }
+  }
+}
+
+```
+## [​](#認証)認証
+
+[​](#param-x-api-key)x-api-keystring必須認証用APIキー[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+x-api-key: YOUR_API_KEY
+
+```
+
+[​](#param-anthropic-version)anthropic-versionstring必須APIバージョン使用するClaude APIバージョンを指定します例：`2025-10-01`
+## [​](#リクエストボディ)リクエストボディ
+
+[​](#param-model)modelstringデフォルト:"claude-haiku-4-5-20251001"必須モデル名
+
+- `claude-haiku-4-5-20251001` - Claude 4.5 高速レスポンス版
+- `claude-sonnet-4-5-20250929` - Claude 4.5 バランス版
+- `claude-opus-4-1-20250805` - 最も強力な Claude 4.1 フラッグシップモデル
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus 深層思考版
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet 深層思考版
+
+[​](#param-messages)messagesarray必須メッセージのリストモデルが次のレスポンスを生成するためのメッセージの配列。各メッセージには `role` と `content` の2つのフィールドが含まれます。**💡 クイック入力（Try itエリア）：**
+
+1. ”+ Add an item” をクリックしてメッセージを追加
+2. `role` に入力：`user`（ユーザーメッセージ）または `assistant`（AI応答、複数ターン会話用）
+3. `content` に入力：話したい内容
+
+表示 フィールド詳細
+
+[​](#param-role)rolestringデフォルト:"user"必須ロールタイプ選択肢：`user`（ユーザーメッセージ）、`assistant`（AI応答、複数ターン会話および事前入力用）注：Claude APIではシステムプロンプトは別の `system` パラメータを使用し、messagesには含めません[​](#param-content)contentstring必須メッセージ内容メッセージのテキスト内容**単一のユーザーメッセージ：**コピー
+```shiki
+[{"role": "user", "content": "こんにちは、Claude"}]
+
+```
+**複数ターンの会話：**コピー
+```shiki
+[
+  {"role": "user", "content": "こんにちは。"},
+  {"role": "assistant", "content": "こんにちは、私はClaudeです。どのようにお手伝いできますか？"},
+  {"role": "user", "content": "LLMを分かりやすく説明していただけますか？"}
+]
+
+```
+**事前入力されたアシスタント応答：**コピー
+```shiki
+[
+  {"role": "user", "content": "太陽のギリシャ語名は？ (A) Sol (B) Helios (C) Sun"},
+  {"role": "assistant", "content": "正解は("}
+]
+
+```
+
+[​](#param-max-tokens)max\_tokensinteger生成する最大トークン数停止前に生成する最大トークン数。モデルはこの制限に達する前に停止する可能性があります。モデルによって最大値が異なります。最小値：1
+[​](#param-system)systemstring | arrayシステムプロンプトシステムプロンプトはClaudeの役割、性格、目標、指示を設定します。**文字列形式：**コピー
+```shiki
+{
+  "system": "あなたはプロフェッショナルなPythonプログラミング講師です"
+}
+
+```
+**構造化形式：**コピー
+```shiki
+{
+  "system": [
+    {
+      "type": "text",
+      "text": "あなたはプロフェッショナルなPythonプログラミング講師です"
+    }
+  ]
+}
+
+```
+
+[​](#param-temperature)temperaturenumber温度パラメータ、範囲は0～1出力のランダム性を制御：
+
+- 低い値（例：0.2）：より決定的、保守的
+- 高い値（例：0.8）：よりランダム、創造的
+
+デフォルト：1.0
+[​](#param-top-p)top\_pnumberニュークレアスサンプリングパラメータ、範囲は0～1ニュークレアスサンプリングを使用します。`temperature`または`top_p`のいずれかの使用を推奨します。デフォルト：1.0
+[​](#param-top-k)top\_kintegerTop-Kサンプリング上位K個のオプションのみからサンプリングし、「ロングテール」の低確率応答を除去します。高度なユースケースにのみ推奨。
+[​](#param-stream)streambooleanストリーミングを有効化`true`の場合、Server-Sent Events（SSE）を使用してレスポンスをストリーミングします。デフォルト：false
+[​](#param-stop-sequences)stop\_sequencesarray停止シーケンスモデルの生成を停止させるカスタムテキストシーケンス。最大4つのシーケンス。例：`["\n\nHuman:", "\n\nAssistant:"]`
+[​](#param-metadata)metadataobjectMetadataMetadata object for the request.Includes:
+
+- `user_id`: User identifier
+
+[​](#param-tools)toolsarrayTool definitionsList of tools the model can use to complete tasks.**Function tool example:**コピー
+```shiki
+{
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "Get the current weather in a given location",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The city and state, e.g. San Francisco, CA"
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["celsius", "fahrenheit"],
+            "description": "Temperature unit"
+          }
+        },
+        "required": ["location"]
+      }
+    }
+  ]
+}
+
+```
+Supported tool types:
+
+- Custom function tools
+- Computer use tool (computer\_20241022)
+- Text editor tool (text\_editor\_20241022)
+- Bash tool (bash\_20241022)
+
+[​](#param-tool-choice)tool\_choiceobjectTool choice strategyControls how the model uses tools:
+
+- `{"type": "auto"}`: Auto-decide (default)
+- `{"type": "any"}`: Must use a tool
+- `{"type": "tool", "name": "tool_name"}`: Use specific tool
+## [​](#response)Response
+
+[​](#param-id)idstringUnique message identifierExample: `"msg_013Zva2CMHLNnXjNJJKqJ2EF"`
+[​](#param-type)typestringObject typeAlways `"message"`
+[​](#param-role-1)rolestringRoleAlways `"assistant"`
+[​](#param-content-1)contentarrayContent blocks arrayContent generated by the model, as an array of content blocks.**Text content:**コピー
+```shiki
+[{"type": "text", "text": "Hello! I'm Claude."}]
+
+```
+**Tool use:**コピー
+```shiki
+[
+  {
+    "type": "tool_use",
+    "id": "toolu_01A09q90qw90lq917835lq9",
+    "name": "get_weather",
+    "input": {"location": "San Francisco, CA", "unit": "celsius"}
+  }
+]
+
+```
+Content types:
+
+- `text`: Text content
+- `tool_use`: Tool invocation
+
+[​](#param-model-1)modelstringModel that handled the requestExample: `"claude-sonnet-4-5-20250929"`
+[​](#param-stop-reason)stop\_reasonstringStop reasonPossible values:
+
+- `end_turn`: Natural completion
+- `max_tokens`: Reached maximum tokens
+- `stop_sequence`: Hit stop sequence
+- `tool_use`: Invoked a tool
+
+[​](#param-stop-sequence)stop\_sequencestring | nullStop sequence triggeredThe stop sequence that was generated, if any; otherwise `null`
+[​](#param-usage)usageobjectToken usage statistics
+
+表示 Properties
+
+[​](#param-input-tokens)input\_tokensintegerNumber of input tokens[​](#param-output-tokens)output\_tokensintegerNumber of output tokens
+## [​](#usage-examples)Usage Examples
+
+### [​](#basic-conversation)Basic Conversation
+
+コピー
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Explain quantum computing basics"}
+    ]
+)
+
+print(message.content[0].text)
+
+```
+### [​](#multi-turn-conversation)Multi-turn Conversation
+
+コピー
+```shiki
+messages = [
+    {"role": "user", "content": "What is machine learning?"},
+    {"role": "assistant", "content": "Machine learning is a branch of AI..."},
+    {"role": "user", "content": "Can you give a practical example?"}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+### [​](#using-system-prompts)Using System Prompts
+
+コピー
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    system="You are a senior Python developer expert in code review and optimization.",
+    messages=[
+        {"role": "user", "content": "How to optimize this code?\n\n[code]"}
+    ]
+)
+
+```
+### [​](#streaming-response)Streaming Response
+
+コピー
+```shiki
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Write a short essay about AI"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#tool-use)Tool Use
+
+コピー
+```shiki
+tools = [
+    {
+        "name": "get_stock_price",
+        "description": "Get real-time stock price",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "type": "string",
+                    "description": "Stock ticker symbol, e.g., AAPL"
+                }
+            },
+            "required": ["ticker"]
+        }
+    }
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    tools=tools,
+    messages=[
+        {"role": "user", "content": "What's Tesla's stock price?"}
+    ]
+)
+
+# Handle tool calls
+
+if message.stop_reason == "tool_use":
+    tool_use = next(block for block in message.content if block.type == "tool_use")
+    print(f"Calling tool: {tool_use.name}")
+    print(f"Arguments: {tool_use.input}")
+
+```
+### [​](#vision-understanding)Vision Understanding
+
+コピー
+```shiki
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "url",
+                        "url": "https://example.com/image.jpg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                }
+            ]
+        }
+    ]
+)
+
+```
+### [​](#base64-image)Base64 Image
+
+コピー
+```shiki
+import base64
+
+with open("image.jpg", "rb") as image_file:
+    image_data = base64.b64encode(image_file.read()).decode("utf-8")
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/jpeg",
+                        "data": image_data
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Analyze this image"
+                }
+            ]
+        }
+    ]
+)
+
+```
+## [​](#best-practices)Best Practices
+
+### [​](#1-prompt-engineering)1. Prompt Engineering
+
+**Clear role definition:**
+コピー
+```shiki
+system = """You are an experienced data scientist specializing in:
+- Statistical analysis and data visualization
+- Machine learning model development
+- Python and R programming
+Provide professional, accurate advice."""
+
+```
+
+**Structured output:**
+コピー
+```shiki
+message = "Please return the analysis results in JSON format with summary, key_findings, and recommendations fields."
+
+```
+### [​](#2-error-handling)2. Error Handling
+
+コピー
+```shiki
+from anthropic import APIError, RateLimitError
+
+try:
+    message = client.messages.create(
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "Hello"}]
+    )
+except RateLimitError:
+    print("Rate limit exceeded, please retry later")
+except APIError as e:
+    print(f"API error: {e}")
+
+```
+### [​](#3-token-optimization)3. Token Optimization
+
+コピー
+```shiki
+# Use shorter prompts
+
+messages = [
+    {"role": "user", "content": "Summarize key points:\n\n[long text]"}
+]
+
+# Limit output length
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=500,  # Limit output
+    messages=messages
+)
+
+```
+### [​](#4-prefilling-responses)4. Prefilling Responses
+
+コピー
+```shiki
+# Guide model to specific format
+
+messages = [
+    {"role": "user", "content": "List 5 Python best practices"},
+    {"role": "assistant", "content": "Here are 5 Python best practices:\n\n1."}
+]
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=messages
+)
+
+```
+## [​](#streaming-response-handling)Streaming Response Handling
+
+### [​](#python-streaming)Python Streaming
+
+コピー
+```shiki
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.dashlyai.cc"
+)
+
+with client.messages.stream(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Write a Python decorator example"}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+```
+### [​](#javascript-streaming)JavaScript Streaming
+
+コピー
+```shiki
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env.API_KEY,
+  baseURL: 'https://api.dashlyai.cc'
+});
+
+const stream = await client.messages.stream({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [
+    { role: 'user', content: 'Write a React component example' }
+  ]
+});
+
+for await (const chunk of stream) {
+  if (chunk.type === 'content_block_delta' && 
+      chunk.delta.type === 'text_delta') {
+    process.stdout.write(chunk.delta.text);
+  }
+}
+
+```
+## [​](#important-notes)Important Notes
+
+1. **API Key Security**:
+   - Store API keys in environment variables
+   - Never hardcode keys in source code
+   - Rotate keys regularly
+2. **Rate Limiting**:
+   - Be aware of API rate limits
+   - Implement retry mechanisms
+   - Use exponential backoff
+3. **Token Management**:
+   - Monitor token usage
+   - Optimize prompt length
+   - Use appropriate max\_tokens values
+4. **Model Selection**:
+   - Opus: Complex tasks, deep thinking required
+   - Sonnet: Balanced performance and cost
+   - Haiku: Fast response, simple tasks
+5. **Content Filtering**:
+   - Validate user input
+   - Filter sensitive information
+   - Implement content moderation
+
+[汎用チャットAPI](/ja/api-reference/texts/general/chat-completions)[Gemini ネイティブ形式](/ja/api-reference/texts/gemini/quickstart)⌘I

@@ -1,0 +1,72 @@
+---
+title: "TTS Text-to-Speech"
+sidebarTitle: "TTS Text-to-Speech"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/speechTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/speech \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-mini-tts",
+    "input": "The quick brown fox jumps over the lazy dog.",
+    "voice": "alloy",
+    "response_format": "opus",
+    "speed": 1.0
+  }' \
+  --output speech.opus
+
+```
+200400401402413429500502Copy
+```shiki
+Binary audio data stream
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll APIs require Bearer Token authenticationGet API Key:Visit [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd to request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringdefault:"gpt-4o-mini-tts"requiredTTS model nameAvailable models:
+
+- `gpt-4o-mini-tts` - GPT-4o Mini TTS model
+
+Example: `"gpt-4o-mini-tts"`
+[​](#param-input)inputstringrequiredThe text to convert to speechMaximum length: 4096 charactersExample: `"The quick brown fox jumps over the lazy dog."`
+[​](#param-voice)voicestringrequiredVoice selectionAvailable voices:
+
+- `alloy` - Neutral, balanced voice
+- `echo` - Male, calm voice
+- `fable` - British, narrative voice
+- `onyx` - Male, deep voice
+- `nova` - Female, energetic voice
+- `shimmer` - Female, gentle voice
+
+Example: `"alloy"`
+[​](#param-response-format)response\_formatstringdefault:"wav"requiredAudio output formatSupported formats:
+
+- `wav` - WAV format, uncompressed (default)
+- `opus` - Opus format, for internet streaming
+- `aac` - AAC format
+- `flac` - FLAC format, lossless compression
+- `pcm` - PCM format, raw audio data
+
+Example: `"wav"`
+[​](#param-speed)speednumberdefault:"1.0"Speech playback speedRange: 0.25 to 4.0
+
+- `0.25` - Slowest speed (1/4x)
+- `1.0` - Normal speed (default)
+- `4.0` - Fastest speed (4x)
+
+Example: `1.0`
+## [​](#response)Response
+
+Returns binary audio data stream on success, which can be saved as an audio file or played directly.
+Returns JSON formatted error information on error, including error code, message, and type.[Whisper-1 Audio Transcription](/en/api-reference/audios/whisper-1)[Get Task Status](/en/api-reference/tasks/status)⌘I

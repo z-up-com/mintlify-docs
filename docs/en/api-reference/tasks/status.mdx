@@ -1,0 +1,85 @@
+---
+title: "Get Task Status"
+sidebarTitle: "Get Task Status"
+description: "Show Properties"
+---
+
+`GET` `https://api.dashlyai.cc/v1/tasks/{task_id}`
+```shiki
+curl --request GET \
+  --url https://api.dashlyai.cc/v1/tasks/task-unified-1757156493-imcg5zqt?language=en \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - Image Generation Task200 - Video Generation Task (with Thumbnail)400401402403429500502Copy
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "task_01KA040M0HP1GJWBJYZMKX1XS1",
+    "status": "completed",
+    "progress": 100,
+    "result": {
+      "images": [
+        {
+          "url": [
+            "https://upload.dashlyai.cc/f/image/9998236911693428-e8d7441f-f7b4-4130-97ad-9ef8a0dde2ce-image_task_01KA0413RT2GGNZJ9GWQ4PXF2F_0.png"
+          ],
+          "expires_at": 1763174708
+        }
+      ]
+    },
+    "created": 1763088289,
+    "completed": 1763088308,
+    "estimated_time": 60,
+    "actual_time": 19
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll API endpoints require Bearer Token authenticationGet your API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd it to the request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#path-parameters)Path parameters
+
+[​](#param-task-id)task\_idstringrequiredTask ID returned by the generation API
+## [​](#query-parameters)Query parameters
+
+[​](#param-language)languagestringLanguage for response content, supports the following values:
+
+- `zh` - Chinese
+- `en` - English
+- `ko` - Korean
+- `ja` - Japanese
+
+Defaults to English
+## [​](#response)Response
+
+[​](#param-id)idstringUnique task identifier
+[​](#param-status)statusstringTask status values:
+
+- `pending` - Queued for processing
+- `processing` - In progress
+- `completed` - Finished successfully
+- `failed` - Failed
+- `cancelled` - Cancelled by user
+
+[​](#param-progress)progressintegerTask progress percentage (0–100)
+[​](#param-result)resultobjectTask result, returned only when status is `completed`
+
+Show Properties
+
+[​](#param-images)imagesarrayArray of generated image objects (for image generation tasks)[​](#param-videos)videosarrayArray of generated video objects (for video generation tasks)[​](#param-thumbnail-url)thumbnail\_urlstringVideo thumbnail URL (for video generation tasks)**Important:** This field is only returned when thumbnail generation is explicitly specified in the request parameters when creating the task. If thumbnail generation is not requested, this field will not be included in the response.
+[​](#param-created)createdintegerTask creation timestamp
+[​](#param-completed)completedintegerTask completion timestamp (only present when completed)
+[​](#param-estimated-time)estimated\_timeintegerEstimated completion time in seconds
+[​](#param-actual-time)actual\_timeintegerActual completion time in seconds (only present when completed)
+[​](#param-error)errorobjectError details (only present when status is `failed`)
+
+Show Properties
+
+[​](#param-code)codeintegerError code[​](#param-message)messagestringError message[​](#param-type)typestringError type[TTS Text-to-Speech](/en/api-reference/audios/tts)[Query Token Balance](/en/api-reference/account/token-balance)⌘I

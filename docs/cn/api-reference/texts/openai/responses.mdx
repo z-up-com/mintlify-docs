@@ -1,0 +1,603 @@
+---
+title: "Open AI 多模态响应接口"
+sidebarTitle: "Open AI 多模态响应接口"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/responses试一试cURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartR复制
+```shiki
+curl https://api.dashlyai.cc/v1/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "model": "gpt-5",
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "input_text",
+            "text": "这张图片里有什么？"
+          },
+          {
+            "type": "input_image",
+            "image_url": "https://openai-documentation.vercel.app/images/cat_and_otter.png"
+          }
+        ]
+      }
+    ]
+  }'
+
+```
+200400401402403429500502复制
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "resp-9876543210",
+    "object": "response",
+    "created": 1677652288,
+    "model": "gpt-5",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "这张图片中有一只猫和一只水獭。它们看起来正在互动，场景非常可爱和温馨。猫咪和水獭似乎相处得很融洽。"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 156,
+      "completion_tokens": 45,
+      "total_tokens": 201
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstring默认值:"gpt-5"必填模型名称支持的模型包括：
+
+- `gpt-5` - OpenAI 最新多模态模型
+- `GPT-4o-image` - GPT-4 优化版多模态模型
+- `gpt-4-vision` - GPT-4 视觉理解模型
+- 更多模型持续更新中…
+
+[​](#param-input)inputarray必填输入内容列表输入数组，每个输入项包含 `role` 和 `content` 两个字段。**💡 快速填写（Try it 区域）：**
+
+1. 点击 ”+ Add an item” 添加一个输入项
+2. `role` 输入：`user`（用户消息）、`assistant`（AI回复）或 `system`（系统提示词）
+3. `content` 添加内容块（可包含文本和图像）
+
+显示 详细字段说明
+
+[​](#param-role)rolestring默认值:"user"必填角色类型可选值：`user`（用户消息）、`assistant`（AI回复，用于多轮对话）、`system`（系统提示词，设置AI行为）[​](#param-content)contentarray必填内容数组支持多种类型的内容块，可以包含文本和图像。
+
+显示 内容块类型
+
+[​](#param-type)typestring必填内容类型可选值：
+
+- `input_text`: 文本输入
+- `input_image`: 图像输入
+[​](#param-text)textstring文本内容当 `type` 为 `input_text` 时使用，填写文本内容[​](#param-image-url)image\_urlstring图像URL当 `type` 为 `input_image` 时使用支持两种格式：**1. 完整的图像URL地址**
+
+- 公开可访问的图像URL（http:// 或 https://）
+- 示例：`https://example.com/image.jpg`
+
+**2. Base64 编码格式**
+
+- **必须使用完整的 Data URI 格式**
+- 格式：`data:image/{格式};base64,{base64数据}`
+- 支持的图片格式：jpeg、png、gif、webp
+- 示例：`data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABg...`
+- ⚠️ 注意：必须包含 `data:image/jpeg;base64,` 前缀部分
+
+[​](#param-temperature)temperaturenumber控制输出随机性，范围 0-2
+
+- 较低的值（如 0.2）使输出更确定
+- 较高的值（如 1.8）使输出更随机
+
+默认值：1.0
+[​](#param-max-tokens)max\_tokensinteger生成的最大token数量不同模型有不同的最大值限制，请参考具体模型文档
+[​](#param-stream)streamboolean是否使用流式输出
+
+- `true`: 流式返回（SSE格式）
+- `false`: 一次性返回完整响应
+
+默认值：false
+[​](#param-top-p)top\_pnumber核采样参数，范围 0-1控制生成文本的多样性，建议与 temperature 二选一使用默认值：1.0
+[​](#param-tools)toolsarray工具列表，用于扩展模型能力支持的工具类型：
+
+- **网络搜索** (`web_search`): 实时搜索互联网信息
+- **文件搜索** (`file_search`): 搜索已上传的文件内容
+- **函数调用** (`function`): 调用自定义函数
+- **远程MCP** (`remote_mcp`): 连接远程模型上下文协议服务
+
+示例：`[{"type": "web_search"}]`
+## [​](#response)Response
+
+[​](#param-id)idstring响应的唯一标识符
+[​](#param-object)objectstring对象类型，固定为 `response`
+[​](#param-created)createdinteger创建时间戳
+[​](#param-model-1)modelstring实际使用的模型名称
+[​](#param-choices)choicesarray生成的回复列表
+
+显示 属性
+
+[​](#param-index)indexinteger选项索引[​](#param-message)messageobject消息内容
+
+显示 属性
+
+[​](#param-role-1)rolestring角色类型（assistant）[​](#param-content-1)contentstring生成的文本内容[​](#param-finish-reason)finish\_reasonstring结束原因可能的值：
+
+- `stop` - 自然结束
+- `length` - 达到最大长度
+- `content_filter` - 内容过滤
+
+[​](#param-usage)usageobjecttoken使用统计
+
+显示 属性
+
+[​](#param-prompt-tokens)prompt\_tokensinteger输入内容的token数[​](#param-completion-tokens)completion\_tokensinteger生成内容的token数[​](#param-total-tokens)total\_tokensinteger总token数
+## [​](#使用示例)使用示例
+
+### [​](#纯文本输入)纯文本输入
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "你好，介绍一下人工智能"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#使用网络搜索工具)使用网络搜索工具
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "web_search"}],
+  "input": "今天有什么正面的新闻？"
+}
+
+```
+
+cURL示例复制
+```shiki
+curl "https://api.dashlyai.cc/v1/responses" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <token>" \
+    -d '{
+        "model": "gpt-5",
+        "tools": [{"type": "web_search"}],
+        "input": "今天有什么正面的新闻？"
+    }'
+
+```
+### [​](#图像理解)图像理解
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "描述这张图片"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#多图像分析)多图像分析
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "比较这两张图片的异同"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image1.jpg"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image2.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#base64编码图像)Base64编码图像
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "分析这张图片"
+        },
+        {
+          "type": "input_image",
+          "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#使用文件搜索工具)使用文件搜索工具
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "file_search"}],
+  "input": "根据已上传的文档，总结公司的季度业绩"
+}
+
+```
+### [​](#使用函数调用)使用函数调用
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "获取指定城市的天气信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "城市名称，例如：北京"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"],
+              "description": "温度单位"
+            }
+          },
+          "required": ["city"]
+        }
+      }
+    }
+  ],
+  "input": "北京今天天气怎么样？"
+}
+
+```
+### [​](#使用远程mcp)使用远程MCP
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://mcp.example.com/api",
+        "auth_token": "your_mcp_token"
+      }
+    }
+  ],
+  "input": "查询数据库中的用户信息"
+}
+
+```
+### [​](#组合使用多个工具)组合使用多个工具
+
+复制
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {"type": "web_search"},
+    {"type": "file_search"},
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "执行数学计算",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "数学表达式"
+            }
+          },
+          "required": ["expression"]
+        }
+      }
+    }
+  ],
+  "input": "搜索最新的比特币价格，并计算100个比特币的总价值"
+}
+
+```
+## [​](#内容类型说明)内容类型说明
+
+### [​](#input-text)input\_text
+
+文本输入类型
+**属性：**
+
+- `type`: 固定为 `"input_text"`
+- `text`: 文本内容（字符串）
+
+### [​](#input-image)input\_image
+
+图像输入类型
+**属性：**
+
+- `type`: 固定为 `"input_image"`
+- `image_url`: 图像URL或Base64编码的数据URI
+
+**支持两种格式：**
+
+1. **完整的图像URL地址**
+   - 公开可访问的图像URL（http:// 或 https://）
+   - 示例：`https://example.com/image.jpg`
+2. **Base64 编码格式**
+   - **必须使用完整的 Data URI 格式**
+   - 格式：`data:image/{格式};base64,{base64数据}`
+   - 示例：`data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABg...`
+   - ⚠️ 注意：必须包含 `data:image/jpeg;base64,` 前缀部分（其中 `jpeg` 可以替换为 `png`、`gif`、`webp` 等）
+
+**支持的图像格式：**
+
+- JPEG
+- PNG
+- GIF
+- WebP
+
+**图像大小限制：**
+
+- 最大文件大小：20MB
+- 推荐分辨率：不超过2048x2048像素
+
+## [​](#工具使用详解)工具使用详解
+
+### [​](#网络搜索-web-search)网络搜索 (Web Search)
+
+使用网络搜索工具可以让模型访问实时互联网信息。
+**配置示例：**
+复制
+```shiki
+{
+  "tools": [{"type": "web_search"}]
+}
+
+```
+
+**适用场景：**
+
+- 查询最新新闻和时事
+- 获取实时数据（股票、天气、汇率等）
+- 搜索最新的技术文档和资料
+- 验证事实信息
+
+### [​](#文件搜索-file-search)文件搜索 (File Search)
+
+文件搜索工具允许模型在已上传的文档中搜索相关信息。
+**配置示例：**
+复制
+```shiki
+{
+  "tools": [{"type": "file_search"}]
+}
+
+```
+
+**适用场景：**
+
+- 分析企业内部文档
+- 搜索技术规范和手册
+- 查询合同和法律文件
+- 知识库问答系统
+
+### [​](#函数调用-function-calling)函数调用 (Function Calling)
+
+定义自定义函数，让模型能够调用外部API或执行特定操作。
+**完整配置示例：**
+复制
+```shiki
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_stock_price",
+        "description": "获取股票的实时价格",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symbol": {
+              "type": "string",
+              "description": "股票代码，例如：AAPL"
+            },
+            "currency": {
+              "type": "string",
+              "enum": ["USD", "CNY"],
+              "description": "货币单位",
+              "default": "USD"
+            }
+          },
+          "required": ["symbol"]
+        }
+      }
+    }
+  ]
+}
+
+```
+
+**参数说明：**
+
+- `name`: 函数名称（必需）
+- `description`: 函数功能描述（必需）
+- `parameters`: 参数定义，使用JSON Schema格式
+  - `type`: 参数类型
+  - `properties`: 参数属性定义
+  - `required`: 必需参数列表
+
+**适用场景：**
+
+- 调用第三方API
+- 执行数据库查询
+- 触发业务流程
+- 与内部系统集成
+
+### [​](#远程mcp-remote-mcp)远程MCP (Remote MCP)
+
+连接到远程模型上下文协议（MCP）服务，扩展模型能力。
+**配置示例：**
+复制
+```shiki
+{
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://your-mcp-server.com/api",
+        "auth_token": "your_auth_token",
+        "timeout": 30
+      }
+    }
+  ]
+}
+
+```
+
+**参数说明：**
+
+- `url`: MCP服务器地址（必需）
+- `auth_token`: 认证令牌（可选）
+- `timeout`: 超时时间（秒），默认30秒
+
+**适用场景：**
+
+- 连接企业级AI服务
+- 使用专业领域模型
+- 访问受保护的数据源
+- 分布式AI系统集成
+
+## [​](#工具响应格式)工具响应格式
+
+当模型使用工具时，响应格式会包含工具调用信息：
+复制
+```shiki
+{
+  "id": "resp-123456",
+  "object": "response",
+  "created": 1677652288,
+  "model": "gpt-5",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_abc123",
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\": \"北京\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ]
+}
+
+```
+
+**工具调用流程：**
+
+1. 模型接收用户输入
+2. 分析是否需要使用工具
+3. 如需要，返回工具调用请求
+4. 客户端执行工具调用
+5. 将工具结果返回给模型
+6. 模型生成最终响应
+
+## [​](#注意事项)注意事项
+
+1. **图像URL要求**：
+   - 必须是公开可访问的URL
+   - 或使用Base64编码的Data URI格式
+2. **Token计费**：
+   - 图像会根据其分辨率消耗相应的tokens
+   - 高分辨率图像会自动调整大小以优化成本
+   - 工具调用也会消耗额外的tokens
+3. **内容顺序**：
+   - content数组中的元素顺序会影响模型理解
+   - 建议先放置文本指令，再放置图像
+4. **多模态组合**：
+   - 可以在一个请求中混合多个文本和图像
+   - 支持多轮对话，保持上下文连贯性
+5. **工具使用限制**：
+   - 同时使用多个工具时，模型会智能选择最合适的工具
+   - 函数调用需要明确的函数定义和参数说明
+   - 网络搜索结果可能受地域和时间限制
+6. **API兼容性**：
+   - 完全兼容OpenAI Responses API格式
+   - 可无缝迁移现有OpenAI代码
+   - 支持所有OpenAI工具扩展功能
+
+[Gemini 原生格式](/cn/api-reference/texts/gemini/quickstart)[Gemini-3-Pro-Image-preview（Nano banana2）图像生成](/cn/api-reference/images/gemini-3-pro/generation)⌘I

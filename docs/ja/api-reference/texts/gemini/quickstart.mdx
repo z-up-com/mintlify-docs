@@ -1,0 +1,192 @@
+---
+title: "Gemini ネイティブ形式"
+sidebarTitle: "Gemini ネイティブ形式"
+description: "表示 contents オブジェクト構造"
+---
+
+POSThttps://api.dashlyai.cc/v1beta/models/{model}:{method}試すcURLPythonJavaScriptGoJavaPHPRubyコピー
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1beta/models/gemini-2.5-pro:generateContent \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "こんにちは、自己紹介してください"
+        }
+      ]
+    }
+  ]
+}'
+
+```
+200400401402403404429500502503コピー
+```shiki
+{
+  "code": 200,
+  "data": {
+    "candidates": [
+      {
+        "content": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "こんにちは！自己紹介させていただきます。\n\n私は Google によってトレーニングされ、開発された大規模言語モデルです..."
+            }
+          ]
+        },
+        "finishReason": "STOP",
+        "index": 0,
+        "safetyRatings": [
+          {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "probability": "NEGLIGIBLE"
+          }
+        ]
+      }
+    ],
+    "promptFeedback": {
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE"
+        }
+      ]
+    ]
+  },
+  "usageMetadata": {
+    "promptTokenCount": 4,
+    "candidatesTokenCount": 611,
+    "totalTokenCount": 2422,
+    "thoughtsTokenCount": 1807,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4
+      }
+    ]
+  }
+}
+
+```
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントにはBearer Token認証が必要ですAPIキーの取得:[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加:コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#パスパラメータ)パスパラメータ
+
+[​](#param-model)modelstring必須モデル名例では `gemini-2.5-pro` を使用していますが、他のサポートされている Gemini モデルに置き換えることができます：
+
+- `gemini-2.5-flash` - Gemini 2.5 高速版
+- `gemini-2.5-pro` - Gemini 2.5 専門版
+- `gemini-2.5-flash-lite` - Gemini 2.5 超軽量版
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro 深層思考版
+
+[​](#param-method)methodenum (string)必須生成方法（クイックスタートには `generateContent` を推奨）:
+
+- `generateContent`: 完全なレスポンスを待って一度に返す
+- `streamGenerateContent`: ストリーム形式で段階的にコンテンツを返す
+
+利用可能なオプション: `generateContent`, `streamGenerateContent`
+## [​](#ボディ)ボディ
+
+[​](#param-contents)contentsarray必須会話内容のリスト最低1つのメッセージが必要
+
+表示 contents オブジェクト構造
+
+[​](#param-role)rolestring必須ロールタイプ:
+
+- `user`: ユーザーメッセージ
+- `model`: モデルレスポンス（会話履歴で使用）
+[​](#param-parts)partsarray必須メッセージ内容の部分
+
+表示 parts オブジェクト構造
+
+[​](#param-text)textstringテキスト内容[​](#param-inline-data)inlineDataobjectインラインデータ（マルチモーダル入力用）
+
+表示 inlineData プロパティ
+
+[​](#param-mime-type)mimeTypestringMIME タイプ、例: `image/jpeg`, `image/png`[​](#param-data)datastringBase64 エンコードされたデータ例:コピー
+```shiki
+[
+  {
+    "role": "user",
+    "parts": [{ "text": "こんにちは、自己紹介してください" }]
+  }
+]
+
+```
+
+[​](#param-generation-config)generationConfigobject生成設定（オプション）
+
+表示 generationConfig プロパティ
+
+[​](#param-temperature)temperaturenumber出力のランダム性を制御、範囲 0.0-2.0
+
+- 低い値は出力をより決定的にします
+- 高い値は出力をよりランダムにします
+
+デフォルト: 1.0[​](#param-max-output-tokens)maxOutputTokensinteger生成する最大トークン数モデルによって最大制限が異なります[​](#param-top-p)topPnumberニュークリアスサンプリングパラメータ、範囲 0.0-1.0サンプリング時に考慮する確率質量を制御[​](#param-top-k)topKintegerTop-K サンプリングパラメータ各ステップで最も確率の高い K トークンからのみサンプリング[​](#param-stop-sequences)stopSequencesarray停止シーケンスのリストこれらのシーケンスに遭遇したら生成を停止
+[​](#param-safety-settings)safetySettingsarray安全設定（オプション）
+
+表示 safetySettings オブジェクト構造
+
+[​](#param-category)categorystring安全カテゴリ:
+
+- `HARM_CATEGORY_HATE_SPEECH`: ヘイトスピーチ
+- `HARM_CATEGORY_DANGEROUS_CONTENT`: 危険なコンテンツ
+- `HARM_CATEGORY_HARASSMENT`: ハラスメント
+- `HARM_CATEGORY_SEXUALLY_EXPLICIT`: 性的に露骨なコンテンツ
+[​](#param-threshold)thresholdstringしきい値レベル:
+
+- `BLOCK_NONE`: ブロックしない
+- `BLOCK_ONLY_HIGH`: 高リスクのみブロック
+- `BLOCK_MEDIUM_AND_ABOVE`: 中リスク以上をブロック
+- `BLOCK_LOW_AND_ABOVE`: 低リスク以上をブロック
+## [​](#レスポンス)レスポンス
+
+[​](#param-candidates)candidatesarray候補レスポンスのリスト
+
+表示 candidates オブジェクト構造
+
+[​](#param-content)contentobject生成されたコンテンツ
+
+表示 content プロパティ
+
+[​](#param-role-1)rolestringロール、通常は `model`[​](#param-parts-1)partsarrayコンテンツ部分のリスト
+
+表示 parts オブジェクト
+
+[​](#param-text-1)textstring生成されたテキストコンテンツ[​](#param-finish-reason)finishReasonstring完了理由:
+
+- `STOP`: 正常完了
+- `MAX_TOKENS`: 最大トークン制限に達した
+- `SAFETY`: 安全上の理由で停止
+- `RECITATION`: 繰り返しのため停止
+- `OTHER`: その他の理由
+[​](#param-index)indexinteger候補レスポンスのインデックス[​](#param-safety-ratings)safetyRatingsarray安全評価のリスト
+
+表示 safetyRatings オブジェクト
+
+[​](#param-category-1)categorystring安全カテゴリ[​](#param-probability)probabilitystring確率レベル: `NEGLIGIBLE`, `LOW`, `MEDIUM`, `HIGH`
+[​](#param-prompt-feedback)promptFeedbackobjectプロンプトフィードバック情報
+
+表示 promptFeedback プロパティ
+
+[​](#param-safety-ratings-1)safetyRatingsarrayプロンプトの安全評価[​](#param-block-reason)blockReasonstringブロック理由（プロンプトがブロックされた場合）
+[​](#param-usage-metadata)usageMetadataobject使用量統計
+
+表示 usageMetadata プロパティ
+
+[​](#param-prompt-token-count)promptTokenCountintegerプロンプトのトークン数[​](#param-candidates-token-count)candidatesTokenCountinteger候補レスポンスのトークン数[​](#param-total-token-count)totalTokenCountinteger消費された総トークン数[​](#param-thoughts-token-count)thoughtsTokenCountinteger思考に使用されたトークン数（該当する場合）[​](#param-prompt-tokens-details)promptTokensDetailsarrayプロンプトトークンの詳細
+
+表示 promptTokensDetails オブジェクト
+
+[​](#param-modality)modalitystringモダリティタイプ: `TEXT`, `IMAGE`, など[​](#param-token-count)tokenCountintegerこのモダリティのトークン数[Claude Messages API](/ja/api-reference/texts/general/claude-messages)[OpenAI マルチモーダル Responses API](/ja/api-reference/texts/openai/responses)⌘I

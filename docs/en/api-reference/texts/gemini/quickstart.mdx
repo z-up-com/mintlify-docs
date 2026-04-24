@@ -1,0 +1,192 @@
+---
+title: "Gemini Native Format"
+sidebarTitle: "Gemini Native Format"
+description: "Show contents object structure"
+---
+
+POSThttps://api.dashlyai.cc/v1beta/models/{model}:{method}Try itcURLPythonJavaScriptGoJavaPHPRubyCopy
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1beta/models/gemini-2.5-pro:generateContent \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Hello, please introduce yourself"
+        }
+      ]
+    }
+  ]
+}'
+
+```
+200400401402403404429500502503Copy
+```shiki
+{
+  "code": 200,
+  "data": {
+    "candidates": [
+      {
+        "content": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "Hello! I'm pleased to introduce myself.\n\nI am a large language model, trained and developed by Google..."
+            }
+          ]
+        },
+        "finishReason": "STOP",
+        "index": 0,
+        "safetyRatings": [
+          {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "probability": "NEGLIGIBLE"
+          }
+        ]
+      }
+    ],
+    "promptFeedback": {
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE"
+        }
+      ]
+    ]
+  },
+  "usageMetadata": {
+    "promptTokenCount": 4,
+    "candidatesTokenCount": 611,
+    "totalTokenCount": 2422,
+    "thoughtsTokenCount": 1807,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4
+      }
+    ]
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll API endpoints require Bearer Token authenticationGet your API Key:Visit the [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd it to the request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#path-parameters)Path Parameters
+
+[​](#param-model)modelstringrequiredModel nameThe examples use `gemini-2.5-pro`, which you can replace with other supported Gemini models:
+
+- `gemini-2.5-flash` - Gemini 2.5 Flash
+- `gemini-2.5-pro` - Gemini 2.5 Pro
+- `gemini-2.5-flash-lite` - Gemini 2.5 Flash Lite
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro Deep Thinking
+
+[​](#param-method)method enum (string) required Generation method (recommended: `generateContent` for quick start):
+
+- `generateContent`: Wait for complete response and return at once
+- `streamGenerateContent`: Stream response, return content in chunks
+
+Available options: `generateContent`, `streamGenerateContent`
+## [​](#body)Body
+
+[​](#param-contents)contentsarrayrequiredList of conversation contentsMinimum 1 message required
+
+Show contents object structure
+
+[​](#param-role)rolestringrequiredRole type:
+
+- `user`: User message
+- `model`: Model response (used in conversation history)
+[​](#param-parts)partsarrayrequiredMessage content parts
+
+Show parts object structure
+
+[​](#param-text)textstringText content[​](#param-inline-data)inlineDataobjectInline data (for multimodal input)
+
+Show inlineData properties
+
+[​](#param-mime-type)mimeTypestringMIME type, e.g. `image/jpeg`, `image/png`[​](#param-data)datastringBase64 encoded dataExample:Copy
+```shiki
+[
+  {
+    "role": "user",
+    "parts": [{ "text": "Hello, please introduce yourself" }]
+  }
+]
+
+```
+
+[​](#param-generation-config)generationConfigobjectGeneration configuration (optional)
+
+Show generationConfig properties
+
+[​](#param-temperature)temperaturenumberControls output randomness, range 0.0-2.0
+
+- Lower values make output more deterministic
+- Higher values make output more random
+
+Default: 1.0[​](#param-max-output-tokens)maxOutputTokensintegerMaximum number of tokens to generateDifferent models have different maximum limits[​](#param-top-p)topPnumberNucleus sampling parameter, range 0.0-1.0Controls the probability mass considered during sampling[​](#param-top-k)topKintegerTop-K sampling parameterSample only from the K most probable tokens at each step[​](#param-stop-sequences)stopSequencesarrayList of stop sequencesStop generation when these sequences are encountered
+[​](#param-safety-settings)safetySettingsarraySafety settings (optional)
+
+Show safetySettings object structure
+
+[​](#param-category)categorystringSafety category:
+
+- `HARM_CATEGORY_HATE_SPEECH`: Hate speech
+- `HARM_CATEGORY_DANGEROUS_CONTENT`: Dangerous content
+- `HARM_CATEGORY_HARASSMENT`: Harassment
+- `HARM_CATEGORY_SEXUALLY_EXPLICIT`: Sexually explicit content
+[​](#param-threshold)thresholdstringThreshold level:
+
+- `BLOCK_NONE`: Don’t block
+- `BLOCK_ONLY_HIGH`: Block only high risk
+- `BLOCK_MEDIUM_AND_ABOVE`: Block medium and above risk
+- `BLOCK_LOW_AND_ABOVE`: Block low and above risk
+## [​](#response)Response
+
+[​](#param-candidates)candidatesarrayList of candidate responses
+
+Show candidates object structure
+
+[​](#param-content)contentobjectGenerated content
+
+Show content properties
+
+[​](#param-role-1)rolestringRole, typically `model`[​](#param-parts-1)partsarrayList of content parts
+
+Show parts object
+
+[​](#param-text-1)textstringGenerated text content[​](#param-finish-reason)finishReasonstringFinish reason:
+
+- `STOP`: Normal completion
+- `MAX_TOKENS`: Maximum token limit reached
+- `SAFETY`: Stopped for safety reasons
+- `RECITATION`: Stopped due to recitation
+- `OTHER`: Other reasons
+[​](#param-index)indexintegerIndex of the candidate response[​](#param-safety-ratings)safetyRatingsarrayList of safety ratings
+
+Show safetyRatings object
+
+[​](#param-category-1)categorystringSafety category[​](#param-probability)probabilitystringProbability level: `NEGLIGIBLE`, `LOW`, `MEDIUM`, `HIGH`
+[​](#param-prompt-feedback)promptFeedbackobjectPrompt feedback information
+
+Show promptFeedback properties
+
+[​](#param-safety-ratings-1)safetyRatingsarraySafety ratings for the prompt[​](#param-block-reason)blockReasonstringBlock reason (if prompt was blocked)
+[​](#param-usage-metadata)usageMetadataobjectUsage statistics
+
+Show usageMetadata properties
+
+[​](#param-prompt-token-count)promptTokenCountintegerNumber of tokens in the prompt[​](#param-candidates-token-count)candidatesTokenCountintegerNumber of tokens in candidate responses[​](#param-total-token-count)totalTokenCountintegerTotal number of tokens consumed[​](#param-thoughts-token-count)thoughtsTokenCountintegerNumber of tokens used for thinking (if applicable)[​](#param-prompt-tokens-details)promptTokensDetailsarrayPrompt token details
+
+Show promptTokensDetails object
+
+[​](#param-modality)modalitystringModality type: `TEXT`, `IMAGE`, etc.[​](#param-token-count)tokenCountintegerNumber of tokens for this modality[Claude Messages API](/en/api-reference/texts/general/claude-messages)[OpenAI Multimodal Responses API](/en/api-reference/texts/openai/responses)⌘I

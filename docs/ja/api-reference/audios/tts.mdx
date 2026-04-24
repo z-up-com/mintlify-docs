@@ -1,0 +1,72 @@
+---
+title: "TTS テキスト音声変換"
+sidebarTitle: "TTS テキスト音声変換"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/speech試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/speech \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o-mini-tts",
+    "input": "今日はとても良い天気です。散歩に最適ですね。",
+    "voice": "alloy",
+    "response_format": "opus",
+    "speed": 1.0
+  }' \
+  --output speech.opus
+
+```
+200400401402413429500502コピー
+```shiki
+バイナリオーディオデータストリーム
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIはBearer Token認証が必要ですAPI Keyの取得:[API Key管理ページ](https://dashlyai.cc/console/token) にアクセスしてAPI Keyを取得してくださいリクエストヘッダーに追加:コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringデフォルト:"gpt-4o-mini-tts"必須TTSモデル名利用可能なモデル:
+
+- `gpt-4o-mini-tts` - GPT-4o Mini TTS モデル
+
+例: `"gpt-4o-mini-tts"`
+[​](#param-input)inputstring必須音声に変換するテキストコンテンツ最大長: 4096 文字例: `"今日はとても良い天気です。散歩に最適ですね。"`
+[​](#param-voice)voicestring必須音声の選択利用可能な音声:
+
+- `alloy` - ニュートラルでバランスの取れた音声
+- `echo` - 男性、落ち着いた音声
+- `fable` - イギリス英語、ナレーション風の音声
+- `onyx` - 男性、深い音声
+- `nova` - 女性、活気のある音声
+- `shimmer` - 女性、優しい音声
+
+例: `"alloy"`
+[​](#param-response-format)response\_formatstringデフォルト:"wav"必須オーディオ出力フォーマットサポートされているフォーマット:
+
+- `wav` - WAVフォーマット、非圧縮（デフォルト）
+- `opus` - Opusフォーマット、インターネットストリーミング用
+- `aac` - AACフォーマット
+- `flac` - FLACフォーマット、ロスレス圧縮
+- `pcm` - PCMフォーマット、生のオーディオデータ
+
+例: `"wav"`
+[​](#param-speed)speednumberデフォルト:"1.0"音声再生速度範囲: 0.25 から 4.0
+
+- `0.25` - 最も遅い速度（1/4倍速）
+- `1.0` - 通常速度（デフォルト）
+- `4.0` - 最も速い速度（4倍速）
+
+例: `1.0`
+## [​](#response)Response
+
+成功時はバイナリオーディオデータストリームを返します。これは直接オーディオファイルとして保存または再生できます。
+エラー時はJSON形式のエラー情報を返します。エラーコード、メッセージ、タイプが含まれます。[Whisper-1 音声文字起こし](/ja/api-reference/audios/whisper-1)[タスクステータスの取得](/ja/api-reference/tasks/status)⌘I

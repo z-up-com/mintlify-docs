@@ -1,0 +1,580 @@
+---
+title: "Open AI マルチモーダル Responses API"
+sidebarTitle: "Open AI マルチモーダル Responses API"
+description: ""
+---
+
+POSThttps://api.dashlyai.cc/v1/responses試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl https://api.dashlyai.cc/v1/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "model": "gpt-5",
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "input_text",
+            "text": "この画像には何が写っていますか？"
+          },
+          {
+            "type": "input_image",
+            "image_url": "https://openai-documentation.vercel.app/images/cat_and_otter.png"
+          }
+        ]
+      }
+    ]
+  }'
+
+```
+200400401402403429500502コピー
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "resp-9876543210",
+    "object": "response",
+    "created": 1677652288,
+    "model": "gpt-5",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "この画像には猫とカワウソが写っています。とても可愛らしく心温まるシーンで、お互いに交流しているように見えます。猫とカワウソは仲良くしているようです。"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 156,
+      "completion_tokens": 45,
+      "total_tokens": 201
+    }
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必須##すべてのAPIはBearer Token認証が必要です##APIキーの取得:[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加:コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+[​](#param-model)modelstringデフォルト:"gpt-5"必須モデル名サポートされるモデル:
+
+- `gpt-5` - OpenAI最新マルチモーダルモデル
+- `GPT-4o-image` - GPT-4最適化マルチモーダルモデル
+- `gpt-4-vision` - GPT-4ビジョン理解モデル
+- さらに多くのモデルが近日公開予定…
+
+[​](#param-input)inputarray必須入力コンテンツリスト入力配列、各項目には `role` と `content` の2つのフィールドが含まれます。**💡 クイック入力（Try itエリア）：**
+
+1. ”+ Add an item” をクリックして入力項目を追加
+2. `role` に入力：`user`（ユーザーメッセージ）、`assistant`（AI応答）、または `system`（システムプロンプト）
+3. `content` にコンテンツブロックを追加（テキストと画像を含められます）
+
+表示 フィールド詳細
+
+[​](#param-role)rolestringデフォルト:"user"必須ロールタイプ選択肢：`user`（ユーザーメッセージ）、`assistant`（AI応答、複数ターン用）、`system`（システムプロンプト、AI動作設定）[​](#param-content)contentarray必須コンテンツ配列複数のタイプのコンテンツブロックをサポート、テキストと画像を含めることができます。
+
+表示 コンテンツブロックタイプ
+
+[​](#param-type)typestring必須コンテンツタイプ選択肢：
+
+- `input_text`: テキスト入力
+- `input_image`: 画像入力
+[​](#param-text)textstringテキスト内容`type` が `input_text` の場合に使用、テキスト内容を入力[​](#param-image-url)image\_urlstring画像URL`type` が `input_image` の場合に使用、画像のURLまたはbase64エンコーディングを入力
+[​](#param-temperature)temperaturenumber出力のランダム性を制御、範囲は0-2
+
+- 低い値 (例: 0.2) は出力をより決定的にします
+- 高い値 (例: 1.8) は出力をよりランダムにします
+
+デフォルト: 1.0
+[​](#param-max-tokens)max\_tokensinteger生成する最大トークン数モデルによって最大制限が異なりますので、特定のモデルのドキュメントを参照してください
+[​](#param-stream)streambooleanストリーミング出力を使用するかどうか
+
+- `true`: ストリームレスポンス (SSE形式)
+- `false`: 完全なレスポンスを一度に返す
+
+デフォルト: false
+[​](#param-top-p)top\_pnumberNucleusサンプリングパラメータ、範囲は0-1生成されるテキストの多様性を制御します。temperatureと交互に使用することをお勧めしますデフォルト: 1.0
+[​](#param-tools)toolsarrayモデル機能を拡張するためのツールリストサポートされるツールタイプ:
+
+- **Web検索** (`web_search`): リアルタイムインターネット情報検索
+- **ファイル検索** (`file_search`): アップロードされたファイルコンテンツの検索
+- **関数呼び出し** (`function`): カスタム関数の呼び出し
+- **リモートMCP** (`remote_mcp`): リモートModel Context Protocolサービスへの接続
+
+例: `[{"type": "web_search"}]`
+## [​](#response)Response
+
+[​](#param-id)idstringレスポンスの一意の識別子
+[​](#param-object)objectstringオブジェクトタイプ、`response`に固定
+[​](#param-created)createdinteger作成タイムスタンプ
+[​](#param-model-1)modelstring使用された実際のモデル名
+[​](#param-choices)choicesarray生成されたレスポンスリスト
+
+表示 Properties
+
+[​](#param-index)indexinteger選択肢のインデックス[​](#param-message)messageobjectメッセージ内容
+
+表示 Properties
+
+[​](#param-role-1)rolestringロールタイプ (assistant)[​](#param-content-1)contentstring生成されたテキストコンテンツ[​](#param-finish-reason)finish\_reasonstring終了理由可能な値:
+
+- `stop` - 自然な完了
+- `length` - 最大長に到達
+- `content_filter` - コンテンツフィルタリング
+
+[​](#param-usage)usageobjectトークン使用統計
+
+表示 Properties
+
+[​](#param-prompt-tokens)prompt\_tokensinteger入力のトークン数[​](#param-completion-tokens)completion\_tokensinteger出力のトークン数[​](#param-total-tokens)total\_tokensinteger総トークン数
+## [​](#使用例)使用例
+
+### [​](#テキストのみの入力)テキストのみの入力
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "こんにちは、人工知能について紹介してください"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#web検索ツールの使用)Web検索ツールの使用
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "web_search"}],
+  "input": "今日はどんなポジティブなニュースがありますか？"
+}
+
+```
+
+cURL例コピー
+```shiki
+curl "https://api.dashlyai.cc/v1/responses" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <token>" \
+    -d '{
+        "model": "gpt-5",
+        "tools": [{"type": "web_search"}],
+        "input": "今日はどんなポジティブなニュースがありますか？"
+    }'
+
+```
+### [​](#画像理解)画像理解
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "この画像を説明してください"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#複数画像分析)複数画像分析
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "これら2つの画像の類似点と相違点を比較してください"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image1.jpg"
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/image2.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#base64エンコード画像)Base64エンコード画像
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "この画像を分析してください"
+        },
+        {
+          "type": "input_image",
+          "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+        }
+      ]
+    }
+  ]
+}
+
+```
+### [​](#ファイル検索ツールの使用)ファイル検索ツールの使用
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [{"type": "file_search"}],
+  "input": "アップロードされたドキュメントに基づいて、会社の四半期業績を要約してください"
+}
+
+```
+### [​](#関数呼び出しの使用)関数呼び出しの使用
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "指定された都市の天気情報を取得",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "都市名、例: 東京"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"],
+              "description": "温度単位"
+            }
+          },
+          "required": ["city"]
+        }
+      }
+    }
+  ],
+  "input": "今日の東京の天気はどうですか？"
+}
+
+```
+### [​](#リモートmcpの使用)リモートMCPの使用
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://mcp.example.com/api",
+        "auth_token": "your_mcp_token"
+      }
+    }
+  ],
+  "input": "データベースのユーザー情報を照会してください"
+}
+
+```
+### [​](#複数ツールの組み合わせ)複数ツールの組み合わせ
+
+コピー
+```shiki
+{
+  "model": "gpt-5",
+  "tools": [
+    {"type": "web_search"},
+    {"type": "file_search"},
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "数学計算を実行",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "数式"
+            }
+          },
+          "required": ["expression"]
+        }
+      }
+    }
+  ],
+  "input": "最新のビットコイン価格を検索し、ビットコイン100個の総価値を計算してください"
+}
+
+```
+## [​](#コンテンツタイプ仕様)コンテンツタイプ仕様
+
+### [​](#input-text)input\_text
+
+テキスト入力タイプ
+**プロパティ:**
+
+- `type`: `"input_text"`に固定
+- `text`: テキストコンテンツ (文字列)
+
+### [​](#input-image)input\_image
+
+画像入力タイプ
+**プロパティ:**
+
+- `type`: `"input_image"`に固定
+- `image_url`: 画像URLまたはBase64エンコードされたデータURI
+
+**サポートされる画像形式:**
+
+- JPEG
+- PNG
+- GIF
+- WebP
+
+**画像サイズ制限:**
+
+- 最大ファイルサイズ: 20MB
+- 推奨解像度: 2048x2048ピクセル以下
+
+## [​](#ツール使用の詳細)ツール使用の詳細
+
+### [​](#web検索)Web検索
+
+Web検索ツールを使用すると、モデルがリアルタイムのインターネット情報にアクセスできます。
+**設定例:**
+コピー
+```shiki
+{
+  "tools": [{"type": "web_search"}]
+}
+
+```
+
+**使用例:**
+
+- 最新ニュースと時事問題の照会
+- リアルタイムデータの取得 (株価、天気、為替レートなど)
+- 最新の技術文書の検索
+- 事実情報の確認
+
+### [​](#ファイル検索)ファイル検索
+
+ファイル検索ツールを使用すると、モデルがアップロードされたドキュメント内の関連情報を検索できます。
+**設定例:**
+コピー
+```shiki
+{
+  "tools": [{"type": "file_search"}]
+}
+
+```
+
+**使用例:**
+
+- 社内文書の分析
+- 技術仕様とマニュアルの検索
+- 契約書と法的文書の照会
+- ナレッジベースQ&Aシステム
+
+### [​](#関数呼び出し)関数呼び出し
+
+カスタム関数を定義して、モデルが外部APIを呼び出したり特定の操作を実行したりできるようにします。
+**完全な設定例:**
+コピー
+```shiki
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_stock_price",
+        "description": "リアルタイム株価を取得",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symbol": {
+              "type": "string",
+              "description": "株式銘柄コード、例: AAPL"
+            },
+            "currency": {
+              "type": "string",
+              "enum": ["USD", "CNY"],
+              "description": "通貨単位",
+              "default": "USD"
+            }
+          },
+          "required": ["symbol"]
+        }
+      }
+    }
+  ]
+}
+
+```
+
+**パラメータの説明:**
+
+- `name`: 関数名 (必須)
+- `description`: 関数の説明 (必須)
+- `parameters`: JSON Schema形式を使用したパラメータ定義
+  - `type`: パラメータタイプ
+  - `properties`: パラメータプロパティ定義
+  - `required`: 必須パラメータリスト
+
+**使用例:**
+
+- サードパーティAPIの呼び出し
+- データベースクエリの実行
+- ビジネスプロセスのトリガー
+- 内部システムとの統合
+
+### [​](#リモートmcp)リモートMCP
+
+リモートModel Context Protocol (MCP) サービスに接続してモデル機能を拡張します。
+**設定例:**
+コピー
+```shiki
+{
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "remote_mcp": {
+        "url": "https://your-mcp-server.com/api",
+        "auth_token": "your_auth_token",
+        "timeout": 30
+      }
+    }
+  ]
+}
+
+```
+
+**パラメータの説明:**
+
+- `url`: MCPサーバーアドレス (必須)
+- `auth_token`: 認証トークン (オプション)
+- `timeout`: タイムアウト(秒)、デフォルトは30秒
+
+**使用例:**
+
+- エンタープライズレベルのAIサービスへの接続
+- ドメイン固有モデルの使用
+- 保護されたデータソースへのアクセス
+- 分散AIシステム統合
+
+## [​](#ツールレスポンス形式)ツールレスポンス形式
+
+モデルがツールを使用すると、レスポンス形式にツール呼び出し情報が含まれます:
+コピー
+```shiki
+{
+  "id": "resp-123456",
+  "object": "response",
+  "created": 1677652288,
+  "model": "gpt-5",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_abc123",
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\": \"東京\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ]
+}
+
+```
+
+**ツール呼び出しワークフロー:**
+
+1. モデルがユーザー入力を受信
+2. ツールが必要かどうかを分析
+3. 必要な場合、ツール呼び出しリクエストを返す
+4. クライアントがツール呼び出しを実行
+5. ツール結果をモデルに返す
+6. モデルが最終レスポンスを生成
+
+## [​](#重要な注意事項)重要な注意事項
+
+1. **画像URL要件**:
+   - 公開的にアクセス可能なURLである必要があります
+   - またはBase64エンコードされたData URI形式を使用
+2. **トークン課金**:
+   - 画像は解像度に応じてトークンを消費します
+   - 高解像度画像はコスト最適化のために自動的にサイズ調整されます
+   - ツール呼び出しも追加トークンを消費します
+3. **コンテンツの順序**:
+   - コンテンツ配列内の要素の順序がモデルの理解に影響します
+   - テキスト指示を最初に、次に画像を配置することをお勧めします
+4. **マルチモーダルの組み合わせ**:
+   - 1つのリクエストで複数のテキストと画像を混在させることができます
+   - コンテキストの一貫性を保つマルチターン会話をサポートします
+5. **ツール使用の制限**:
+   - 複数のツールを同時に使用する場合、モデルが最も適切なツールをインテリジェントに選択します
+   - 関数呼び出しには明確な関数定義とパラメータの説明が必要です
+   - Web検索結果は地域と時間によって制限される場合があります
+6. **API互換性**:
+   - OpenAI Responses API形式と完全に互換性があります
+   - 既存のOpenAIコードをシームレスに移行できます
+   - すべてのOpenAIツール拡張機能をサポートします
+
+[Gemini ネイティブ形式](/ja/api-reference/texts/gemini/quickstart)[Gemini-3-Pro-Image-preview (Nano banana2) 画像生成](/ja/api-reference/images/gemini-3-pro/generation)⌘I

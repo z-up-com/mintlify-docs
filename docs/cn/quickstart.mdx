@@ -1,0 +1,100 @@
+---
+title: "​快速开始"
+sidebarTitle: "用户指南"
+description: ""
+---
+
+# [​](#快速开始)快速开始
+
+欢迎使用我们的API服务！本指南将帮助您快速开始使用图像和视频生成功能。
+## [​](#第一步：获取api密钥)第一步：获取API密钥
+
+1. 访问 [API密钥管理页面](https://dashlyai.cc/console/token)
+2. 登录您的账户
+3. 创建新的API密钥
+4. 保存您的密钥（密钥只显示一次）
+
+## [​](#第二步：选择模型)第二步：选择模型
+
+我们提供多种AI模型供您选择：
+### [​](#文字生成模型)文字生成模型
+
+- **GPT-4o**: 强大的对话和文本生成能力
+- **Claude**: Anthropic 的高性能对话模型
+- **Gemini**: Google 的多模态大语言模型
+
+### [​](#图像生成模型)图像生成模型
+
+- **GPT-4o-image**: 高质量图像生成
+
+### [​](#视频生成模型)视频生成模型
+
+- **Sora2**: 专业视频生成
+
+## [​](#第三步：发送请求)第三步：发送请求
+
+### [​](#文字生成示例)文字生成示例
+
+复制
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好，请介绍一下你自己"
+      }
+    ]
+  }'
+
+```
+### [​](#图像生成示例)图像生成示例
+
+复制
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/images/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o-image",
+    "prompt": "一只可爱的熊猫",
+    "size": "1:1",
+    "n": 1
+  }'
+
+```
+### [​](#视频生成示例)视频生成示例
+
+复制
+```shiki
+curl -X POST https://api.dashlyai.cc/v1/videos/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sora-2",
+    "prompt": "海浪拍打着海岸",
+    "duration": 15,
+    "aspect_ratio": "16:9"
+  }'
+
+```
+## [​](#第四步：查询任务状态)第四步：查询任务状态
+
+由于我们使用异步处理模式，您需要查询任务状态来获取结果：
+复制
+```shiki
+curl -X GET https://api.dashlyai.cc/v1/tasks/YOUR_TASK_ID \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+```
+## [​](#下一步)下一步
+
+[## 查看API文档
+
+详细了解所有可用的API接口](/cn/api-reference/introduction)
+[## 开发指南
+
+了解如何在您的应用中集成API](/cn/development)[开发指南](/cn/development)⌘I

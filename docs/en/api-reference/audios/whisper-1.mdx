@@ -1,0 +1,69 @@
+---
+title: "Whisper-1 Audio Transcription"
+sidebarTitle: "Whisper-1 Audio Transcription"
+description: "Show Properties"
+---
+
+POSThttps://api.dashlyai.cc/v1/audio/transcriptionsTry itcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRCopy
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/audio/transcriptions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data' \
+  --form 'file=@/path/to/audio.mp3' \
+  --form 'model=whisper-1' \
+  --form 'language=en' \
+  --form 'response_format=json'
+
+```
+200200 (Verbose Format)200 (SRT Subtitle Format)400401402413429500502Copy
+```shiki
+{
+  "text": "This is a transcribed text from the test audio."
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)AuthorizationstringrequiredAll interfaces require Bearer Token authenticationGet API Key:Visit [API Key Management Page](https://dashlyai.cc/console/token) to get your API KeyAdd to request header:Copy
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#body)Body
+
+**⚠️ Online testing (Try it) is not supported for this endpoint**Due to file upload limitations, please test using:
+
+- **Apifox / Postman** - Manually change `file` parameter to file type after importing
+- **cURL** - Refer to code examples on the right
+- **SDK** - Use SDK examples in various languages
+
+[​](#param-file)filestringrequiredAudio file to transcribe (File type)**⚠️ Note**: When testing with Apifox or similar tools:
+
+1. After importing, manually change this parameter type to `file`
+2. Ensure request Content-Type is `multipart/form-data`
+
+Supported formats: mp3, mp4, mpeg, mpga, m4a, wav, webmMaximum file size: 25 MB
+[​](#param-model)modelstringdefault:"whisper-1"requiredSpeech recognition model nameExample: `"whisper-1"`
+[​](#param-language)languagestringLanguage code of the audio (ISO-639-1 format)Specifying the language can improve accuracy and speedSupported languages include: zh (Chinese), en (English), ja (Japanese), ko (Korean), and 99 other languagesExample: `"en"`
+[​](#param-prompt)promptstringOptional text prompt to guide the transcription style or continue from previous audioMaximum 224 tokens
+[​](#param-response-format)response\_formatstringdefault:"json"Output formatSupported formats:
+
+- `json` - JSON format (text only)
+- `text` - Plain text
+- `srt` - SRT subtitle format
+- `verbose_json` - Verbose JSON format (includes timestamps and metadata)
+- `vtt` - WebVTT subtitle format
+
+[​](#param-temperature)temperaturenumberdefault:"0"Sampling temperature, range 0 to 1Higher values (like 0.8) make output more random, lower values (like 0.2) make it more deterministic and consistent
+## [​](#response)Response
+
+[​](#param-text)textstringTranscribed text content
+[​](#param-task)taskstringTask type, fixed as `transcribe`Only returned in verbose\_json format
+[​](#param-language-1)languagestringDetected or specified language codeOnly returned in verbose\_json format
+[​](#param-duration)durationnumberAudio duration (seconds)Only returned in verbose\_json format
+[​](#param-segments)segmentsarrayArray of text segmentsOnly returned in verbose\_json format
+
+Show Properties
+
+[​](#param-id)idintegerSegment ID[​](#param-start)startnumberSegment start time (seconds)[​](#param-end)endnumberSegment end time (seconds)[​](#param-text-1)textstringSegment text content[​](#param-temperature-1)temperaturenumberSampling temperature used[​](#param-avg-logprob)avg\_logprobnumberAverage log probability[​](#param-compression-ratio)compression\_rationumberCompression ratio[​](#param-no-speech-prob)no\_speech\_probnumberNo speech probability[MiniMax-Hailuo-02 Video Generation](/en/api-reference/videos/minimax-hailuo/generation)[TTS Text-to-Speech](/en/api-reference/audios/tts)⌘I

@@ -1,0 +1,246 @@
+---
+title: "汎用チャットAPI"
+sidebarTitle: "汎用チャットAPI"
+description: "表示 メッセージオブジェクトの構造"
+---
+
+POSThttps://api.dashlyai.cc/v1/chat/completions試すcURLPythonJavaScriptGoJavaPHPRubySwiftC#CObjective-COCamlDartRコピー
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1/chat/completions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "model": "gpt-4o", # サポートされている任意のモデルIDに置き換え可能
+    "messages": [
+      {
+        "role": "system",
+        "content": "あなたはプロフェッショナルなAIアシスタントです。"
+      },
+      {
+        "role": "user",
+        "content": "人工知能の歴史について教えてください。"
+      }
+    ]
+  }'
+
+```
+200400401402403429500502コピー
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "chatcmpl-9876543210",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "gpt-4o",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "人工知能（AI）の歴史は1950年代に遡ります...\n\n1. **初期（1950年代～1960年代）**：チューリングテストの提案がAI研究の始まりを示しました...\n\n2. **エキスパートシステム時代（1970年代～1980年代）**：ルールベースのシステムが医療診断や財務分析などの分野で応用され始めました...\n\n3. **機械学習の台頭（1990年代～2000年代）**：統計的学習手法が徐々に主流となりました...\n\n4. **ディープラーニング革命（2010年代～現在）**：ニューラルネットワーク技術のブレークスルーがAIの爆発的な成長をもたらしました..."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 28,
+      "completion_tokens": 320,
+      "total_tokens": 348
+    }
+  }
+}
+
+```
+## [​](#認証)認証
+
+[​](#param-authorization)Authorizationstring必須すべてのAPIエンドポイントはBearer Token認証が必要ですAPIキーの取得方法：[APIキー管理ページ](https://dashlyai.cc/console/token)にアクセスしてAPIキーを取得してくださいリクエストヘッダーに追加：コピー
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#リクエストボディ)リクエストボディ
+
+[​](#param-model)modelstring必須モデル名サポートされているモデル：
+
+- **OpenAI**: `gpt-5`, `gpt-5-chat-latest`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-pro`
+- **Anthropic**: `claude-sonnet-4-5-20250929`, `claude-opus-4-1-20250805`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805-thinking`, `claude-sonnet-4-5-20250929-thinking`
+- **Google**: `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-pro-thinking`, `gemini-2.5-flash-lite`
+- **DeepSeek**: `deepseek-v3.1-250821`, `deepseek-v3.1-think-250821`, `deepseek-v3-0324`
+- **Doubao**: `doubao-seed-1-6-251015`, `doubao-seed-1-6-flash-250828`, `doubao-seed-1-6-thinking-250715`
+- 随時新しいモデルを追加中…
+
+[​](#param-messages)messagesarray必須会話メッセージのリスト
+
+表示 メッセージオブジェクトの構造
+
+[​](#param-role)roleenum (string)デフォルト:"user"必須役割タイプ
+
+- `user` - ユーザーメッセージ
+- `assistant` - AI応答（複数ターン用）
+- `system` - システムプロンプト
+[​](#param-content)contentstring必須メッセージ内容質問や話したい内容**例：**コピー
+```shiki
+[{"role": "user", "content": "こんにちは、自己紹介をお願いします"}]
+
+```
+**応用的な使い方：**システムプロンプトを追加（AIに特定の役割を持たせる）：コピー
+```shiki
+[
+  {"role": "system", "content": "あなたはプロのPython講師です"},
+  {"role": "user", "content": "プログラミングの学び方を教えてください"}
+]
+
+```
+複数ターンの会話（コンテキスト付き）：コピー
+```shiki
+[
+  {"role": "user", "content": "こんにちは"},
+  {"role": "assistant", "content": "こんにちは！何かお手伝いできますか？"},
+  {"role": "user", "content": "AIについて教えてください"}
+]
+
+```
+**役割の説明：**
+
+- `user`: ユーザーメッセージ（ほとんどの場合これを使用）
+- `system`: システムプロンプト、AIの動作や役割を設定
+- `assistant`: AIの過去の返答、会話のコンテキストとして使用
+
+[​](#param-temperature)temperaturenumber出力のランダム性を制御、範囲は0～2
+
+- 低い値（例：0.2）は出力をより決定的にします
+- 高い値（例：1.8）は出力をよりランダムにします
+
+デフォルト：1.0
+[​](#param-max-tokens)max\_tokensinteger生成する最大トークン数モデルによって最大制限が異なります。詳細は各モデルのドキュメントを参照してください
+[​](#param-stream)streambooleanストリーミング出力を使用するかどうか
+
+- `true`: ストリーミングレスポンス（SSE形式）
+- `false`: 一度に完全なレスポンス
+
+デフォルト：false
+[​](#param-top-p)top\_pnumberニュークレアスサンプリングパラメータ、範囲は0～1生成されるテキストの多様性を制御します。temperatureとの併用は推奨されませんデフォルト：1.0
+[​](#param-frequency-penalty)frequency\_penaltynumber頻度ペナルティ、範囲は-2.0～2.0正の値は同じ単語を繰り返す可能性を減らしますデフォルト：0
+[​](#param-presence-penalty)presence\_penaltynumber存在ペナルティ、範囲は-2.0～2.0正の値は新しいトピックについて話す可能性を増やしますデフォルト：0
+[​](#param-stop)stopstring or array停止シーケンス最大4つのシーケンスを指定でき、遭遇すると生成が停止します
+[​](#param-n)ninteger生成する完了の数デフォルト：1**⚠️ 注意：** 純粋な数字を入力してください（例：`1`）。引用符を使用するとエラーになります
+## [​](#レスポンス)レスポンス
+
+[​](#param-id)idstringレスポンスの一意の識別子
+[​](#param-object)objectstringオブジェクトタイプ、`chat.completion`に固定
+[​](#param-created)createdinteger作成タイムスタンプ
+[​](#param-model-1)modelstring実際に使用されたモデル名
+[​](#param-choices)choicesarray生成されたレスポンスのリスト
+
+表示 プロパティ
+
+[​](#param-index)indexinteger選択肢のインデックス[​](#param-message)messageobjectメッセージ内容
+
+表示 プロパティ
+
+[​](#param-role-1)rolestringロールタイプ（assistant）[​](#param-content-1)contentstring生成されたテキスト内容[​](#param-finish-reason)finish\_reasonstring完了理由可能な値：
+
+- `stop` - 自然な完了
+- `length` - 最大長に達した
+- `content_filter` - コンテンツがフィルタされた
+- `function_call` - 関数呼び出し
+
+[​](#param-usage)usageobjectトークン使用統計
+
+表示 プロパティ
+
+[​](#param-prompt-tokens)prompt\_tokensinteger入力メッセージのトークン数[​](#param-completion-tokens)completion\_tokensinteger生成されたコンテンツのトークン数[​](#param-total-tokens)total\_tokensinteger合計トークン数
+## [​](#サポートされているモデル)サポートされているモデル
+
+### [​](#openaiシリーズ)OpenAIシリーズ
+
+- `gpt-5` - GPT-5ベースモデル
+- `gpt-5-chat-latest` - GPT-5最新会話版
+- `gpt-5-mini` - GPT-5軽量版、コストパフォーマンスに優れる
+- `gpt-5-nano` - GPT-5超軽量版
+- `gpt-5-pro` - GPT-5プロフェッショナル強化版
+
+### [​](#anthropicシリーズ)Anthropicシリーズ
+
+- `claude-haiku-4-5-20251001` - Claude 4.5高速レスポンス版
+- `claude-sonnet-4-5-20250929` - Claude 4.5バランス版
+- `claude-opus-4-1-20250805` - 最も強力なClaude 4.1フラッグシップモデル
+- `claude-opus-4-1-20250805-thinking` - Claude 4.1 Opus深い思考版
+- `claude-sonnet-4-5-20250929-thinking` - Claude 4.5 Sonnet深い思考版
+
+### [​](#googleシリーズ)Googleシリーズ
+
+- `gemini-2.5-flash` - Gemini 2.5高速版
+- `gemini-2.5-pro` - Gemini 2.5プロフェッショナル版
+- `gemini-2.5-flash-lite` - Gemini 2.5超軽量版
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro深い思考版
+
+### [​](#deepseekシリーズ)DeepSeekシリーズ
+
+- `deepseek-v3.1-250821` - DeepSeek V3.1ベース版
+- `deepseek-v3.1-think-250821` - DeepSeek V3.1思考版
+- `deepseek-v3-0324` - DeepSeek V3標準版
+
+### [​](#doubaoシリーズ)Doubaoシリーズ
+
+- `doubao-seed-1-6-flash-250828` - Doubao Seed 1.6高速版
+- `doubao-seed-1-6-thinking-250715` - Doubao Seed 1.6思考版
+- `doubao-seed-1-6-251015` - Doubao Seed 1.6標準版
+
+## [​](#使用例)使用例
+
+### [​](#基本的な会話)基本的な会話
+
+コピー
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "こんにちは"}
+  ]
+}
+
+```
+### [​](#システムプロンプト)システムプロンプト
+
+コピー
+```shiki
+{
+  "model": "claude-3-5-sonnet",
+  "messages": [
+    {"role": "system", "content": "あなたはプロフェッショナルなPythonプログラミング講師です"},
+    {"role": "user", "content": "リスト内包表記の使い方を教えてください"}
+  ]
+}
+
+```
+### [​](#複数ターンの会話)複数ターンの会話
+
+コピー
+```shiki
+{
+  "model": "gemini-2.0-flash",
+  "messages": [
+    {"role": "user", "content": "機械学習とは何ですか？"},
+    {"role": "assistant", "content": "機械学習は人工知能の一分野です..."},
+    {"role": "user", "content": "例を挙げていただけますか？"}
+  ]
+}
+
+```
+### [​](#ストリーミング出力)ストリーミング出力
+
+コピー
+```shiki
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user", "content": "春についての詩を書いてください"}
+  ],
+  "stream": true
+}
+
+```
+[DashlyAI — OpenAI 互換 API ゲートウェイ（GPT-5、Claude、Gemini）](/ja)[Claude Messages API](/ja/api-reference/texts/general/claude-messages)⌘I

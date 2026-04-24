@@ -1,0 +1,155 @@
+---
+title: "DashlyAI Documentation"
+sidebarTitle: "DashlyAI Documentation"
+description: "Get Your API Key"
+---
+
+One unified OpenAI-compatible endpoint for GPT-5, Claude, and Gemini. Migrate from OpenAI in minutes by simply changing your base URL to `https://api.dashlyai.cc/v1` — keep your existing SDKs with no code rewrite. Multi-provider routing ensures low latency and high uptime. Transparent pricing, enterprise SLA, and global CDN acceleration.
+## [​](#quick-start)Quick Start
+
+[## Get Started Now
+
+OpenAI-compatible Chat API with GPT-5, Claude Sonnet 4.5, Gemini 2.0. Switch base URL, no code changes needed.](/en/api-reference/texts/general/chat-completions)
+## [​](#openai-compatible-endpoints)OpenAI-Compatible Endpoints
+
+DashlyAI provides OpenAI-style endpoints for seamless migration. Simply change your base URL and keep using your existing SDKs. All interfaces follow OpenAI standards with extended support for Claude, Gemini, Sora, and VEO models.
+### [​](#chat-completion-api)Chat Completion API
+
+Chat completion with GPT-5, GPT-4o, Claude Sonnet 4.5, Gemini 2.0 Flash. OpenAI-compatible API with streaming support and low latency.
+[## Chat Completion API
+
+Streaming support and low latency](/en/api-reference/texts/general/chat-completions)
+### [​](#image-creation-api)Image Creation API
+
+Image creation with GPT-4o Image, Gemini 2.5 Flash Image models. OpenAI-style API for seamless integration.
+[## Image Creation API
+
+Text-to-image generation](/en/api-reference/images/gpt-4o/generation)
+### [​](#video-creation-api)Video Creation API
+
+Video creation with OpenAI Sora2, Google VEO3 models. Async task management with status tracking and webhook support.
+[## Video Creation API
+
+Async task management with webhooks](/en/api-reference/videos/veo3/generation)
+## [​](#platform-benefits)Platform Benefits
+
+### [​](#transparent-pricing)Transparent Pricing
+
+Pay-as-you-go with no subscription required. Clear per-token rates for all models, more affordable than official provider rates while maintaining the same quality and low latency.
+
+- Clear per-token rates for all models
+- Volume discounts for enterprise usage
+- No hidden fees
+- Only pay for what you actually use
+
+### [​](#multi-provider-routing-&-enterprise-sla)Multi-Provider Routing & Enterprise SLA
+
+Built-in intelligent routing across multiple LLM providers ensures high uptime and low latency. When one provider experiences issues, requests automatically route to backup providers without service interruption.
+### [​](#99-9%-uptime-sla)99.9% Uptime SLA
+
+Enterprise-grade reliability with automatic failover. Multi-provider routing ensures your requests are always served with minimal latency.
+### [​](#global-cdn-acceleration)Global CDN Acceleration
+
+Edge locations worldwide for lowest latency. Optimized routing reduces response time and improves user experience globally.
+### [​](#rate-limit-management)Rate Limit Management
+
+Automatic rate limit handling across providers. Intelligent request distribution prevents throttling and ensures smooth operation.
+### [​](#real-time-status)Real-Time Status
+
+Monitor endpoint health and performance. Track async task progress for image and video creation with webhook notifications. [Check Status →](/en/api-reference/tasks/status)
+## [​](#sdks-&-code-examples)SDKs & Code Examples
+
+Official SDKs for Python, Node.js, and Java. All SDKs are OpenAI-compatible, allowing seamless migration by changing only the base URL configuration.
+### [​](#python-sdk)Python SDK
+
+Install with `pip install openai`. Set base URL and use existing OpenAI code without changes.
+Copy
+```shiki
+from openai import OpenAI
+client = OpenAI(
+    base_url="https://api.dashlyai.cc/v1",
+    api_key="your-dashlyai-key"
+)
+
+```
+### [​](#node-js-sdk)Node.js SDK
+
+Install with `npm install openai`. Configure baseURL parameter to DashlyAI endpoint and keep your existing integration.
+Copy
+```shiki
+import OpenAI from 'openai';
+const client = new OpenAI({
+  baseURL: 'https://api.dashlyai.cc/v1',
+  apiKey: 'your-dashlyai-key'
+});
+
+```
+### [​](#java-sdk)Java SDK
+
+OpenAI-compatible Java client. Simple configuration change enables access to all DashlyAI models and providers.
+## [​](#migration-from-openai)Migration from OpenAI
+
+Switch to DashlyAI in under 5 minutes. No code rewrite needed—just change your base URL and API key.
+1
+
+Get Your API Key
+
+Sign up for DashlyAI and get your API key from the [Console Dashboard](https://dashlyai.cc/console/token).2
+
+Update Base URL
+
+Change OpenAI base URL to DashlyAI endpoint. Your existing SDK integration works without modification.3
+
+Test Your Endpoints
+
+Run your existing code with the new base URL. All OpenAI-compatible endpoints respond with identical format. Check latency and rate limits in Console Dashboard.
+## [​](#supported-models-via-unified-endpoint)Supported Models via Unified Endpoint
+
+Access leading LLM providers through one OpenAI-compatible gateway. All models available with consistent request/response format.
+### [​](#chat-completion-models)Chat Completion Models
+
+Leading language models for chat, completion, and code tasks:
+
+- **GPT-5**: OpenAI flagship model with enhanced reasoning
+- **GPT-4o & GPT-4o Mini**: Multimodal models balancing performance and cost
+- **Claude Sonnet 4.5 & Haiku 4.5**: Anthropic models for complex reasoning
+- **Gemini 2.0 Flash & Flash Thinking**: Google multimodal models
+
+### [​](#image-creation-models)Image Creation Models
+
+Image creation from text prompts:
+
+- **GPT-4o Image**: OpenAI image creation model
+- **Gemini 2.5 Flash Image**: Google efficient image model
+
+### [​](#video-creation-models)Video Creation Models
+
+Video creation with async task tracking and webhook callbacks:
+
+- **OpenAI Sora2**: OpenAI video creation model
+- **Google VEO3**: Google video creation model
+
+### [​](#speech-models)Speech Models
+
+Speech-to-text and text-to-speech via OpenAI-compatible endpoints:
+
+- **Whisper-1**: OpenAI transcription model
+- **TTS**: Text-to-speech with multiple voices
+
+## [​](#faq)FAQ
+
+How do I migrate from OpenAI?
+
+Simply change your base URL to `https://api.dashlyai.cc/v1` and use your DashlyAI API key. Keep your existing SDKs—no code rewrite needed. Migration typically takes under 5 minutes.
+
+What's included in the SLA?
+
+Our enterprise SLA includes 99.9% uptime guarantee, global CDN acceleration, multi-provider routing with automatic failover, and real-time status monitoring. Rate limit management and webhook support are included.
+
+How does pricing compare to OpenAI?
+
+DashlyAI offers transparent per-token pricing that’s more affordable than official provider rates. Pay-as-you-go with no subscription, volume discounts for enterprise usage, and no hidden fees.
+
+What about latency and performance?
+
+Low latency is guaranteed through global CDN acceleration and intelligent multi-provider routing. Edge locations worldwide ensure optimal response times. Real-time status monitoring lets you track performance.⌘I

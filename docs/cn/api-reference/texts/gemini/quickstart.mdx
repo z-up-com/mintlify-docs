@@ -1,0 +1,192 @@
+---
+title: "Gemini 原生格式"
+sidebarTitle: "Gemini 原生格式"
+description: "显示 contents 对象结构"
+---
+
+POSThttps://api.dashlyai.cc/v1beta/models/{model}:{method}试一试cURLPythonJavaScriptGoJavaPHPRuby复制
+```shiki
+curl --request POST \
+  --url https://api.dashlyai.cc/v1beta/models/gemini-2.5-pro:generateContent \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "你好，介绍一下自己"
+        }
+      ]
+    }
+  ]
+}'
+
+```
+200400401402403404429500502503复制
+```shiki
+{
+  "code": 200,
+  "data": {
+    "candidates": [
+      {
+        "content": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "你好！很高兴能向你介绍我自己。\n\n我是一个大型语言模型，由 Google 训练和开发..."
+            }
+          ]
+        },
+        "finishReason": "STOP",
+        "index": 0,
+        "safetyRatings": [
+          {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "probability": "NEGLIGIBLE"
+          }
+        ]
+      }
+    ],
+    "promptFeedback": {
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE"
+        }
+      ]
+    ]
+  },
+  "usageMetadata": {
+    "promptTokenCount": 4,
+    "candidatesTokenCount": 611,
+    "totalTokenCount": 2422,
+    "thoughtsTokenCount": 1807,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4
+      }
+    ]
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#path-parameters)Path Parameters
+
+[​](#param-model)modelstring必填模型名称示例中使用 `gemini-2.5-pro`，您可以将其替换为其他支持的 Gemini 模型：
+
+- `gemini-2.5-flash` - Gemini 2.5 快速版
+- `gemini-2.5-pro` - Gemini 2.5 专业版
+- `gemini-2.5-flash-lite` - Gemini 2.5 超轻量版
+- `gemini-2.5-pro-thinking` - Gemini 2.5 Pro 深度思考版
+
+[​](#param-method)methodenum (string)必填生成方法（快速开始推荐使用 `generateContent`）：
+
+- `generateContent`: 等待完整响应后一次性返回
+- `streamGenerateContent`: 流式返回，逐块实时返回内容
+
+可选值：`generateContent`, `streamGenerateContent`
+## [​](#body)Body
+
+[​](#param-contents)contentsarray必填对话内容列表最少需要1条消息
+
+显示 contents 对象结构
+
+[​](#param-role)rolestring必填角色类型：
+
+- `user`: 用户消息
+- `model`: 模型响应（对话历史中使用）
+[​](#param-parts)partsarray必填消息内容部分
+
+显示 parts 对象结构
+
+[​](#param-text)textstring文本内容[​](#param-inline-data)inlineDataobject内联数据（用于多模态输入）
+
+显示 inlineData 属性
+
+[​](#param-mime-type)mimeTypestringMIME 类型，如 `image/jpeg`, `image/png`[​](#param-data)datastringBase64 编码的数据示例：复制
+```shiki
+[
+  {
+    "role": "user",
+    "parts": [{ "text": "你好，介绍一下自己" }]
+  }
+]
+
+```
+
+[​](#param-generation-config)generationConfigobject生成配置（可选）
+
+显示 generationConfig 属性
+
+[​](#param-temperature)temperaturenumber控制输出随机性，范围 0.0-2.0
+
+- 较低的值使输出更确定
+- 较高的值使输出更随机
+
+默认值：1.0[​](#param-max-output-tokens)maxOutputTokensinteger生成的最大 token 数量不同模型有不同的最大值限制[​](#param-top-p)topPnumber核采样参数，范围 0.0-1.0控制采样时考虑的概率质量[​](#param-top-k)topKintegerTop-K 采样参数每步只从概率最高的 K 个 token 中采样[​](#param-stop-sequences)stopSequencesarray停止序列列表遇到这些序列时停止生成
+[​](#param-safety-settings)safetySettingsarray安全设置（可选）
+
+显示 safetySettings 对象结构
+
+[​](#param-category)categorystring安全类别：
+
+- `HARM_CATEGORY_HATE_SPEECH`: 仇恨言论
+- `HARM_CATEGORY_DANGEROUS_CONTENT`: 危险内容
+- `HARM_CATEGORY_HARASSMENT`: 骚扰
+- `HARM_CATEGORY_SEXUALLY_EXPLICIT`: 色情内容
+[​](#param-threshold)thresholdstring阈值级别：
+
+- `BLOCK_NONE`: 不阻止
+- `BLOCK_ONLY_HIGH`: 仅阻止高风险
+- `BLOCK_MEDIUM_AND_ABOVE`: 阻止中等及以上风险
+- `BLOCK_LOW_AND_ABOVE`: 阻止低等及以上风险
+## [​](#response)Response
+
+[​](#param-candidates)candidatesarray候选响应列表
+
+显示 candidates 对象结构
+
+[​](#param-content)contentobject生成的内容
+
+显示 content 属性
+
+[​](#param-role-1)rolestring角色，通常为 `model`[​](#param-parts-1)partsarray内容部分列表
+
+显示 parts 对象
+
+[​](#param-text-1)textstring生成的文本内容[​](#param-finish-reason)finishReasonstring完成原因：
+
+- `STOP`: 正常结束
+- `MAX_TOKENS`: 达到最大 token 限制
+- `SAFETY`: 因安全原因停止
+- `RECITATION`: 因重复内容停止
+- `OTHER`: 其他原因
+[​](#param-index)indexinteger候选响应的索引[​](#param-safety-ratings)safetyRatingsarray安全评级列表
+
+显示 safetyRatings 对象
+
+[​](#param-category-1)categorystring安全类别[​](#param-probability)probabilitystring概率级别：`NEGLIGIBLE`, `LOW`, `MEDIUM`, `HIGH`
+[​](#param-prompt-feedback)promptFeedbackobject提示词反馈信息
+
+显示 promptFeedback 属性
+
+[​](#param-safety-ratings-1)safetyRatingsarray提示词的安全评级[​](#param-block-reason)blockReasonstring阻止原因（如果提示词被阻止）
+[​](#param-usage-metadata)usageMetadataobject使用量统计
+
+显示 usageMetadata 属性
+
+[​](#param-prompt-token-count)promptTokenCountinteger提示词消耗的 token 数[​](#param-candidates-token-count)candidatesTokenCountinteger候选响应消耗的 token 数[​](#param-total-token-count)totalTokenCountinteger总消耗 token 数[​](#param-thoughts-token-count)thoughtsTokenCountinteger思考过程消耗的 token 数（如适用）[​](#param-prompt-tokens-details)promptTokensDetailsarray提示词 token 详情
+
+显示 promptTokensDetails 对象
+
+[​](#param-modality)modalitystring模态类型：`TEXT`, `IMAGE`, 等[​](#param-token-count)tokenCountinteger该模态的 token 数量[Claude 消息接口](/cn/api-reference/texts/general/claude-messages)[OpenAI 多模态响应接口](/cn/api-reference/texts/openai/responses)⌘I

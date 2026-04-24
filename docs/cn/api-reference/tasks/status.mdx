@@ -1,0 +1,85 @@
+---
+title: "获取任务状态"
+sidebarTitle: "获取任务状态"
+description: ""
+---
+
+`GET` `https://api.dashlyai.cc/v1/tasks/{task_id}`
+```shiki
+curl --request GET \
+  --url 'https://api.dashlyai.cc/v1/tasks/task-unified-1757156493-imcg5zqt?language=zh' \
+  --header 'Authorization: Bearer <token>'
+
+```
+200 - 图像生成任务200 - 视频生成任务（包含缩略图）400401402403429500502复制
+```shiki
+{
+  "code": 200,
+  "data": {
+    "id": "task_01KA040M0HP1GJWBJYZMKX1XS1",
+    "status": "completed",
+    "progress": 100,
+    "result": {
+      "images": [
+        {
+          "url": [
+            "https://upload.dashlyai.cc/f/image/9998236911693428-e8d7441f-f7b4-4130-97ad-9ef8a0dde2ce-image_task_01KA0413RT2GGNZJ9GWQ4PXF2F_0.png"
+          ],
+          "expires_at": 1763174708
+        }
+      ]
+    },
+    "created": 1763088289,
+    "completed": 1763088308,
+    "estimated_time": 60,
+    "actual_time": 19
+  }
+}
+
+```
+## [​](#authorizations)Authorizations
+
+[​](#param-authorization)Authorizationstring必填所有接口均需要使用Bearer Token进行认证获取 API Key：访问 [API Key 管理页面](https://dashlyai.cc/console/token) 获取您的 API Key使用时在请求头中添加：复制
+```shiki
+Authorization: Bearer YOUR_API_KEY
+
+```
+## [​](#path-parameters)Path parameters
+
+[​](#param-task-id)task\_idstring必填生成API返回的任务ID
+## [​](#query-parameters)Query parameters
+
+[​](#param-language)languagestring返回内容的语言，支持以下值：
+
+- `zh` - 中文
+- `en` - 英文
+- `ko` - 韩文
+- `ja` - 日文
+
+默认返回英文
+## [​](#response)Response
+
+[​](#param-id)idstring任务唯一标识符
+[​](#param-status)statusstring任务状态值：
+
+- `pending` - 排队等待处理
+- `processing` - 处理中
+- `completed` - 成功完成
+- `failed` - 失败
+- `cancelled` - 用户取消
+
+[​](#param-progress)progressinteger任务进度百分比（0–100）
+[​](#param-result)resultobject任务结果，仅在状态为 `completed` 时返回
+
+显示 属性
+
+[​](#param-images)imagesarray生成的图像对象数组（图像生成任务）[​](#param-videos)videosarray生成的视频对象数组（视频生成任务）[​](#param-thumbnail-url)thumbnail\_urlstring视频缩略图 URL（视频生成任务）**重要提示：** 此字段仅在创建任务时请求参数中明确指定生成缩略图时才会返回。如果请求时未指定生成缩略图，响应中将不包含此字段。
+[​](#param-created)createdinteger任务创建时间戳
+[​](#param-completed)completedinteger任务完成时间戳（仅在完成时存在）
+[​](#param-estimated-time)estimated\_timeinteger预计完成时间（秒）
+[​](#param-actual-time)actual\_timeinteger实际完成时间（秒）（仅在完成时存在）
+[​](#param-error)errorobject错误详情（仅在状态为 `failed` 时存在）
+
+显示 属性
+
+[​](#param-code)codeinteger错误代码[​](#param-message)messagestring错误消息[​](#param-type)typestring错误类型[TTS 文字转语音](/cn/api-reference/audios/tts)[查询令牌余额](/cn/api-reference/account/token-balance)⌘I

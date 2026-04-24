@@ -1,323 +1,251 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "linden",
-  "name": "Z-UP API Platform",
+  "theme": "mint",
+  "name": "DashlyAI Documentation",
   "colors": {
-    "primary": "#4782FF",
-    "light": "#3B82F6",
-    "dark": "#4F46E5"
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
   },
-  "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Z-UP API Platform",
-          "href": "https://api.z-up.app",
-          "icon": "book-open-cover"
-        }
-      ]
-    },
-    "languages": [
-      {
-        "language": "en",
-        "default": true,
-        "tabs": [
-          {
-            "tab": "Quick start",
-            "groups": [
-              {
-                "group": "Quick start",
-                "pages": [
-                  "docs/en/index"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API Reference",
-            "groups": [
-              {
-                "group": "Account",
-                "pages": [
-                  "docs/en/api-reference/account/create-token",
-                  "docs/en/api-reference/account/token-balance",
-                  "docs/en/api-reference/account/user-balance"
-                ]
-              },
-              {
-                "group": "Chat",
-                "pages": [
-                  "docs/en/api-reference/chat/chat",
-                  "docs/en/api-reference/chat/messages",
-                  "docs/en/api-reference/chat/models"
-                ]
-              },
-              {
-                "group": "Tasks and uploads",
-                "pages": [
-                  "docs/en/api-reference/tasks/image-status",
-                  "docs/en/api-reference/tasks/video-status",
-                  "docs/en/api-reference/uploads/images"
-                ]
-              },
-              {
-                "group": "Integrations",
-                "pages": [
-                  "docs/en/integrations/cherry-studio",
-                  "docs/en/integrations/claude-code"
-                ]
-              },
-              {
-                "group": "Image generation",
-                "pages": [
-                  "docs/en/api-reference/images/flux-2/generation",
-                  "docs/en/api-reference/images/flux-kontext/generation",
-                  "docs/en/api-reference/images/gemini-2.5-flash/generation",
-                  "docs/en/api-reference/images/gemini-2.5-flash-official/generation",
-                  "docs/en/api-reference/images/gemini-3-pro-image/generation",
-                  "docs/en/api-reference/images/gemini-3-pro-image-official/generation",
-                  "docs/en/api-reference/images/gemini-3.1-flash/generation",
-                  "docs/en/api-reference/images/gemini-3.1-flash-official/generation",
-                  "docs/en/api-reference/images/gpt-4o/generation",
-                  "docs/en/api-reference/images/gpt-image-2/generation",
-                  "docs/en/api-reference/images/grok-image/generation",
-                  "docs/en/api-reference/images/grok-imagine-1.0/generation",
-                  "docs/en/api-reference/images/grok-imagine-1.0/edits",
-                  "docs/en/api-reference/images/seedream-4.0/generation",
-                  "docs/en/api-reference/images/seedream-4.5/generation",
-                  "docs/en/api-reference/images/seedream-5.0/generation"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "FAQs",
-            "groups": [
-              {
-                "group": "FAQs",
-                "pages": [
-                  "docs/en/faqs"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "language": "cn",
-        "tabs": [
-          {
-            "tab": "快速入门",
-            "groups": [
-              {
-                "group": "快速入门",
-                "pages": [
-                  "docs/cn/index"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API 手册",
-            "groups": [
-              {
-                "group": "账户",
-                "pages": [
-                  "docs/cn/api-reference/account/create-token",
-                  "docs/cn/api-reference/account/token-balance",
-                  "docs/cn/api-reference/account/user-balance"
-                ]
-              },
-              {
-                "group": "聊天",
-                "pages": [
-                  "docs/cn/api-reference/chat/chat",
-                  "docs/cn/api-reference/chat/messages",
-                  "docs/cn/api-reference/chat/models",
-                  "docs/cn/api-reference/chat/responses"
-                ]
-              },
-              {
-                "group": "任务与上传",
-                "pages": [
-                  "docs/cn/api-reference/tasks/image-status",
-                  "docs/cn/api-reference/tasks/video-status",
-                  "docs/cn/api-reference/uploads/images"
-                ]
-              },
-              {
-                "group": "集成",
-                "pages": [
-                  "docs/cn/integrations/cherry-studio",
-                  "docs/cn/integrations/claude-code",
-                  "docs/cn/integrations/openclaw"
-                ]
-              },
-              {
-                "group": "图像生成",
-                "pages": [
-                  "docs/cn/api-reference/images/flux-2/generation",
-                  "docs/cn/api-reference/images/flux-kontext/generation",
-                  "docs/cn/api-reference/images/gemini-2.5-flash/generation",
-                  "docs/cn/api-reference/images/gemini-2.5-flash-official/generation",
-                  "docs/cn/api-reference/images/gemini-3-pro-image/generation",
-                  "docs/cn/api-reference/images/gemini-3-pro-image-official/generation",
-                  "docs/cn/api-reference/images/gemini-3.1-flash/generation",
-                  "docs/cn/api-reference/images/gemini-3.1-flash-official/generation",
-                  "docs/cn/api-reference/images/gpt-4o/generation",
-                  "docs/cn/api-reference/images/gpt-image-2/generation",
-                  "docs/cn/api-reference/images/grok-image/generation",
-                  "docs/cn/api-reference/images/grok-imagine-1.0/generation",
-                  "docs/cn/api-reference/images/grok-imagine-1.0/edits",
-                  "docs/cn/api-reference/images/seedream-4.0/generation",
-                  "docs/cn/api-reference/images/seedream-4.5/generation",
-                  "docs/cn/api-reference/images/seedream-5.0/generation"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "问题",
-            "groups": [
-              {
-                "group": "问题",
-                "pages": [
-                  "docs/cn/faqs"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "language": "ru",
-        "tabs": [
-          {
-            "tab": "Быстрый старт",
-            "groups": [
-              {
-                "group": "Быстрый старт",
-                "pages": [
-                  "docs/ru/index"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "Справочник API",
-            "groups": [
-              {
-                "group": "Аккаунт",
-                "pages": [
-                  "docs/ru/api-reference/account/create-token",
-                  "docs/ru/api-reference/account/token-balance",
-                  "docs/ru/api-reference/account/user-balance"
-                ]
-              },
-              {
-                "group": "Чат",
-                "pages": [
-                  "docs/ru/api-reference/chat/chat",
-                  "docs/ru/api-reference/chat/messages",
-                  "docs/ru/api-reference/chat/models"
-                ]
-              },
-              {
-                "group": "Задачи и загрузки",
-                "pages": [
-                  "docs/ru/api-reference/tasks/image-status",
-                  "docs/ru/api-reference/tasks/video-status",
-                  "docs/ru/api-reference/uploads/images"
-                ]
-              },
-              {
-                "group": "Интеграции",
-                "pages": [
-                  "docs/ru/integrations/cherry-studio",
-                  "docs/ru/integrations/claude-code"
-                ]
-              },
-              {
-                "group": "Генерация изображений",
-                "pages": [
-                  "docs/ru/api-reference/images/flux-2/generation",
-                  "docs/ru/api-reference/images/flux-kontext/generation",
-                  "docs/ru/api-reference/images/gemini-2.5-flash/generation",
-                  "docs/ru/api-reference/images/gemini-2.5-flash-official/generation",
-                  "docs/ru/api-reference/images/gemini-3-pro-image/generation",
-                  "docs/ru/api-reference/images/gemini-3-pro-image-official/generation",
-                  "docs/ru/api-reference/images/gemini-3.1-flash/generation",
-                  "docs/ru/api-reference/images/gemini-3.1-flash-official/generation",
-                  "docs/ru/api-reference/images/gpt-4o/generation",
-                  "docs/ru/api-reference/images/gpt-image-2/generation",
-                  "docs/ru/api-reference/images/grok-image/generation",
-                  "docs/ru/api-reference/images/grok-imagine-1.0/generation",
-                  "docs/ru/api-reference/images/grok-imagine-1.0/edits",
-                  "docs/ru/api-reference/images/seedream-4.0/generation",
-                  "docs/ru/api-reference/images/seedream-4.5/generation",
-                  "docs/ru/api-reference/images/seedream-5.0/generation"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "Вопросы",
-            "groups": [
-              {
-                "group": "Вопросы",
-                "pages": [
-                  "docs/ru/faqs"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "favicon": "/favicon.svg",
   "logo": {
-    "light": "/logo/z-up.png",
-    "dark": "/logo/z-up.png"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@z-up.com"
+        "href": "mailto:support@dashlyai.cc"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://api.z-up.app/console"
+      "href": "https://dashlyai.cc/dashboard"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "🇺🇸 EN",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "docs/index",
+              "docs/en"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "docs/en/integrations/chatbox"
+            ]
+          },
+          {
+            "group": "Text API",
+            "pages": [
+              "docs/en/api-reference/texts/general/chat-completions",
+              "docs/en/api-reference/texts/general/claude-messages",
+              "docs/en/api-reference/texts/gemini/quickstart",
+              "docs/en/api-reference/texts/openai/responses"
+            ]
+          },
+          {
+            "group": "Image API",
+            "pages": [
+              "docs/en/api-reference/images/gpt-4o/generation"
+            ]
+          },
+          {
+            "group": "Video API",
+            "pages": [
+              "docs/en/api-reference/videos/veo3/generation"
+            ]
+          },
+          {
+            "group": "Audio API",
+            "pages": [
+              "docs/en/api-reference/audios/whisper-1",
+              "docs/en/api-reference/audios/tts"
+            ]
+          },
+          {
+            "group": "Task Management",
+            "pages": [
+              "docs/en/api-reference/tasks/status"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "docs/en/api-reference/account/token-balance",
+              "docs/en/api-reference/account/user-balance"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "docs/en/quickstart",
+              "docs/en/faqs"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "🇨🇳 中文",
+        "groups": [
+          {
+            "group": "概览",
+            "pages": [
+              "docs/cn/index",
+              "docs/cn/cn"
+            ]
+          },
+          {
+            "group": "集成指南",
+            "pages": [
+              "docs/cn/integrations/chatbox"
+            ]
+          },
+          {
+            "group": "文字 API",
+            "pages": [
+              "docs/cn/api-reference/texts/general/chat-completions",
+              "docs/cn/api-reference/texts/general/claude-messages",
+              "docs/cn/api-reference/texts/gemini/quickstart",
+              "docs/cn/api-reference/texts/openai/responses"
+            ]
+          },
+          {
+            "group": "图像 API",
+            "pages": [
+              "docs/cn/api-reference/images/gpt-4o/generation"
+            ]
+          },
+          {
+            "group": "视频 API",
+            "pages": [
+              "docs/cn/api-reference/videos/veo3/generation"
+            ]
+          },
+          {
+            "group": "音频 API",
+            "pages": [
+              "docs/cn/api-reference/audios/whisper-1",
+              "docs/cn/api-reference/audios/tts"
+            ]
+          },
+          {
+            "group": "任务管理",
+            "pages": [
+              "docs/cn/api-reference/tasks/status"
+            ]
+          },
+          {
+            "group": "账户",
+            "pages": [
+              "docs/cn/api-reference/account/token-balance",
+              "docs/cn/api-reference/account/user-balance"
+            ]
+          },
+          {
+            "group": "其他",
+            "pages": [
+              "docs/cn/quickstart",
+              "docs/cn/faqs"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "🇯🇵 日本語",
+        "groups": [
+          {
+            "group": "概要",
+            "pages": [
+              "docs/ja/index",
+              "docs/ja/ja"
+            ]
+          },
+          {
+            "group": "統合ガイド",
+            "pages": [
+              "docs/ja/integrations/chatbox"
+            ]
+          },
+          {
+            "group": "テキスト API",
+            "pages": [
+              "docs/ja/api-reference/texts/general/chat-completions",
+              "docs/ja/api-reference/texts/general/claude-messages",
+              "docs/ja/api-reference/texts/gemini/quickstart",
+              "docs/ja/api-reference/texts/openai/responses"
+            ]
+          },
+          {
+            "group": "画像 API",
+            "pages": [
+              "docs/ja/api-reference/images/gpt-4o/generation"
+            ]
+          },
+          {
+            "group": "動画 API",
+            "pages": [
+              "docs/ja/api-reference/videos/veo3/generation"
+            ]
+          },
+          {
+            "group": "オーディオ API",
+            "pages": [
+              "docs/ja/api-reference/audios/whisper-1",
+              "docs/ja/api-reference/audios/tts"
+            ]
+          },
+          {
+            "group": "タスク管理",
+            "pages": [
+              "docs/ja/api-reference/tasks/status"
+            ]
+          },
+          {
+            "group": "アカウント",
+            "pages": [
+              "docs/ja/api-reference/account/token-balance",
+              "docs/ja/api-reference/account/user-balance"
+            ]
+          },
+          {
+            "group": "その他",
+            "pages": [
+              "docs/ja/quickstart",
+              "docs/ja/faqs"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://docs.dashlyai.cc",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://discord.gg/dashlyai",
+          "icon": "discord"
+        }
+      ]
+    }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/dashlyai",
+      "github": "https://github.com/dashlyai",
+      "linkedin": "https://linkedin.com/company/dashlyai"
     }
-  },
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/docs/en",
-      "permanent": true
-    }
-  ],
-  "description": "A unified AI model hub for aggregation & distribution. It supports cross-converting various LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats. A centralized gateway for personal and enterprise model management.",
-  "favicon": "/logo/logo.png"
+  }
 }
