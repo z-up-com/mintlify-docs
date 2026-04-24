@@ -1,4 +1,6 @@
-# Claude Code 配置指南
+---
+title: "Claude Code 配置指南"
+---
 Source: https://docs.toapis.com/docs/cn/integrations/claude-code
 
 在 Claude Code 中使用 ToAPIs 作为 API 后端

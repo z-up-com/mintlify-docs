@@ -1,4 +1,6 @@
-# Cherry Studio 配置指南
+---
+title: "Cherry Studio 配置指南"
+---
 Source: https://docs.toapis.com/docs/cn/integrations/cherry-studio
 
 在 Cherry Studio 中使用 ToAPIs 作为 API 后端

@@ -1,4 +1,6 @@
-# Wan2.6 Flash 视频生成
+---
+title: "Wan2.6 Flash 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/wan2.6-flash/generation
 
 POST https://toapis.com/v1/videos/generations

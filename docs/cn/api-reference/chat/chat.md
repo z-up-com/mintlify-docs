@@ -1,4 +1,6 @@
-# Chat Completions
+---
+title: "Chat Completions"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/chat/chat
 
 POST https://toapis.com/v1/chat/completions

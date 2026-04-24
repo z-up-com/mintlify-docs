@@ -1,4 +1,6 @@
-# GPT-Image-2 图像生成
+---
+title: "GPT-Image-2 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/gpt-image-2/generation
 
 POST https://toapis.com/v1/images/generations

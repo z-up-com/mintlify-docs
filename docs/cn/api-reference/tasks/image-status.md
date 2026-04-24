@@ -1,4 +1,6 @@
-# 获取图片任务状态
+---
+title: "获取图片任务状态"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/tasks/image-status
 
 GET https://toapis.com/v1/images/generations/{task_id}

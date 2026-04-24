@@ -1,4 +1,6 @@
-# Seedream-4.5 图像生成
+---
+title: "Seedream-4.5 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/seedream-4.5/generation
 
 POST https://toapis.com/v1/images/generations

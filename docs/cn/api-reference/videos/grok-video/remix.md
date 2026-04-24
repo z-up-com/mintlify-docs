@@ -1,4 +1,6 @@
-# Grok 视频混音
+---
+title: "Grok 视频混音"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/grok-video/remix
 
 POST https://toapis.com/v1/videos/{video_id}/remix

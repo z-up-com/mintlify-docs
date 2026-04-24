@@ -1,4 +1,6 @@
-# Doubao SeeDance 视频生成
+---
+title: "Doubao SeeDance 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/doubao-seedance/generation
 
 POST https://toapis.com/v1/videos/generations

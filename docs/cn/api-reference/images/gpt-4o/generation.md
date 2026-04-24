@@ -1,4 +1,6 @@
-# GPT-4o 图像生成
+---
+title: "GPT-4o 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/gpt-4o/generation
 
 POST https://toapis.com/v1/images/generations

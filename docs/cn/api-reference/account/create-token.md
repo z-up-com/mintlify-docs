@@ -1,4 +1,6 @@
-# 创建 API 令牌
+---
+title: "创建 API 令牌"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/account/create-token
 
 POST https://toapis.com/v1/tokens

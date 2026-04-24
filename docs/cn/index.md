@@ -1,4 +1,6 @@
-# ToAPIs — OpenAI 兼容 API 网关（GPT-5、Claude、Gemini）
+---
+title: "ToAPIs — OpenAI 兼容 API 网关（GPT-5、Claude、Gemini）"
+---
 Source: https://docs.toapis.com/docs/cn/index
 
 OpenAI 兼容 API，支持 GPT-5、Claude、Gemini。多供应商路由、透明定价、低延迟。企业 SLA、SDK 支持、按需付费。

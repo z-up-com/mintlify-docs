@@ -1,4 +1,6 @@
-# Gemini-3-Pro Official 图像生成
+---
+title: "Gemini-3-Pro Official 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/gemini-3-pro-image-official/generation
 
 POST https://toapis.com/v1/images/generations

@@ -1,4 +1,6 @@
-# Kling v2.6 视频生成
+---
+title: "Kling v2.6 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/kling-2-6/generation
 
 POST https://toapis.com/v1/videos/generations

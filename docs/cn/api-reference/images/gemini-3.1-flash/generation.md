@@ -1,4 +1,6 @@
-# Gemini-3.1-Flash 图像生成
+---
+title: "Gemini-3.1-Flash 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/gemini-3.1-flash/generation
 
 POST https://toapis.com/v1/images/generations

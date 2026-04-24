@@ -1,4 +1,6 @@
-# Azure Sora 2 Remix
+---
+title: "Azure Sora 2 Remix"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/sora-2-official/remix
 
 POST https://toapis.com/v1/videos/{video_id}/remix

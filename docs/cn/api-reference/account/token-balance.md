@@ -1,4 +1,6 @@
-# 查询令牌余额
+---
+title: "查询令牌余额"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/account/token-balance
 
 GET https://toapis.com/v1/balance

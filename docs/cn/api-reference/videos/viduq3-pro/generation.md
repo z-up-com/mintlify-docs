@@ -1,4 +1,6 @@
-# Vidu Q3 Pro 视频生成
+---
+title: "Vidu Q3 Pro 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/viduq3-pro/generation
 
 POST https://toapis.com/v1/videos/generations

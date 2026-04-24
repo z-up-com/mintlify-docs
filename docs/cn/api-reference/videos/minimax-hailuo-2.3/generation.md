@@ -1,4 +1,6 @@
-# MiniMax-Hailuo-2.3 视频生成
+---
+title: "MiniMax-Hailuo-2.3 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/minimax-hailuo-2.3/generation
 
 POST https://toapis.com/v1/videos/generations

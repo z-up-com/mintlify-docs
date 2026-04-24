@@ -1,4 +1,6 @@
-# Grok Imagine 1.0 图像生成
+---
+title: "Grok Imagine 1.0 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/grok-imagine-1.0/generation
 
 POST https://toapis.com/v1/images/generations

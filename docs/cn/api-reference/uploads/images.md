@@ -1,4 +1,6 @@
-# 上传图片
+---
+title: "上传图片"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/uploads/images
 
 POST https://toapis.com/v1/uploads/images

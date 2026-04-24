@@ -1,4 +1,6 @@
-# Grok 图像生成
+---
+title: "Grok 图像生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/grok-image/generation
 
 POST https://toapis.com/v1/images/generations

@@ -1,4 +1,6 @@
-# Sora2 视频混音
+---
+title: "Sora2 视频混音"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/sora2/remix
 
 POST https://toapis.com/v1/videos/{video_id}/remix

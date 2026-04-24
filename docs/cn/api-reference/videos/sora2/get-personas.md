@@ -1,4 +1,6 @@
-# Sora2 查询角色状态
+---
+title: "Sora2 查询角色状态"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/sora2/get-personas
 
 GET https://toapis.com/v1/characters_tasks/{task_id}

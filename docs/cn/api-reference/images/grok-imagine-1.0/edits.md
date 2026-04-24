@@ -1,4 +1,6 @@
-# Grok Imagine 1.0 图像编辑
+---
+title: "Grok Imagine 1.0 图像编辑"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/images/grok-imagine-1.0/edits
 
 POST https://toapis.com/v1/images/edits

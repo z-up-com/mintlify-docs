@@ -1,4 +1,6 @@
-# Sora2 创建角色
+---
+title: "Sora2 创建角色"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/sora2/create-persona
 
 POST https://toapis.com/v1/videos/generations

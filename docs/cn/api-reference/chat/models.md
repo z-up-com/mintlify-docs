@@ -1,4 +1,6 @@
-# 支持的文字模型
+---
+title: "支持的文字模型"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/chat/models
 
 文字对话模型一览，支持 Chat Completions 与 Responses 两种 API 格式

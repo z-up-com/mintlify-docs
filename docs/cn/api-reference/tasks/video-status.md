@@ -1,4 +1,6 @@
-# 获取视频任务状态
+---
+title: "获取视频任务状态"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/tasks/video-status
 
 GET https://toapis.com/v1/videos/generations/{task_id}

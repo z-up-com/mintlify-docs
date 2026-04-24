@@ -1,4 +1,6 @@
-# Responses API
+---
+title: "Responses API"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/chat/responses
 
 POST https://toapis.com/v1/responses

@@ -1,4 +1,6 @@
-# Azure Sora 2 视频生成
+---
+title: "Azure Sora 2 视频生成"
+---
 Source: https://docs.toapis.com/docs/cn/api-reference/videos/sora-2-official/generation
 
 POST https://toapis.com/v1/videos/generations
