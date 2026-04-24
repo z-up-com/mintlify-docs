@@ -23,14 +23,19 @@
         "default": true,
         "tabs": [
           {
-            "tab": "Documentation",
+            "tab": "Quick start",
             "groups": [
               {
-                "group": "Getting started",
+                "group": "Quick start",
                 "pages": [
                   "docs/en/index"
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "groups": [
               {
                 "group": "Account",
                 "pages": [
@@ -61,12 +66,7 @@
                   "docs/en/integrations/cherry-studio",
                   "docs/en/integrations/claude-code"
                 ]
-              }
-            ]
-          },
-          {
-            "tab": "Images",
-            "groups": [
+              },
               {
                 "group": "Image generation",
                 "pages": [
@@ -107,14 +107,19 @@
         "language": "cn",
         "tabs": [
           {
-            "tab": "文档",
+            "tab": "快速入门",
             "groups": [
               {
-                "group": "开始使用",
+                "group": "快速入门",
                 "pages": [
                   "docs/cn/index"
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "tab": "API 手册",
+            "groups": [
               {
                 "group": "账户",
                 "pages": [
@@ -147,12 +152,7 @@
                   "docs/cn/integrations/claude-code",
                   "docs/cn/integrations/openclaw"
                 ]
-              }
-            ]
-          },
-          {
-            "tab": "图像",
-            "groups": [
+              },
               {
                 "group": "图像生成",
                 "pages": [
@@ -193,14 +193,19 @@
         "language": "ru",
         "tabs": [
           {
-            "tab": "Документация",
+            "tab": "Быстрый старт",
             "groups": [
               {
-                "group": "Начало работы",
+                "group": "Быстрый старт",
                 "pages": [
                   "docs/ru/index"
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "tab": "Справочник API",
+            "groups": [
               {
                 "group": "Аккаунт",
                 "pages": [
@@ -231,12 +236,7 @@
                   "docs/ru/integrations/cherry-studio",
                   "docs/ru/integrations/claude-code"
                 ]
-              }
-            ]
-          },
-          {
-            "tab": "Изображения",
-            "groups": [
+              },
               {
                 "group": "Генерация изображений",
                 "pages": [
