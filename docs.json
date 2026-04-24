@@ -91,35 +91,12 @@
             ]
           },
           {
-            "tab": "Videos",
+            "tab": "FAQs",
             "groups": [
               {
-                "group": "Video generation",
+                "group": "FAQs",
                 "pages": [
-                  "docs/en/api-reference/videos/doubao-seedance/generation",
-                  "docs/en/api-reference/videos/doubao-seedance-1-5/generation",
-                  "docs/en/api-reference/videos/doubao-seedance-2-0/generation",
-                  "docs/en/api-reference/videos/grok-imagine-1.0-video/generation",
-                  "docs/en/api-reference/videos/grok-video/generation",
-                  "docs/en/api-reference/videos/grok-video/extend",
-                  "docs/en/api-reference/videos/grok-video/remix",
-                  "docs/en/api-reference/videos/kling-2-6/generation",
-                  "docs/en/api-reference/videos/kling-v3/generation",
-                  "docs/en/api-reference/videos/kling-v3-omni/generation",
-                  "docs/en/api-reference/videos/kling-video-o1/generation",
-                  "docs/en/api-reference/videos/minimax-hailuo/generation",
-                  "docs/en/api-reference/videos/minimax-hailuo-2.3/generation",
-                  "docs/en/api-reference/videos/sora-2-official/generation",
-                  "docs/en/api-reference/videos/sora-2-official/remix",
-                  "docs/en/api-reference/videos/sora2/generation",
-                  "docs/en/api-reference/videos/sora2/create-persona",
-                  "docs/en/api-reference/videos/sora2/get-personas",
-                  "docs/en/api-reference/videos/sora2/remix",
-                  "docs/en/api-reference/videos/veo3/generation",
-                  "docs/en/api-reference/videos/veo3-official/generation",
-                  "docs/en/api-reference/videos/viduq3-pro/generation",
-                  "docs/en/api-reference/videos/wan2.6/generation",
-                  "docs/en/api-reference/videos/wan2.6-flash/generation"
+                  "docs/en/faqs"
                 ]
               }
             ]
@@ -200,35 +177,12 @@
             ]
           },
           {
-            "tab": "视频",
+            "tab": "问题",
             "groups": [
               {
-                "group": "视频生成",
+                "group": "问题",
                 "pages": [
-                  "docs/cn/api-reference/videos/doubao-seedance/generation",
-                  "docs/cn/api-reference/videos/doubao-seedance-1-5/generation",
-                  "docs/cn/api-reference/videos/doubao-seedance-2-0/generation",
-                  "docs/cn/api-reference/videos/grok-imagine-1.0-video/generation",
-                  "docs/cn/api-reference/videos/grok-video/generation",
-                  "docs/cn/api-reference/videos/grok-video/extend",
-                  "docs/cn/api-reference/videos/grok-video/remix",
-                  "docs/cn/api-reference/videos/kling-2-6/generation",
-                  "docs/cn/api-reference/videos/kling-v3/generation",
-                  "docs/cn/api-reference/videos/kling-v3-omni/generation",
-                  "docs/cn/api-reference/videos/kling-video-o1/generation",
-                  "docs/cn/api-reference/videos/minimax-hailuo/generation",
-                  "docs/cn/api-reference/videos/minimax-hailuo-2.3/generation",
-                  "docs/cn/api-reference/videos/sora-2-official/generation",
-                  "docs/cn/api-reference/videos/sora-2-official/remix",
-                  "docs/cn/api-reference/videos/sora2/generation",
-                  "docs/cn/api-reference/videos/sora2/create-persona",
-                  "docs/cn/api-reference/videos/sora2/get-personas",
-                  "docs/cn/api-reference/videos/sora2/remix",
-                  "docs/cn/api-reference/videos/veo3/generation",
-                  "docs/cn/api-reference/videos/veo3-official/generation",
-                  "docs/cn/api-reference/videos/viduq3-pro/generation",
-                  "docs/cn/api-reference/videos/wan2.6/generation",
-                  "docs/cn/api-reference/videos/wan2.6-flash/generation"
+                  "docs/cn/faqs"
                 ]
               }
             ]
@@ -307,35 +261,12 @@
             ]
           },
           {
-            "tab": "Видео",
+            "tab": "Вопросы",
             "groups": [
               {
-                "group": "Генерация видео",
+                "group": "Вопросы",
                 "pages": [
-                  "docs/ru/api-reference/videos/doubao-seedance/generation",
-                  "docs/ru/api-reference/videos/doubao-seedance-1-5/generation",
-                  "docs/ru/api-reference/videos/doubao-seedance-2-0/generation",
-                  "docs/ru/api-reference/videos/grok-imagine-1.0-video/generation",
-                  "docs/ru/api-reference/videos/grok-video/generation",
-                  "docs/ru/api-reference/videos/grok-video/extend",
-                  "docs/ru/api-reference/videos/grok-video/remix",
-                  "docs/ru/api-reference/videos/kling-2-6/generation",
-                  "docs/ru/api-reference/videos/kling-v3/generation",
-                  "docs/ru/api-reference/videos/kling-v3-omni/generation",
-                  "docs/ru/api-reference/videos/kling-video-o1/generation",
-                  "docs/ru/api-reference/videos/minimax-hailuo/generation",
-                  "docs/ru/api-reference/videos/minimax-hailuo-2.3/generation",
-                  "docs/ru/api-reference/videos/sora-2-official/generation",
-                  "docs/ru/api-reference/videos/sora-2-official/remix",
-                  "docs/ru/api-reference/videos/sora2/generation",
-                  "docs/ru/api-reference/videos/sora2/create-persona",
-                  "docs/ru/api-reference/videos/sora2/get-personas",
-                  "docs/ru/api-reference/videos/sora2/remix",
-                  "docs/ru/api-reference/videos/veo3/generation",
-                  "docs/ru/api-reference/videos/veo3-official/generation",
-                  "docs/ru/api-reference/videos/viduq3-pro/generation",
-                  "docs/ru/api-reference/videos/wan2.6/generation",
-                  "docs/ru/api-reference/videos/wan2.6-flash/generation"
+                  "docs/ru/faqs"
                 ]
               }
             ]
