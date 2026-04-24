@@ -11,8 +11,8 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "/docs/en",
+          "anchor": "Z-UP API Platform",
+          "href": "https://api.z-up.app",
           "icon": "book-open-cover"
         }
       ]
