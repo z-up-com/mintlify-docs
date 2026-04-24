@@ -3,9 +3,9 @@
   "theme": "linden",
   "name": "Z-UP API Platform",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#4782FF",
+    "light": "#3B82F6",
+    "dark": "#4F46E5"
   },
   "navigation": {
     "global": {
