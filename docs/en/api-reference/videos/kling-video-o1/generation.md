@@ -1,5 +1,6 @@
-# Kling Video O1 Video Generation
-
+---
+title: "Kling Video O1 Video Generation"
+---
 > Reasoning-enhanced model for highest quality video generation with `<<<image_N>>>` syntax
 
 - Reasoning-enhanced model for highest quality video generation

@@ -1,5 +1,6 @@
-# Doubao SeeDance Video Generation
-
+---
+title: "Doubao SeeDance Video Generation"
+---
 > Generate videos using ByteDance Doubao SeeDance model
 
 * ByteDance Doubao video generation model

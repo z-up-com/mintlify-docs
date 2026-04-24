@@ -1,5 +1,6 @@
-# Grok Imagine 1.0 Image Generation
-
+---
+title: "Grok Imagine 1.0 Image Generation"
+---
 > Async image generation with grok-imagine-1.0
 
 * Unified image generation endpoint

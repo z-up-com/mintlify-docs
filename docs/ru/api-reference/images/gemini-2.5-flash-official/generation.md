@@ -1,5 +1,6 @@
-# Gemini-2.5-Flash Official Генерация изображений
-
+---
+title: "Gemini-2.5-Flash Official Генерация изображений"
+---
 > Генерация изображений с использованием модели Google Gemini 2.5 Flash с прямым подключением, быстро и эффективно
 
 * Прямое подключение к Google Vertex AI через нативный API Gemini 2.5 Flash Image

@@ -1,5 +1,6 @@
-# GPT-Image-2 Генерация изображений
-
+---
+title: "GPT-Image-2 Генерация изображений"
+---
 > Генерация изображений с помощью gpt-image-2, поддержка text-to-image и generation по reference_images
 
 * Унифицированный API генерации изображений

@@ -1,5 +1,6 @@
-# GPT-4o Image Generation
-
+---
+title: "GPT-4o Image Generation"
+---
 > Generate images using GPT-4o model, supporting text-to-image and image editing
 
 * Unified image generation API

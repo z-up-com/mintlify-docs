@@ -1,5 +1,6 @@
-# Doubao SeeDance Генерация видео
-
+---
+title: "Doubao SeeDance Генерация видео"
+---
 > Генерация видео с помощью модели ByteDance Doubao SeeDance
 
 * Модель генерации видео ByteDance Doubao

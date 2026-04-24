@@ -1,5 +1,6 @@
-# Sora2 Video Generation
-
+---
+title: "Sora2 Video Generation"
+---
 > Generate high-quality videos using OpenAI Sora2 model
 
 * OpenAI Sora2 video generation model

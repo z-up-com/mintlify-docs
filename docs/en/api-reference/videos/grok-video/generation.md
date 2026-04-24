@@ -1,5 +1,6 @@
-# Grok Video Generation
-
+---
+title: "Grok Video Generation"
+---
 > Generate high-quality videos using Grok Video model
 
 * Grok Video generation model

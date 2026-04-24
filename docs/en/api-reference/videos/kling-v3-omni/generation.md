@@ -1,5 +1,6 @@
-# Kling v3 Omni Video Generation
-
+---
+title: "Kling v3 Omni Video Generation"
+---
 > Unified text-to-video and image-to-video interface with `<<<image_N>>>` syntax
 
 - Async processing mode, returns task ID for subsequent queries

@@ -1,5 +1,6 @@
-# Seedream-4.5 Image Generation
-
+---
+title: "Seedream-4.5 Image Generation"
+---
 > Generate high-quality images using Seedream 4.5 model, latest version
 
 * Seedream 4.5 latest high-quality image generation model

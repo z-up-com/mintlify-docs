@@ -1,5 +1,6 @@
-# Grok Image Generation
-
+---
+title: "Grok Image Generation"
+---
 > Generate images using Grok models, supporting text-to-image and image-to-image
 
 * Unified image generation API

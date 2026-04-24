@@ -1,5 +1,6 @@
-# Doubao SeeDance 1.5 Pro Video Generation
-
+---
+title: "Doubao SeeDance 1.5 Pro Video Generation"
+---
 > Generate videos using ByteDance Doubao SeeDance 1.5 Pro model
 
 * ByteDance Doubao video generation model 1.5 Pro version

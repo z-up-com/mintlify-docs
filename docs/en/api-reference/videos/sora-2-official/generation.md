@@ -1,5 +1,6 @@
-# Azure Sora 2 Video Generation
-
+---
+title: "Azure Sora 2 Video Generation"
+---
 > Generate high-quality videos using Azure Sora 2 model
 
 * Azure Sora 2 video generation model (official Azure OpenAI endpoint)

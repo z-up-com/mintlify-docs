@@ -1,5 +1,6 @@
-# Gemini-3-Pro Official Генерация изображений
-
+---
+title: "Gemini-3-Pro Official Генерация изображений"
+---
 > Генерация изображений с использованием модели Google Gemini 3 Pro с прямым подключением к Vertex AI
 
 * Прямое подключение к Google Vertex AI через нативный API Gemini 3 Pro Image

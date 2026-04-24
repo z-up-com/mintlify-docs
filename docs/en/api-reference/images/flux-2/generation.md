@@ -1,5 +1,6 @@
-# Flux 2.0 Image Generation
-
+---
+title: "Flux 2.0 Image Generation"
+---
 > Generate high-quality images using Flux 2.0 model, supporting text-to-image and image-to-image
 
 * Flux 2.0 image generation model

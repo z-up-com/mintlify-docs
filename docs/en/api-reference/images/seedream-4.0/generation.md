@@ -1,5 +1,6 @@
-# Seedream-4.0 Image Generation
-
+---
+title: "Seedream-4.0 Image Generation"
+---
 > Generate high-quality images using Seedream 4.0 model
 
 * Seedream 4.0 high-quality image generation model

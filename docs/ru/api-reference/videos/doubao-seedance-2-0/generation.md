@@ -1,5 +1,6 @@
-# Seedance 2.0 Генерация видео
-
+---
+title: "Seedance 2.0 Генерация видео"
+---
 > Генерация видео с помощью моделей ByteDance Seedance 2.0 и Seedance 2.0 Fast
 
 * Видео-модели нового поколения от ByteDance

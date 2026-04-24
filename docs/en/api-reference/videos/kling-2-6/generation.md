@@ -1,5 +1,6 @@
-# Kling v2.6 Video Generation
-
+---
+title: "Kling v2.6 Video Generation"
+---
 > Generate high-quality videos using the Kling v2.6 model, supporting text-to-video and image-to-video
 
 * Async processing mode, returns task ID for subsequent queries

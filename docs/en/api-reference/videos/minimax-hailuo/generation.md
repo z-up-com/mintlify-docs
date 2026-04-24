@@ -3,9 +3,6 @@ title: "MiniMax-Hailuo-02 Video Generation"
 description: "Create an asynchronous MiniMax Hailuo video generation task."
 openapi: "/api-reference/z-up_openapi.json POST /videos/generations"
 ---
-
-# MiniMax-Hailuo-02 Video Generation
-
 > Generate high-quality videos using MiniMax Hailuo 02 model
 
 - Asynchronous processing mode, returns task ID for subsequent queries

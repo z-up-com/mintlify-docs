@@ -1,5 +1,6 @@
-# Flux Kontext Image Generation
-
+---
+title: "Flux Kontext Image Generation"
+---
 > Generate and edit images using Flux Kontext model, supporting text-to-image and image editing
 
 * Flux Kontext image generation and editing model

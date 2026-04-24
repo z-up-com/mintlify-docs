@@ -1,5 +1,6 @@
-# Veo3 Video Generation
-
+---
+title: "Veo3 Video Generation"
+---
 > Generate high-quality videos using Google Veo3 model, supports async task management
 
 * Asynchronous processing mode, returns task ID for subsequent queries

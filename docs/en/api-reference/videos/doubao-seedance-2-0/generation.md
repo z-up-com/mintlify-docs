@@ -1,5 +1,6 @@
-# Seedance 2.0 Video Generation
-
+---
+title: "Seedance 2.0 Video Generation"
+---
 > Generate videos using ByteDance Seedance 2.0 and Seedance 2.0 Fast models
 
 * ByteDance's next-generation video generation models

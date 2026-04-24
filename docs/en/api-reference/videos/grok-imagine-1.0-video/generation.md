@@ -1,5 +1,6 @@
-# Grok Imagine 1.0 Video Generation
-
+---
+title: "Grok Imagine 1.0 Video Generation"
+---
 > Async video generation with grok-imagine-1.0-video
 
 * Unified video generation endpoint

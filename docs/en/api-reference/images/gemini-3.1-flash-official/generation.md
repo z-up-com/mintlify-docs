@@ -1,5 +1,6 @@
-# Gemini-3.1-Flash Official Image Generation
-
+---
+title: "Gemini-3.1-Flash Official Image Generation"
+---
 > Generate images using Google Gemini 3.1 Flash official direct-connect model with thinking mode and extreme aspect ratios
 
 * Direct connection to Google Vertex AI using the Gemini 3.1 Flash Image native API

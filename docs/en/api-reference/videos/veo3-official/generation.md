@@ -1,5 +1,6 @@
-# Veo3 Official Video Generation
-
+---
+title: "Veo3 Official Video Generation"
+---
 > Generate high-quality videos using Google Veo3 official direct-connect models, with advanced features like audio generation and keyframe control
 
 * Asynchronous processing mode, returns a task ID for subsequent status queries

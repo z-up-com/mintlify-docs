@@ -1,5 +1,6 @@
-# Vidu Q3 Pro Video Generation
-
+---
+title: "Vidu Q3 Pro Video Generation"
+---
 > Generate high-quality videos using Vidu Q3 Pro, supporting text-to-video, image-to-video, and first-last frame control
 
 * Async processing mode, returns task ID for subsequent queries

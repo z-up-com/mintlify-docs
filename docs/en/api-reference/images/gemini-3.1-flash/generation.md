@@ -1,5 +1,6 @@
-# Gemini-3.1-Flash Image Generation
-
+---
+title: "Gemini-3.1-Flash Image Generation"
+---
 > Generate images using Google Gemini 3.1 Flash model with extreme aspect ratios and Google Search enhancement
 
 * Google Gemini 3.1 Flash image generation model (Nano banana2)

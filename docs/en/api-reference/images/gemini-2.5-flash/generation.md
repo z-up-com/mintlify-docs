@@ -1,5 +1,6 @@
-# Gemini-2.5-Flash Image Generation
-
+---
+title: "Gemini-2.5-Flash Image Generation"
+---
 > Generate images using Google Gemini 2.5 Flash model, fast and efficient
 
 * Google Gemini 2.5 Flash efficient image generation model (Nano banana)

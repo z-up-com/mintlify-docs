@@ -1,5 +1,6 @@
-# Gemini-3-Pro Official Image Generation
-
+---
+title: "Gemini-3-Pro Official Image Generation"
+---
 > Generate images using Google Gemini 3 Pro official direct-connect model with native parameter control
 
 * Direct connection to Google Vertex AI using the Gemini 3 Pro Image native API

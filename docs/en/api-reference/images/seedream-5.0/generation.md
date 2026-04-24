@@ -1,5 +1,6 @@
-# Seedream-5.0 Image Generation
-
+---
+title: "Seedream-5.0 Image Generation"
+---
 > Generate high-quality images using Seedream 5.0 lite model with 2K/3K resolution and web search
 
 * Seedream 5.0 lite — the latest image generation model from ByteDance Seed team

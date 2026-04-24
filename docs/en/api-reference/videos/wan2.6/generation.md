@@ -1,5 +1,6 @@
-# Wan2.6 Video Generation
-
+---
+title: "Wan2.6 Video Generation"
+---
 > Generate high-quality videos using Alibaba Cloud Wan2.6 model — supports text-to-video, image-to-video and reference-video
 
 * Alibaba Cloud Wanxiang video generation model

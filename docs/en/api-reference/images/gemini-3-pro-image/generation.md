@@ -1,5 +1,6 @@
-# Gemini-3-Pro Image Generation
-
+---
+title: "Gemini-3-Pro Image Generation"
+---
 > Generate images using Google Gemini 3 Pro model, with powerful image generation capabilities
 
 * Google Gemini 3 Pro powerful image generation model (Nano banana2)

@@ -1,5 +1,6 @@
-# MiniMax-Hailuo-2.3 Video Generation
-
+---
+title: "MiniMax-Hailuo-2.3 Video Generation"
+---
 > Generate high-quality videos using MiniMax Hailuo 2.3 model with camera directives support
 
 * Async processing mode, returns task ID for subsequent queries

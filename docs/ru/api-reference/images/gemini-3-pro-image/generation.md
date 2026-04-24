@@ -1,5 +1,6 @@
-# Gemini-3-Pro Генерация изображений
-
+---
+title: "Gemini-3-Pro Генерация изображений"
+---
 > Генерация изображений с помощью модели Google Gemini 3 Pro
 
 * Модель генерации изображений Google Gemini 3 Pro (Nano banana2)

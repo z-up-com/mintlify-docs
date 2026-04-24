@@ -1,5 +1,6 @@
-# Wan2.6 Flash Video Generation
-
+---
+title: "Wan2.6 Flash Video Generation"
+---
 > Generate videos using Alibaba Cloud Wan2.6 Flash model — faster image-to-video and reference video generation
 
 * Alibaba Cloud Wanxiang Flash (accelerated) video generation model
