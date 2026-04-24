@@ -3,7 +3,7 @@ title: "FAQs"
 description: "FAQs about Z-UP API?"
 ---
 
-Welcome to the ToAPIs FAQ page! Here you’ll find answers to the most common questions users encounter.
+Welcome to the ToAPIs FAQ page! Here you'll find answers to the most common questions users encounter.
 
 ## Question Categories
 
@@ -47,7 +47,7 @@ Welcome to the ToAPIs FAQ page! Here you’ll find answers to the most common qu
 
 ## Need More Help?
 
-If you didn’t find your answer above, feel free to contact us:
+If you didn't find your answer above, feel free to contact us:
 
 - Join our [Discord community](https://discord.gg/hvnszCrJ73)
 - Follow[Twitter @toapisai](https://x.com/toapisai)
