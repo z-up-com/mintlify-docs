@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Sora2 Генерация видео
 
 > Генерация высококачественного видео с помощью модели OpenAI Sora2

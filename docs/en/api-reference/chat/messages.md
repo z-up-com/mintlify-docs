@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Anthropic Messages API
 
 > Chat with Claude models using the native Anthropic Messages API format

@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Seedream-5.0 Генерация изображений
 
 > Генерация высококачественных изображений с помощью модели Seedream 5.0 lite с поддержкой 2K/3K и поиском в интернете

@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Grok Генерация изображений
 
 > Генерация изображений с помощью моделей Grok, поддержка текст-в-изображение и изображение-в-изображение

@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # ToAPIs — OpenAI-совместимый API-шлюз (GPT-5, Claude, Gemini)
 
 > OpenAI-совместимый API, поддержка GPT-5, Claude, Gemini. Маршрутизация между провайдерами, прозрачное ценообразование, низкая задержка. Корпоративный SLA, поддержка SDK, оплата по факту.

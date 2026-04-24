@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Flux 2.0 Image Generation
 
 > Generate high-quality images using Flux 2.0 model, supporting text-to-image and image-to-image

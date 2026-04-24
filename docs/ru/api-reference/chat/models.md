@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Поддерживаемые текстовые модели
 
 > Все текстовые модели полностью совместимы с OpenAI Chat Completions API — просто смените параметр model

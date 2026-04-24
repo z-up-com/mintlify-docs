@@ -1,8 +1,3 @@
-> ## Documentation Index
->
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Kling Video O1 Video Generation
 
 > Reasoning-enhanced model for highest quality video generation with `<<<image_N>>>` syntax

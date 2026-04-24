@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Flux Kontext Image Generation
 
 > Generate and edit images using Flux Kontext model, supporting text-to-image and image editing

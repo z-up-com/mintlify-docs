@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Grok Imagine 1.0 Генерация видео
 
 > Асинхронная генерация видео с grok-imagine-1.0-video

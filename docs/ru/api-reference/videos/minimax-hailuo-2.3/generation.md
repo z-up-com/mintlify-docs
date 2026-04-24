@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Генерация видео MiniMax-Hailuo-2.3
 
 > Генерация видео с поддержкой текст-в-видео и изображение-в-видео, 15 типов команд камеры, автооптимизация промпта

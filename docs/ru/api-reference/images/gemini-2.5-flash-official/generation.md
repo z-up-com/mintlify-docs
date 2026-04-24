@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Gemini-2.5-Flash Official Генерация изображений
 
 > Генерация изображений с использованием модели Google Gemini 2.5 Flash с прямым подключением, быстро и эффективно

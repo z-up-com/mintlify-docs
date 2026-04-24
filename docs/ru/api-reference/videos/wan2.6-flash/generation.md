@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Wan2.6 Flash Генерация видео
 
 > Генерация видео с помощью модели Alibaba Cloud Wan2.6 Flash — быстрый режим изображение-в-видео и референсного видео

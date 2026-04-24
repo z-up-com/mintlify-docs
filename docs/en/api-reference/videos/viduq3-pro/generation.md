@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Vidu Q3 Pro Video Generation
 
 > Generate high-quality videos using Vidu Q3 Pro, supporting text-to-video, image-to-video, and first-last frame control

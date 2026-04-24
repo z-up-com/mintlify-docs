@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Veo3 Official Генерация видео
 
 > Генерация высококачественного видео с использованием моделей Google Veo3 Official с прямым подключением, поддержка генерации аудио, управления ключевыми кадрами и других расширенных функций

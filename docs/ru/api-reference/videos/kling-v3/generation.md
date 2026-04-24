@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # Генерация видео Kling v3
 
 > Генерация высококачественных видео с помощью модели Kling v3, поддержка текст-в-видео и изображение-в-видео

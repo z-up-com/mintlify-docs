@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # GPT-Image-2 Генерация изображений
 
 > Генерация изображений с помощью gpt-image-2, поддержка text-to-image и generation по reference_images

@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # MiniMax-Hailuo-02 Генерация видео
 
 > Генерация видео с помощью модели MiniMax Hailuo 02

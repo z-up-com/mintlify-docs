@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # MiniMax-Hailuo-2.3 Video Generation
 
 > Generate high-quality videos using MiniMax Hailuo 2.3 model with camera directives support

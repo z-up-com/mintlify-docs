@@ -1,7 +1,3 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
-
 # GPT-4o Image Generation
 
 > Generate images using GPT-4o model, supporting text-to-image and image editing
