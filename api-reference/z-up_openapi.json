@@ -1,0 +1,542 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ToAPIs API",
+    "version": "0.1.0",
+    "description": "Minimal OpenAPI example for connecting ToAPIs endpoints to the Mintlify API Playground."
+  },
+  "servers": [
+    {
+      "url": "https://toapis.com/v1",
+      "description": "Production API"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/chat/completions": {
+      "post": {
+        "operationId": "createChatCompletion",
+        "summary": "Create a chat completion",
+        "description": "OpenAI-compatible chat completions endpoint supporting text and multimodal message content.",
+        "tags": [
+          "Chat"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCompletionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat completion created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatCompletionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videos/generations": {
+      "post": {
+        "operationId": "createVideoGeneration",
+        "summary": "Create a video generation task",
+        "description": "Create an asynchronous video generation task. Use the returned task ID to query status later.",
+        "tags": [
+          "Videos"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VideoGenerationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Video generation task created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTask"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videos/generations/{task_id}": {
+      "get": {
+        "operationId": "getVideoGenerationTask",
+        "summary": "Get video task status",
+        "description": "Get the status, progress, and result for an asynchronous video generation task.",
+        "tags": [
+          "Videos"
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "description": "Task ID returned by the video generation endpoint.",
+            "schema": {
+              "type": "string",
+              "example": "task_01K9S419324DREZFBWNSVXYR6H"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTask"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "API key"
+      }
+    },
+    "schemas": {
+      "MessageTextPart": {
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "text"
+          },
+          "text": {
+            "type": "string",
+            "example": "What is in this image?"
+          }
+        }
+      },
+      "MessageImageUrl": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.gstatic.com/webp/gallery/1.jpg"
+          }
+        }
+      },
+      "MessageImagePart": {
+        "type": "object",
+        "required": [
+          "type",
+          "image_url"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "image_url"
+          },
+          "image_url": {
+            "$ref": "#/components/schemas/MessageImageUrl"
+          }
+        }
+      },
+      "ChatMessage": {
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "system",
+              "user",
+              "assistant"
+            ],
+            "example": "user"
+          },
+          "content": {
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "Hello, please introduce yourself"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/MessageTextPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageImagePart"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "ChatCompletionRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "messages"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "Model name. Replace with any supported model identifier.",
+            "example": "gpt-5"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            }
+          },
+          "stream": {
+            "type": "boolean",
+            "default": false
+          },
+          "max_tokens": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 300
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 1
+          },
+          "top_p": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "stop": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 4
+              }
+            ]
+          }
+        }
+      },
+      "ChatCompletionChoice": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "example": 0
+          },
+          "message": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "example": "assistant"
+              },
+              "content": {
+                "type": "string",
+                "example": "Hello. I am an AI assistant."
+              }
+            }
+          },
+          "finish_reason": {
+            "type": "string",
+            "example": "stop"
+          }
+        }
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "example": 12
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "example": 24
+          },
+          "total_tokens": {
+            "type": "integer",
+            "example": 36
+          }
+        }
+      },
+      "ChatCompletionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "chatcmpl_123"
+          },
+          "object": {
+            "type": "string",
+            "example": "chat.completion"
+          },
+          "created": {
+            "type": "integer",
+            "example": 1768380222
+          },
+          "model": {
+            "type": "string",
+            "example": "gpt-5"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatCompletionChoice"
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          }
+        }
+      },
+      "VideoGenerationMetadata": {
+        "type": "object",
+        "properties": {
+          "resolution": {
+            "type": "string",
+            "enum": [
+              "512p",
+              "768p",
+              "1080p"
+            ],
+            "default": "768p"
+          },
+          "prompt_optimizer": {
+            "type": "boolean",
+            "default": true
+          },
+          "fast_pretreatment": {
+            "type": "boolean",
+            "default": false
+          },
+          "watermark": {
+            "type": "boolean",
+            "default": false
+          },
+          "first_frame_image": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/first-frame.jpg"
+          },
+          "last_frame_image": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/last-frame.jpg"
+          }
+        }
+      },
+      "VideoGenerationRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "MiniMax-Hailuo-02"
+            ],
+            "example": "MiniMax-Hailuo-02"
+          },
+          "prompt": {
+            "type": "string",
+            "example": "A cute cat running on grass, sunny day"
+          },
+          "duration": {
+            "type": "integer",
+            "enum": [
+              5,
+              10
+            ],
+            "default": 5
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/VideoGenerationMetadata"
+          }
+        }
+      },
+      "VideoResultItem": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://files.example.com/video.mp4"
+          },
+          "format": {
+            "type": "string",
+            "example": "mp4"
+          }
+        }
+      },
+      "VideoResult": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "video"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VideoResultItem"
+            }
+          }
+        }
+      },
+      "VideoTask": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "task_01K9S419324DREZFBWNSVXYR6H"
+          },
+          "object": {
+            "type": "string",
+            "example": "generation.task"
+          },
+          "model": {
+            "type": "string",
+            "example": "MiniMax-Hailuo-02"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "in_progress",
+              "completed",
+              "failed"
+            ],
+            "example": "queued"
+          },
+          "progress": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 0
+          },
+          "created_at": {
+            "type": "integer",
+            "example": 1768380222
+          },
+          "completed_at": {
+            "type": "integer",
+            "example": 1768380514
+          },
+          "expires_at": {
+            "type": "integer",
+            "example": 1768466914
+          },
+          "result": {
+            "$ref": "#/components/schemas/VideoResult"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "example": "Invalid request."
+              },
+              "type": {
+                "type": "string",
+                "example": "invalid_request_error"
+              },
+              "code": {
+                "type": "string",
+                "example": "bad_request"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

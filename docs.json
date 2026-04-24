@@ -8,79 +8,341 @@
     "dark": "#15803D"
   },
   "navigation": {
-    "tabs": [
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "/docs/en",
+          "icon": "book-open-cover"
+        }
+      ]
+    },
+    "languages": [
       {
-        "tab": "Guides",
-        "groups": [
+        "language": "en",
+        "default": true,
+        "tabs": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
+            "tab": "Documentation",
+            "groups": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "docs/en/index"
+                ]
+              },
+              {
+                "group": "Account",
+                "pages": [
+                  "docs/en/api-reference/account/create-token",
+                  "docs/en/api-reference/account/token-balance",
+                  "docs/en/api-reference/account/user-balance"
+                ]
+              },
+              {
+                "group": "Chat",
+                "pages": [
+                  "docs/en/api-reference/chat/chat",
+                  "docs/en/api-reference/chat/messages",
+                  "docs/en/api-reference/chat/models"
+                ]
+              },
+              {
+                "group": "Tasks and uploads",
+                "pages": [
+                  "docs/en/api-reference/tasks/image-status",
+                  "docs/en/api-reference/tasks/video-status",
+                  "docs/en/api-reference/uploads/images"
+                ]
+              },
+              {
+                "group": "Integrations",
+                "pages": [
+                  "docs/en/integrations/cherry-studio",
+                  "docs/en/integrations/claude-code"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+            "tab": "Images",
+            "groups": [
+              {
+                "group": "Image generation",
+                "pages": [
+                  "docs/en/api-reference/images/flux-2/generation",
+                  "docs/en/api-reference/images/flux-kontext/generation",
+                  "docs/en/api-reference/images/gemini-2.5-flash/generation",
+                  "docs/en/api-reference/images/gemini-2.5-flash-official/generation",
+                  "docs/en/api-reference/images/gemini-3-pro-image/generation",
+                  "docs/en/api-reference/images/gemini-3-pro-image-official/generation",
+                  "docs/en/api-reference/images/gemini-3.1-flash/generation",
+                  "docs/en/api-reference/images/gemini-3.1-flash-official/generation",
+                  "docs/en/api-reference/images/gpt-4o/generation",
+                  "docs/en/api-reference/images/gpt-image-2/generation",
+                  "docs/en/api-reference/images/grok-image/generation",
+                  "docs/en/api-reference/images/grok-imagine-1.0/generation",
+                  "docs/en/api-reference/images/grok-imagine-1.0/edits",
+                  "docs/en/api-reference/images/seedream-4.0/generation",
+                  "docs/en/api-reference/images/seedream-4.5/generation",
+                  "docs/en/api-reference/images/seedream-5.0/generation"
+                ]
+              }
             ]
           },
           {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+            "tab": "Videos",
+            "groups": [
+              {
+                "group": "Video generation",
+                "pages": [
+                  "docs/en/api-reference/videos/doubao-seedance/generation",
+                  "docs/en/api-reference/videos/doubao-seedance-1-5/generation",
+                  "docs/en/api-reference/videos/doubao-seedance-2-0/generation",
+                  "docs/en/api-reference/videos/grok-imagine-1.0-video/generation",
+                  "docs/en/api-reference/videos/grok-video/generation",
+                  "docs/en/api-reference/videos/grok-video/extend",
+                  "docs/en/api-reference/videos/grok-video/remix",
+                  "docs/en/api-reference/videos/kling-2-6/generation",
+                  "docs/en/api-reference/videos/kling-v3/generation",
+                  "docs/en/api-reference/videos/kling-v3-omni/generation",
+                  "docs/en/api-reference/videos/kling-video-o1/generation",
+                  "docs/en/api-reference/videos/minimax-hailuo/generation",
+                  "docs/en/api-reference/videos/minimax-hailuo-2.3/generation",
+                  "docs/en/api-reference/videos/sora-2-official/generation",
+                  "docs/en/api-reference/videos/sora-2-official/remix",
+                  "docs/en/api-reference/videos/sora2/generation",
+                  "docs/en/api-reference/videos/sora2/create-persona",
+                  "docs/en/api-reference/videos/sora2/get-personas",
+                  "docs/en/api-reference/videos/sora2/remix",
+                  "docs/en/api-reference/videos/veo3/generation",
+                  "docs/en/api-reference/videos/veo3-official/generation",
+                  "docs/en/api-reference/videos/viduq3-pro/generation",
+                  "docs/en/api-reference/videos/wan2.6/generation",
+                  "docs/en/api-reference/videos/wan2.6-flash/generation"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
+        "language": "cn",
+        "tabs": [
           {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+            "tab": "文档",
+            "groups": [
+              {
+                "group": "开始使用",
+                "pages": [
+                  "docs/cn/index"
+                ]
+              },
+              {
+                "group": "账户",
+                "pages": [
+                  "docs/cn/api-reference/account/create-token",
+                  "docs/cn/api-reference/account/token-balance",
+                  "docs/cn/api-reference/account/user-balance"
+                ]
+              },
+              {
+                "group": "聊天",
+                "pages": [
+                  "docs/cn/api-reference/chat/chat",
+                  "docs/cn/api-reference/chat/messages",
+                  "docs/cn/api-reference/chat/models",
+                  "docs/cn/api-reference/chat/responses"
+                ]
+              },
+              {
+                "group": "任务与上传",
+                "pages": [
+                  "docs/cn/api-reference/tasks/image-status",
+                  "docs/cn/api-reference/tasks/video-status",
+                  "docs/cn/api-reference/uploads/images"
+                ]
+              },
+              {
+                "group": "集成",
+                "pages": [
+                  "docs/cn/integrations/cherry-studio",
+                  "docs/cn/integrations/claude-code",
+                  "docs/cn/integrations/openclaw"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+            "tab": "图像",
+            "groups": [
+              {
+                "group": "图像生成",
+                "pages": [
+                  "docs/cn/api-reference/images/flux-2/generation",
+                  "docs/cn/api-reference/images/flux-kontext/generation",
+                  "docs/cn/api-reference/images/gemini-2.5-flash/generation",
+                  "docs/cn/api-reference/images/gemini-2.5-flash-official/generation",
+                  "docs/cn/api-reference/images/gemini-3-pro-image/generation",
+                  "docs/cn/api-reference/images/gemini-3-pro-image-official/generation",
+                  "docs/cn/api-reference/images/gemini-3.1-flash/generation",
+                  "docs/cn/api-reference/images/gemini-3.1-flash-official/generation",
+                  "docs/cn/api-reference/images/gpt-4o/generation",
+                  "docs/cn/api-reference/images/gpt-image-2/generation",
+                  "docs/cn/api-reference/images/grok-image/generation",
+                  "docs/cn/api-reference/images/grok-imagine-1.0/generation",
+                  "docs/cn/api-reference/images/grok-imagine-1.0/edits",
+                  "docs/cn/api-reference/images/seedream-4.0/generation",
+                  "docs/cn/api-reference/images/seedream-4.5/generation",
+                  "docs/cn/api-reference/images/seedream-5.0/generation"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "视频",
+            "groups": [
+              {
+                "group": "视频生成",
+                "pages": [
+                  "docs/cn/api-reference/videos/doubao-seedance/generation",
+                  "docs/cn/api-reference/videos/doubao-seedance-1-5/generation",
+                  "docs/cn/api-reference/videos/doubao-seedance-2-0/generation",
+                  "docs/cn/api-reference/videos/grok-imagine-1.0-video/generation",
+                  "docs/cn/api-reference/videos/grok-video/generation",
+                  "docs/cn/api-reference/videos/grok-video/extend",
+                  "docs/cn/api-reference/videos/grok-video/remix",
+                  "docs/cn/api-reference/videos/kling-2-6/generation",
+                  "docs/cn/api-reference/videos/kling-v3/generation",
+                  "docs/cn/api-reference/videos/kling-v3-omni/generation",
+                  "docs/cn/api-reference/videos/kling-video-o1/generation",
+                  "docs/cn/api-reference/videos/minimax-hailuo/generation",
+                  "docs/cn/api-reference/videos/minimax-hailuo-2.3/generation",
+                  "docs/cn/api-reference/videos/sora-2-official/generation",
+                  "docs/cn/api-reference/videos/sora-2-official/remix",
+                  "docs/cn/api-reference/videos/sora2/generation",
+                  "docs/cn/api-reference/videos/sora2/create-persona",
+                  "docs/cn/api-reference/videos/sora2/get-personas",
+                  "docs/cn/api-reference/videos/sora2/remix",
+                  "docs/cn/api-reference/videos/veo3/generation",
+                  "docs/cn/api-reference/videos/veo3-official/generation",
+                  "docs/cn/api-reference/videos/viduq3-pro/generation",
+                  "docs/cn/api-reference/videos/wan2.6/generation",
+                  "docs/cn/api-reference/videos/wan2.6-flash/generation"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "language": "ru",
+        "tabs": [
+          {
+            "tab": "Документация",
+            "groups": [
+              {
+                "group": "Начало работы",
+                "pages": [
+                  "docs/ru/index"
+                ]
+              },
+              {
+                "group": "Аккаунт",
+                "pages": [
+                  "docs/ru/api-reference/account/create-token",
+                  "docs/ru/api-reference/account/token-balance",
+                  "docs/ru/api-reference/account/user-balance"
+                ]
+              },
+              {
+                "group": "Чат",
+                "pages": [
+                  "docs/ru/api-reference/chat/chat",
+                  "docs/ru/api-reference/chat/messages",
+                  "docs/ru/api-reference/chat/models"
+                ]
+              },
+              {
+                "group": "Задачи и загрузки",
+                "pages": [
+                  "docs/ru/api-reference/tasks/image-status",
+                  "docs/ru/api-reference/tasks/video-status",
+                  "docs/ru/api-reference/uploads/images"
+                ]
+              },
+              {
+                "group": "Интеграции",
+                "pages": [
+                  "docs/ru/integrations/cherry-studio",
+                  "docs/ru/integrations/claude-code"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Изображения",
+            "groups": [
+              {
+                "group": "Генерация изображений",
+                "pages": [
+                  "docs/ru/api-reference/images/flux-2/generation",
+                  "docs/ru/api-reference/images/flux-kontext/generation",
+                  "docs/ru/api-reference/images/gemini-2.5-flash/generation",
+                  "docs/ru/api-reference/images/gemini-2.5-flash-official/generation",
+                  "docs/ru/api-reference/images/gemini-3-pro-image/generation",
+                  "docs/ru/api-reference/images/gemini-3-pro-image-official/generation",
+                  "docs/ru/api-reference/images/gemini-3.1-flash/generation",
+                  "docs/ru/api-reference/images/gemini-3.1-flash-official/generation",
+                  "docs/ru/api-reference/images/gpt-4o/generation",
+                  "docs/ru/api-reference/images/gpt-image-2/generation",
+                  "docs/ru/api-reference/images/grok-image/generation",
+                  "docs/ru/api-reference/images/grok-imagine-1.0/generation",
+                  "docs/ru/api-reference/images/grok-imagine-1.0/edits",
+                  "docs/ru/api-reference/images/seedream-4.0/generation",
+                  "docs/ru/api-reference/images/seedream-4.5/generation",
+                  "docs/ru/api-reference/images/seedream-5.0/generation"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Видео",
+            "groups": [
+              {
+                "group": "Генерация видео",
+                "pages": [
+                  "docs/ru/api-reference/videos/doubao-seedance/generation",
+                  "docs/ru/api-reference/videos/doubao-seedance-1-5/generation",
+                  "docs/ru/api-reference/videos/doubao-seedance-2-0/generation",
+                  "docs/ru/api-reference/videos/grok-imagine-1.0-video/generation",
+                  "docs/ru/api-reference/videos/grok-video/generation",
+                  "docs/ru/api-reference/videos/grok-video/extend",
+                  "docs/ru/api-reference/videos/grok-video/remix",
+                  "docs/ru/api-reference/videos/kling-2-6/generation",
+                  "docs/ru/api-reference/videos/kling-v3/generation",
+                  "docs/ru/api-reference/videos/kling-v3-omni/generation",
+                  "docs/ru/api-reference/videos/kling-video-o1/generation",
+                  "docs/ru/api-reference/videos/minimax-hailuo/generation",
+                  "docs/ru/api-reference/videos/minimax-hailuo-2.3/generation",
+                  "docs/ru/api-reference/videos/sora-2-official/generation",
+                  "docs/ru/api-reference/videos/sora-2-official/remix",
+                  "docs/ru/api-reference/videos/sora2/generation",
+                  "docs/ru/api-reference/videos/sora2/create-persona",
+                  "docs/ru/api-reference/videos/sora2/get-personas",
+                  "docs/ru/api-reference/videos/sora2/remix",
+                  "docs/ru/api-reference/videos/veo3/generation",
+                  "docs/ru/api-reference/videos/veo3-official/generation",
+                  "docs/ru/api-reference/videos/viduq3-pro/generation",
+                  "docs/ru/api-reference/videos/wan2.6/generation",
+                  "docs/ru/api-reference/videos/wan2.6-flash/generation"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/z-up.png",
@@ -101,15 +363,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
@@ -118,6 +380,13 @@
       "linkedin": "https://linkedin.com/company/mintlify"
     }
   },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/docs/en",
+      "permanent": true
+    }
+  ],
   "description": "A unified AI model hub for aggregation & distribution. It supports cross-converting various LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats. A centralized gateway for personal and enterprise model management.",
   "favicon": "/logo/logo.png"
 }

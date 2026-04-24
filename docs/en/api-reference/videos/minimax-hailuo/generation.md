@@ -1,15 +1,17 @@
-> ## Documentation Index
-> Fetch the complete documentation index at: https://docs.toapis.com/llms.txt
-> Use this file to discover all available pages before exploring further.
+---
+title: "MiniMax-Hailuo-02 Video Generation"
+description: "Create an asynchronous MiniMax Hailuo video generation task."
+openapi: "/api-reference/z-up_openapi.json POST /videos/generations"
+---
 
 # MiniMax-Hailuo-02 Video Generation
 
 > Generate high-quality videos using MiniMax Hailuo 02 model
 
-* Asynchronous processing mode, returns task ID for subsequent queries
-* Supports text-to-video, image-to-video (first frame/last frame)
-* Supports 5-second and 10-second durations, multiple resolutions available
-* Supports automatic prompt optimization and watermark control
+- Asynchronous processing mode, returns task ID for subsequent queries
+- Supports text-to-video, image-to-video (first frame/last frame)
+- Supports 5-second and 10-second durations, multiple resolutions available
+- Supports automatic prompt optimization and watermark control
 
 <Warning>
   **Important Change**: For better performance and cost control, we no longer support passing base64 image data directly in `image_urls`, `first_frame_image` and `last_frame_image`. Please use the [Upload Image API](/docs/en/api-reference/uploads/images) first to upload images and get URLs, then call this endpoint.
@@ -20,13 +22,14 @@
 <ParamField header="Authorization" type="string" required>
   All endpoints require Bearer Token authentication
 
-  Get your API Key from the [API Key Management Page](https://toapis.com/console/token)
+Get your API Key from the [API Key Management Page](https://toapis.com/console/token)
 
-  Add to request header:
+Add to request header:
 
-  ```
-  Authorization: Bearer YOUR_API_KEY
-  ```
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
 </ParamField>
 
 ## Request Parameters
@@ -34,28 +37,28 @@
 <ParamField body="model" type="string" required>
   Video generation model name
 
-  Fixed value: `MiniMax-Hailuo-02`
+Fixed value: `MiniMax-Hailuo-02`
 </ParamField>
 
 <ParamField body="prompt" type="string" required>
   Video content description
 
-  Recommended to describe scene, action, style in detail for better generation results
+Recommended to describe scene, action, style in detail for better generation results
 
-  Example: `"A cute cat running on grass"`
+Example: `"A cute cat running on grass"`
 </ParamField>
 
 <ParamField body="duration" type="integer" default="5">
   Video duration (seconds)
 
-  Available values:
+Available values:
 
-  * `5` - 5-second video
-  * `10` - 10-second video
+- `5` - 5-second video
+- `10` - 10-second video
 
-  Default: `5`
+Default: `5`
 
-  **1080p Limitation**: When using 1080p resolution, only 5-second duration is supported
+**1080p Limitation**: When using 1080p resolution, only 5-second duration is supported
 </ParamField>
 
 <ParamField body="metadata" type="object">
@@ -117,6 +120,7 @@
 
       Used to specify the ending frame of the video
     </ParamField>
+
   </Expandable>
 </ParamField>
 
@@ -153,10 +157,11 @@
 <ResponseField name="status" type="string">
   Task status
 
-  * `queued` - Queued for processing
-  * `in_progress` - Processing
-  * `completed` - Successfully completed
-  * `failed` - Failed
+- `queued` - Queued for processing
+- `in_progress` - Processing
+- `completed` - Successfully completed
+- `failed` - Failed
+
 </ResponseField>
 
 <ResponseField name="progress" type="integer">
@@ -245,7 +250,7 @@
 <Note>
   **Query Task Results**
 
-  Video generation is an asynchronous task. After submission, a `task_id` is returned. Use the [Get Task Status](/en/api-reference/tasks/status) interface to query generation progress and results.
+Video generation is an asynchronous task. After submission, a `task_id` is returned. Use the [Get Task Status](/en/api-reference/tasks/status) interface to query generation progress and results.
 </Note>
 
 <RequestExample>
@@ -267,57 +272,58 @@
     }'
   ```
 
-  ```python Python theme={null}
-  import requests
+```python Python theme={null}
+import requests
 
-  response = requests.post(
-      "https://toapis.com/v1/videos/generations",
-      headers={
-          "Authorization": "Bearer your-ToAPIs-key",
-          "Content-Type": "application/json"
-      },
-      json={
-          "model": "MiniMax-Hailuo-02",
-          "prompt": "A cute cat running on grass",
-          "duration": 5,
-          "metadata": {
-              "resolution": "768p",
-              "prompt_optimizer": True,
-              "fast_pretreatment": False,
-              "watermark": False
-          }
-      }
-  )
-
-  task = response.json()
-  print(f"Task ID: {task['id']}")
-  print(f"Status: {task['status']}")
-  ```
-
-  ```javascript JavaScript theme={null}
-  const response = await fetch('https://toapis.com/v1/videos/generations', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer your-ToAPIs-key',
-      'Content-Type': 'application/json'
+response = requests.post(
+    "https://toapis.com/v1/videos/generations",
+    headers={
+        "Authorization": "Bearer your-ToAPIs-key",
+        "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      model: 'MiniMax-Hailuo-02',
-      prompt: 'A cute cat running on grass',
-      duration: 5,
-      metadata: {
-        resolution: '768p',
-        prompt_optimizer: true,
-        fast_pretreatment: false,
-        watermark: false
-      }
-    })
-  });
+    json={
+        "model": "MiniMax-Hailuo-02",
+        "prompt": "A cute cat running on grass",
+        "duration": 5,
+        "metadata": {
+            "resolution": "768p",
+            "prompt_optimizer": True,
+            "fast_pretreatment": False,
+            "watermark": False
+        }
+    }
+)
 
-  const task = await response.json();
-  console.log(`Task ID: ${task.id}`);
-  console.log(`Status: ${task.status}`);
-  ```
+task = response.json()
+print(f"Task ID: {task['id']}")
+print(f"Status: {task['status']}")
+```
+
+```javascript JavaScript theme={null}
+const response = await fetch("https://toapis.com/v1/videos/generations", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer your-ToAPIs-key",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "MiniMax-Hailuo-02",
+    prompt: "A cute cat running on grass",
+    duration: 5,
+    metadata: {
+      resolution: "768p",
+      prompt_optimizer: true,
+      fast_pretreatment: false,
+      watermark: false,
+    },
+  }),
+});
+
+const task = await response.json();
+console.log(`Task ID: ${task.id}`);
+console.log(`Status: ${task.status}`);
+```
+
 </RequestExample>
 
 <ResponseExample>
