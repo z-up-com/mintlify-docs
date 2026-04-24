@@ -96,7 +96,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://api.z-up.app/console
     }
   },
   "contextual": {
